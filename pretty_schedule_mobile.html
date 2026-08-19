@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Weekly Schedule Viewer</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PapaParse for robust CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <!-- html2canvas for exporting the schedule as a PNG image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        /* Schedule Table Custom Styling */
+        .schedule-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        .schedule-table th, .schedule-table td {
+            border: 1px solid #e2e8f0;
+        }
+
+        .schedule-header-title {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 18px;
+            letter-spacing: 0.025em;
+            cursor: text;
+            outline: none;
+            transition: box-shadow 0.15s ease, background 0.15s ease;
+        }
+
+        .schedule-header-title:hover {
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.28);
+        }
+
+        .schedule-header-title:focus {
+            box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.55);
+            background: linear-gradient(135deg, #172033 0%, #283548 100%);
+        }
+
+        /* Visible edit affordance without becoming part of the editable title text. */
+        .schedule-header-title::after {
+            content: "✎  Click / tap to edit";
+            display: block;
+            margin-top: 5px;
+            font-size: 0.62rem;
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.58);
+            pointer-events: none;
+        }
+
+        .schedule-header-title:hover::after,
+        .schedule-header-title:focus::after {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Hide the edit hint in finished outputs. */
+        .schedule-header-title.export-clean::after,
+        .schedule-header-title.edit-hint-dismissed::after {
+            display: none !important;
+        }
+
+        .schedule-header-days th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .period-cell {
+            background-color: #f8fafc;
+            font-weight: 700;
+            color: #475569;
+            text-align: center;
+            vertical-align: middle;
+            width: 110px;
+            font-size: 0.9rem;
+            padding: 6px;
+        }
+
+        .period-label {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #334155;
+            margin-bottom: 3px;
+        }
+
+        .period-time-editable {
+            min-height: 30px;
+            padding: 3px 4px;
+            border: 1px dashed transparent;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            line-height: 1.3;
+            font-weight: 750;
+            color: #475569;
+            letter-spacing: 0.005em;
+            white-space: pre-line;
+            cursor: text;
+            transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+            outline: none;
+        }
+
+        .period-time-editable:hover {
+            background-color: #ffffff;
+            border-color: #94a3b8;
+        }
+
+        .period-time-editable:focus {
+            background-color: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+            color: #334155;
+        }
+
+        .class-slot {
+            transition: all 0.2s ease-in-out;
+            padding: 8px;
+            height: 95px;
+            vertical-align: top;
+            position: relative;
+        }
+
+        .class-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 8px;
+            padding: 8px 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            cursor: pointer;
+        }
+
+        /* Give the class description enough vertical room for both the browser and html2canvas. */
+        .class-description {
+            line-height: 1.35;
+            min-height: 1.1rem;
+            padding-top: 1px;
+            padding-bottom: 2px;
+        }
+
+        .class-meta {
+            line-height: 1.25;
+        }
+
+        .class-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        /* Highlight matching class cells on hover */
+        .highlight-class {
+            outline: 3px solid #2563eb !important;
+            z-index: 20;
+            box-shadow: 0 0 14px rgba(37, 99, 235, 0.5) !important;
+        }
+
+        /* Mobile usability helpers */
+        .mobile-schedule-tools {
+            display: none;
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .class-card:hover {
+                transform: none;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            header > div {
+                align-items: stretch !important;
+                padding: 12px !important;
+                gap: 12px !important;
+            }
+
+            header > div > div:first-child {
+                align-items: center;
+            }
+
+            header h1 {
+                font-size: 1.05rem !important;
+            }
+
+            header p {
+                line-height: 1.35;
+            }
+
+            .header-actions {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                width: 100%;
+                gap: 8px !important;
+            }
+
+            .header-action {
+                min-height: 46px;
+                width: 100%;
+                justify-content: center;
+                padding: 10px 8px !important;
+                font-size: 0.78rem !important;
+                line-height: 1.15;
+                text-align: center;
+            }
+
+            main {
+                padding: 14px 10px 20px !important;
+                gap: 14px;
+            }
+
+            #dropZone {
+                padding: 16px 12px !important;
+            }
+
+            #dropZone > i {
+                font-size: 1.65rem !important;
+                margin-bottom: 6px !important;
+            }
+
+            #dropZone > p:first-of-type {
+                font-size: 0.86rem;
+                line-height: 1.4;
+            }
+
+            #dropZone ol {
+                text-align: left;
+                max-width: 290px;
+                margin: 8px auto 0;
+                padding-left: 20px;
+                line-height: 1.45;
+            }
+
+            #colorLegendSection {
+                padding: 14px !important;
+            }
+
+            #colorLegendSection > div:first-child {
+                align-items: flex-start !important;
+                gap: 5px;
+                flex-direction: column;
+            }
+
+            #colorLegendSection > div:first-child > span {
+                line-height: 1.35;
+            }
+
+            #colorPickerContainer {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px !important;
+            }
+
+            #colorPickerContainer > div {
+                min-width: 0;
+                padding: 8px !important;
+            }
+
+            #colorPickerContainer input[type="color"] {
+                width: 34px !important;
+                height: 34px !important;
+                flex: 0 0 auto;
+            }
+
+            .mobile-schedule-tools:not(.hidden) {
+                display: block;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 10px;
+                box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+            }
+
+            .mobile-day-buttons {
+                display: grid;
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 5px;
+                margin-top: 8px;
+            }
+
+            .mobile-day-btn {
+                min-height: 42px;
+                border: 1px solid #cbd5e1;
+                border-radius: 9px;
+                background: #f8fafc;
+                color: #475569;
+                font-size: 0.72rem;
+                font-weight: 800;
+                touch-action: manipulation;
+            }
+
+            .mobile-day-btn.active {
+                border-color: #2563eb;
+                background: #eff6ff;
+                color: #1d4ed8;
+                box-shadow: inset 0 0 0 1px #2563eb;
+            }
+
+            #scheduleContainer {
+                position: relative;
+                overflow-x: auto !important;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior-x: contain;
+                scroll-behavior: smooth;
+                touch-action: pan-x pan-y;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #ffffff;
+                scrollbar-width: thin;
+                scroll-snap-type: x proximity;
+            }
+
+            #scheduleContainer::after {
+                content: "";
+                position: sticky;
+                right: 0;
+                display: block;
+                width: 18px;
+                height: 1px;
+                pointer-events: none;
+            }
+
+            .schedule-table {
+                min-width: 890px;
+                width: 890px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .schedule-header-title {
+                font-size: 1.12rem;
+                line-height: 1.2;
+                padding: 14px 12px;
+                min-height: 52px;
+            }
+
+            .schedule-header-title::after {
+                font-size: 0.56rem;
+                margin-top: 4px;
+            }
+
+            .schedule-header-days th {
+                padding: 10px 8px;
+                font-size: 0.76rem;
+            }
+
+            .schedule-header-days th:first-child,
+            .period-cell {
+                position: sticky;
+                left: 0;
+                z-index: 8;
+                min-width: 118px;
+                width: 118px;
+                max-width: 118px;
+                box-shadow: 4px 0 7px -6px rgba(15, 23, 42, 0.45);
+            }
+
+            .schedule-header-days th:first-child {
+                z-index: 12;
+                background: #f1f5f9;
+            }
+
+            .period-cell {
+                background: #f8fafc;
+                padding: 6px 5px;
+            }
+
+            .period-label {
+                font-size: 0.8rem;
+            }
+
+            .period-time-editable {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 5px 3px;
+                font-size: 0.76rem;
+                line-height: 1.28;
+                font-weight: 800;
+                touch-action: manipulation;
+            }
+
+            .class-slot {
+                min-width: 154px;
+                width: 154px;
+                height: 98px;
+                padding: 6px;
+                scroll-snap-align: start;
+            }
+
+            .class-card {
+                padding: 8px;
+                border-radius: 9px;
+            }
+
+            .class-description {
+                font-size: 0.75rem !important;
+            }
+
+            .class-meta {
+                font-size: 0.68rem !important;
+            }
+
+            #unscheduledSection {
+                padding: 12px !important;
+            }
+
+            footer {
+                padding-top: 12px !important;
+                padding-bottom: 12px !important;
+            }
+
+            footer > div > div:first-child {
+                padding: 14px !important;
+            }
+
+            footer a {
+                width: 100%;
+                min-height: 46px;
+                justify-content: center;
+            }
+        }
+
+        /* Preserve schedule colors when printing / saving to PDF */
+        @media print {
+            @page {
+                size: landscape;
+                margin: 0.35in;
+            }
+
+            *, *::before, *::after {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            html, body {
+                background: #ffffff !important;
+            }
+
+            main {
+                max-width: none !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            #scheduleContainer {
+                overflow: visible !important;
+                width: 100% !important;
+            }
+
+            .schedule-table {
+                width: 100% !important;
+                min-width: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+
+            .schedule-header-title::after {
+                content: none !important;
+                display: none !important;
+            }
+
+            /* Keep the landscape schedule comfortably on one page at the
+               recommended Custom 90% browser print scale. These adjustments
+               apply only to print/PDF output, not the on-screen schedule. */
+            .schedule-header-title {
+                padding: 12px !important;
+                font-size: 1.35rem !important;
+                line-height: 1.15 !important;
+            }
+
+            .schedule-header-days th {
+                padding: 10px !important;
+                position: static !important;
+                min-width: 0 !important;
+                width: auto !important;
+                max-width: none !important;
+                box-shadow: none !important;
+            }
+
+            .class-slot {
+                height: 94px !important;
+                padding: 7px !important;
+                min-width: 0 !important;
+                width: auto !important;
+                scroll-snap-align: none !important;
+            }
+
+            .period-cell {
+                position: static !important;
+                min-width: 0 !important;
+                width: 110px !important;
+                max-width: none !important;
+                box-shadow: none !important;
+            }
+
+            .schedule-header-title,
+            .schedule-header-days th,
+            .period-cell,
+            .class-card {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .class-card {
+                box-shadow: none !important;
+            }
+
+            .period-time-editable {
+                border-color: transparent !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                cursor: default !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Navigation Bar -->
+    <header class="bg-slate-900 text-white shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-blue-600 rounded-xl shadow-inner">
+                    <i class="fa-solid fa-calendar-days text-xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold leading-tight">Teacher Schedule Visualizer</h1>
+                    <p class="text-xs text-slate-400">Interactive Weekly Timetable Generator & Expression Expander</p>
+                </div>
+            </div>
+            
+            <div class="header-actions flex flex-wrap items-center gap-2">
+                <label for="csvFileInput" class="header-action cursor-pointer bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-file-upload"></i> Upload CSV
+                </label>
+                <input type="file" id="csvFileInput" accept=".csv" class="hidden">
+                
+                <button id="loadSampleBtn" class="header-action bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-vial"></i> Load Sample
+                </button>
+
+                <button id="downloadImageBtn" class="header-action bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-image"></i> Download Image
+                </button>
+
+                <button id="printBtn" title="For the best one-page fit, choose Custom 90% in the browser print dialog" class="header-action bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-print"></i> Print / PDF
+                </button>
+
+                <button id="resetBtn" class="header-action bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-rotate-left"></i> Reset All
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Drag & Drop Area -->
+        <div id="dropZone" class="no-print border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-6 bg-white text-center transition-all cursor-pointer shadow-sm">
+            <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-400 mb-2"></i>
+            <p class="text-slate-700 font-medium">Drag & Drop your Schedule CSV file here, or click <span class="text-blue-600 underline font-semibold">Upload CSV</span></p>
+            <p class="text-xs text-slate-400 mt-1">To get the csv file from ASPEN, do the following:<ol class="text-xs text-slate-400 mt-1">
+                <li>
+                    Log on ASPEN
+                </li>
+                <li>
+                    Click My Info
+                </li>
+                <li>
+                    Click Schedule
+                </li>
+                <li>
+                    In case you are in Matrix View, Click List View (Maybe you are in "Matrix View") 
+                </li>
+                <li>
+                    Click the Printer with down arrow icon.
+                </li>
+                <li>
+                    Click CSV
+                </li>
+            </ol></p>
+ 
+        </div>
+
+        <!-- Class Color Palette & Legend Controls -->
+        <section id="colorLegendSection" class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 no-print hidden">
+            <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-palette text-blue-600"></i>
+                    <h2 class="text-base font-bold text-slate-800">Class Color Customizer</h2>
+                </div>
+                <span class="text-xs text-slate-500">Pick a color to instantly update that class on the schedule</span>
+            </div>
+            <div id="colorPickerContainer" class="flex flex-wrap gap-3">
+                <!-- Dynamic color controls will be injected here -->
+            </div>
+        </section>
+
+        <!-- Mobile schedule navigation: jump directly to a weekday while keeping Period/Time pinned. -->
+        <div id="mobileScheduleTools" class="mobile-schedule-tools no-print hidden" aria-label="Mobile schedule navigation">
+            <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
+                <i class="fa-solid fa-hand-pointer text-blue-600"></i>
+                <span>Swipe left/right, or jump to a day:</span>
+            </div>
+            <div class="mobile-day-buttons" role="group" aria-label="Jump to weekday">
+                <button type="button" class="mobile-day-btn active" data-day-index="0" aria-label="Show Monday">Mon</button>
+                <button type="button" class="mobile-day-btn" data-day-index="1" aria-label="Show Tuesday">Tue</button>
+                <button type="button" class="mobile-day-btn" data-day-index="2" aria-label="Show Wednesday">Wed</button>
+                <button type="button" class="mobile-day-btn" data-day-index="3" aria-label="Show Thursday">Thu</button>
+                <button type="button" class="mobile-day-btn" data-day-index="4" aria-label="Show Friday">Fri</button>
+            </div>
+        </div>
+
+        <!-- Schedule Table View -->
+        <section id="scheduleContainer" class="overflow-x-auto">
+            <div id="emptyState" class="bg-white rounded-xl p-12 text-center border border-slate-200 shadow-sm">
+                <i class="fa-solid fa-calendar-xmark text-5xl text-slate-300 mb-4"></i>
+                <h3 class="text-lg font-bold text-slate-700 mb-1">No Schedule Loaded</h3>
+                <p class="text-slate-500 text-sm mb-4">Upload a CSV file or click "Load Sample" to generate the weekly timetable.</p>
+                <button onclick="document.getElementById('loadSampleBtn').click()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors inline-flex items-center gap-2">
+                    <i class="fa-solid fa-vial"></i> Load Sample Data
+                </button>
+            </div>
+
+            <table id="scheduleTable" class="schedule-table bg-white hidden">
+                <thead>
+                    <tr>
+                        <th colspan="6" id="teacherScheduleTitle" class="schedule-header-title" contenteditable="true" spellcheck="false" title="Click to edit the schedule title" aria-label="Editable schedule title">
+                            Teacher Schedule
+                        </th>
+                    </tr>
+                    <tr class="schedule-header-days">
+                        <th style="width: 10%;" title="Click a period time below to edit it">Period / Time <i class="fa-solid fa-pen-to-square text-[10px] ml-1 opacity-50 no-print"></i></th>
+                        <th style="width: 18%;">Monday</th>
+                        <th style="width: 18%;">Tuesday</th>
+                        <th style="width: 18%;">Wednesday</th>
+                        <th style="width: 18%;">Thursday</th>
+                        <th style="width: 18%;">Friday</th>
+                    </tr>
+                </thead>
+                <tbody id="scheduleTableBody">
+                    <!-- Periods 1 through 7 rows generated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Excluded / Unscheduled Classes Info -->
+        <section id="unscheduledSection" class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 no-print hidden">
+            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-info text-amber-500"></i> Classes without schedule expressions (Not placed on weekly timetable)
+            </h3>
+            <div id="unscheduledList" class="flex flex-wrap gap-2 text-xs">
+                <!-- Unscheduled classes badges -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer / DonorsChoose Support -->
+    <footer class="bg-slate-100 border-t border-slate-200 py-5 mt-auto no-print">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="bg-white border border-blue-200 rounded-2xl shadow-sm px-5 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 text-center sm:text-left">
+                    <div class="w-11 h-11 shrink-0 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
+                        <i class="fa-solid fa-heart text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-slate-800 text-sm sm:text-base">Enjoying the Schedule Visualizer?</p>
+                        <p class="text-xs sm:text-sm text-slate-600">Please support Mr. Chen's DonorsChoose page by donating just <strong>$1</strong> — every little bit helps support students!</p>
+                    </div>
+                </div>
+                <a href="https://donorschoose.org/ychen" target="_blank" rel="noopener noreferrer"
+                   class="shrink-0 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-sm transition-all active:scale-95">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    Donate $1
+                </a>
+            </div>
+            <div class="text-center text-xs text-slate-400 mt-3">
+                Teacher Schedule Visualizer &bull; LocalStorage Auto-Save Enabled
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Sample CSV data matching prompt specifications
+        const SAMPLE_CSV = `"Class","Description","SecNo","Term","Schedule","Clssrm","Total","Name"
+"436-313","Mathematics 6","313","FY","T-W(1) TH(3) F(5)","318","25","2026-2027 Active Schedule "
+"436-315","Mathematics 6","315","FY","M,W,F(6) T(7)","318","20","2026-2027 Active Schedule "
+"436-318","Mathematics 6","318","FY","M,TH(1) W(3) F(2)","320","23","2026-2027 Active Schedule "
+"436-319","Mathematics 6","319","FY","M,F(3) T(5) TH(2)","320","23","2026-2027 Active Schedule "
+"436-320","Mathematics 6","320","FY","M,W(7) T(3) TH(5)","318","25","2026-2027 Active Schedule "
+"CIR-318","Circle","318","FY","F(1)","318","0","2026-2027 Active Schedule "
+"GR-318","Group","318","FY","","318","23","2026-2027 Active Schedule "`;
+
+        // Predefined color palette for distinct classes
+        const DEFAULT_PALETTE = [
+            "#3b82f6", // Blue
+            "#10b981", // Emerald
+            "#f59e0b", // Amber
+            "#ec4899", // Pink
+            "#8b5cf6", // Purple
+            "#06b6d4", // Cyan
+            "#f97316", // Orange
+            "#6366f1", // Indigo
+            "#14b8a6", // Teal
+            "#d97706"  // Dark Yellow
+        ];
+
+        const DAYS_MAP = {
+            'M': 'Monday', 'MON': 'Monday',
+            'T': 'Tuesday', 'TUE': 'Tuesday',
+            'W': 'Wednesday', 'WED': 'Wednesday',
+            'TH': 'Thursday', 'THU': 'Thursday',
+            'F': 'Friday', 'FRI': 'Friday',
+            'SA': 'Saturday', 'SU': 'Sunday'
+        };
+
+        const DAYS_LIST = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        const ALL_DAYS_KEYS = ["M", "T", "W", "TH", "F", "SA", "SU"];
+
+        // Application State
+        let currentScheduleData = [];
+        let classColorMap = {}; // Key: ClassCode, Value: Hex Color
+        let scheduleTitle = "Teacher Schedule";
+        let titleEditHintDismissed = false;
+
+        // Editable period-time labels shown in the left column of the schedule.
+        const DEFAULT_PERIOD_TIMES = {
+            1: '8:40 AM to\n9:35 AM',
+            2: '9:35 AM to\n10:30 AM',
+            3: '10:30 AM to\n11:25 AM',
+            4: 'Lunch\n11:25-11:52\nRecess\n11:54-12:20',
+            5: '12:20 PM to\n1:15 PM',
+            6: '1:15 PM to\n2:10 PM',
+            7: '2:10 PM to\n3:05 PM'
+        };
+        let periodTimes = { ...DEFAULT_PERIOD_TIMES };
+
+        // DOM Elements
+        const csvFileInput = document.getElementById('csvFileInput');
+        const dropZone = document.getElementById('dropZone');
+        const loadSampleBtn = document.getElementById('loadSampleBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const downloadImageBtn = document.getElementById('downloadImageBtn');
+        const printBtn = document.getElementById('printBtn');
+        const emptyState = document.getElementById('emptyState');
+        const scheduleTable = document.getElementById('scheduleTable');
+        const scheduleTableBody = document.getElementById('scheduleTableBody');
+        const teacherScheduleTitle = document.getElementById('teacherScheduleTitle');
+        const colorLegendSection = document.getElementById('colorLegendSection');
+        const colorPickerContainer = document.getElementById('colorPickerContainer');
+        const unscheduledSection = document.getElementById('unscheduledSection');
+        const unscheduledList = document.getElementById('unscheduledList');
+        const scheduleContainer = document.getElementById('scheduleContainer');
+        const mobileScheduleTools = document.getElementById('mobileScheduleTools');
+        const mobileDayButtons = Array.from(document.querySelectorAll('.mobile-day-btn'));
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            setupEventListeners();
+            loadFromLocalStorage();
+        });
+
+        function setupEventListeners() {
+            // File Upload
+            csvFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) parseAndLoadCSVFile(file);
+            });
+
+            // Drag and Drop Zone
+            dropZone.addEventListener('click', () => csvFileInput.click());
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('border-blue-500', 'bg-blue-50');
+            });
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+            });
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+                if (e.dataTransfer.files.length > 0) {
+                    parseAndLoadCSVFile(e.dataTransfer.files[0]);
+                }
+            });
+
+            // Sample Data Button
+            loadSampleBtn.addEventListener('click', () => {
+                parseCSVString(SAMPLE_CSV);
+            });
+
+            // Reset All Button
+            resetBtn.addEventListener('click', () => {
+                if (confirm("Are you sure you want to reset all saved schedule data and custom colors?")) {
+                    localStorage.removeItem('teacher_schedule_rows');
+                    localStorage.removeItem('teacher_schedule_colors');
+                    localStorage.removeItem('teacher_schedule_title');
+                    localStorage.removeItem('teacher_schedule_period_times');
+                    localStorage.removeItem('teacher_schedule_title_hint_dismissed');
+                    currentScheduleData = [];
+                    classColorMap = {};
+                    scheduleTitle = "Teacher Schedule";
+                    titleEditHintDismissed = false;
+                    teacherScheduleTitle.classList.remove('edit-hint-dismissed');
+                    periodTimes = { ...DEFAULT_PERIOD_TIMES };
+                    renderUI();
+                }
+            });
+
+            // Hide the edit hint after the teacher clicks the title once.
+            // Persist that choice so it stays gone on refresh and never adds
+            // extra title height after the teacher has discovered the feature.
+            teacherScheduleTitle.addEventListener('click', () => {
+                if (!titleEditHintDismissed) {
+                    titleEditHintDismissed = true;
+                    teacherScheduleTitle.classList.add('edit-hint-dismissed');
+                    localStorage.setItem('teacher_schedule_title_hint_dismissed', 'true');
+                }
+            });
+
+            // Editable schedule title. Update state while typing so print/image export use the latest text.
+            teacherScheduleTitle.addEventListener('input', () => {
+                scheduleTitle = teacherScheduleTitle.textContent.replace(/\s+/g, ' ').trimStart();
+            });
+
+            teacherScheduleTitle.addEventListener('blur', () => {
+                scheduleTitle = teacherScheduleTitle.textContent.replace(/\s+/g, ' ').trim();
+                if (!scheduleTitle) scheduleTitle = "Teacher Schedule";
+                teacherScheduleTitle.textContent = scheduleTitle;
+                saveToLocalStorage();
+            });
+
+            // Keep the title on a single line; Enter saves and exits editing.
+            teacherScheduleTitle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    teacherScheduleTitle.blur();
+                }
+            });
+
+            // Download schedule as PNG image
+            downloadImageBtn.addEventListener('click', downloadScheduleImage);
+
+            // Print Button
+            printBtn.addEventListener('click', () => {
+                window.print();
+            });
+
+            // Mobile weekday shortcuts. The schedule remains a real table; these
+            // buttons simply scroll the wide table so the chosen day sits beside
+            // the sticky Period / Time column.
+            mobileDayButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const dayIndex = Number(button.dataset.dayIndex);
+                    scrollScheduleToDay(dayIndex);
+                });
+            });
+
+            let mobileScrollTicking = false;
+            scheduleContainer.addEventListener('scroll', () => {
+                if (mobileScrollTicking) return;
+                mobileScrollTicking = true;
+                requestAnimationFrame(() => {
+                    updateActiveMobileDay();
+                    mobileScrollTicking = false;
+                });
+            }, { passive: true });
+        }
+
+        function scrollScheduleToDay(dayIndex) {
+            if (!scheduleTable || scheduleTable.classList.contains('hidden')) return;
+            const headers = scheduleTable.querySelectorAll('.schedule-header-days th');
+            const targetHeader = headers[dayIndex + 1];
+            const periodHeader = headers[0];
+            if (!targetHeader || !periodHeader) return;
+
+            const targetLeft = Math.max(0, targetHeader.offsetLeft - periodHeader.offsetWidth);
+            scheduleContainer.scrollTo({ left: targetLeft, behavior: 'smooth' });
+            setActiveMobileDay(dayIndex);
+        }
+
+        function setActiveMobileDay(dayIndex) {
+            mobileDayButtons.forEach((button, index) => {
+                const isActive = index === dayIndex;
+                button.classList.toggle('active', isActive);
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        }
+
+        function updateActiveMobileDay() {
+            if (window.innerWidth >= 768 || scheduleTable.classList.contains('hidden')) return;
+            const headers = scheduleTable.querySelectorAll('.schedule-header-days th');
+            if (headers.length < 6) return;
+
+            const periodWidth = headers[0].offsetWidth;
+            const marker = scheduleContainer.scrollLeft + periodWidth + 28;
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+
+            for (let i = 1; i <= 5; i++) {
+                const distance = Math.abs(headers[i].offsetLeft - marker);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = i - 1;
+                }
+            }
+            setActiveMobileDay(closestIndex);
+        }
+
+        // Export only the visible schedule table as a high-resolution PNG
+        async function downloadScheduleImage() {
+            if (!currentScheduleData || currentScheduleData.length === 0 || scheduleTable.classList.contains('hidden')) {
+                alert('Please load a schedule before downloading an image.');
+                return;
+            }
+
+            if (typeof html2canvas === 'undefined') {
+                alert('The image export library did not load. Please check your internet connection and try again.');
+                return;
+            }
+
+            const originalHtml = downloadImageBtn.innerHTML;
+            downloadImageBtn.disabled = true;
+            downloadImageBtn.classList.add('opacity-70', 'cursor-wait');
+            downloadImageBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Image...';
+
+            try {
+                // Capture a clean copy so horizontal scrolling or hover effects do not affect the image.
+                const exportWrapper = document.createElement('div');
+                exportWrapper.style.position = 'fixed';
+                exportWrapper.style.left = '-100000px';
+                exportWrapper.style.top = '0';
+                exportWrapper.style.background = '#ffffff';
+                exportWrapper.style.padding = '24px';
+                exportWrapper.style.width = Math.max(scheduleTable.scrollWidth + 48, 1100) + 'px';
+                exportWrapper.style.zIndex = '-1';
+
+                const tableClone = scheduleTable.cloneNode(true);
+                tableClone.classList.remove('hidden');
+                tableClone.style.width = '100%';
+                tableClone.style.boxShadow = 'none';
+                tableClone.querySelectorAll('.highlight-class').forEach(el => el.classList.remove('highlight-class'));
+                const clonedTitle = tableClone.querySelector('#teacherScheduleTitle');
+                if (clonedTitle) clonedTitle.classList.add('export-clean');
+
+                // html2canvas can clip the bottom of text inside Tailwind's `truncate`
+                // utility because it combines a tight line box with overflow:hidden.
+                // Give the export copy a little extra row height and render the description
+                // without vertical clipping while keeping it to one line.
+                tableClone.querySelectorAll('.class-slot').forEach(cell => {
+                    cell.style.height = '100px';
+                });
+                tableClone.querySelectorAll('.class-description').forEach(desc => {
+                    desc.classList.remove('truncate');
+                    desc.style.whiteSpace = 'nowrap';
+                    desc.style.overflow = 'hidden';
+                    desc.style.textOverflow = 'ellipsis';
+                    desc.style.lineHeight = '1.45';
+                    desc.style.minHeight = '18px';
+                    desc.style.paddingTop = '1px';
+                    desc.style.paddingBottom = '3px';
+                });
+                tableClone.querySelectorAll('.class-meta').forEach(meta => {
+                    meta.style.marginTop = '3px';
+                    meta.style.paddingTop = '3px';
+                    meta.style.lineHeight = '1.3';
+                });
+
+                exportWrapper.appendChild(tableClone);
+                document.body.appendChild(exportWrapper);
+
+                const canvas = await html2canvas(exportWrapper, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    windowWidth: exportWrapper.scrollWidth,
+                    windowHeight: exportWrapper.scrollHeight
+                });
+
+                exportWrapper.remove();
+
+                const safeTitle = (scheduleTitle || 'Teacher Schedule')
+                    .replace(/[^a-z0-9_-]+/gi, '_')
+                    .replace(/^_+|_+$/g, '') || 'Teacher_Schedule';
+
+                const link = document.createElement('a');
+                link.download = `${safeTitle}.png`;
+                link.href = canvas.toDataURL('image/png');
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            } catch (error) {
+                console.error('Schedule image export failed:', error);
+                alert('Could not create the schedule image. Please try again.');
+            } finally {
+                // Clean up any orphaned off-screen export wrapper if an error occurred.
+                document.querySelectorAll('body > div[style*="-100000px"]').forEach(el => el.remove());
+                downloadImageBtn.disabled = false;
+                downloadImageBtn.classList.remove('opacity-70', 'cursor-wait');
+                downloadImageBtn.innerHTML = originalHtml;
+            }
+        }
+
+        // Parse uploaded CSV file
+        function parseAndLoadCSVFile(file) {
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    processParsedCSV(results.data);
+                },
+                error: function(err) {
+                    alert("Error parsing CSV file: " + err.message);
+                }
+            });
+        }
+
+        // Parse CSV String
+        function parseCSVString(csvText) {
+            Papa.parse(csvText, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    processParsedCSV(results.data);
+                }
+            });
+        }
+
+        // Process CSV rows into structured format
+        function processParsedCSV(rows) {
+            if (!rows || rows.length === 0) {
+                alert("CSV file is empty or formatted incorrectly.");
+                return;
+            }
+
+            // Clean keys (strip BOM, quotes, whitespace)
+            const cleanedRows = rows.map(row => {
+                const cleanRow = {};
+                for (let key in row) {
+                    const cleanKey = key.replace(/^\ufeff/, '').replace(/^"/, '').replace(/"$/, '').trim();
+                    cleanRow[cleanKey] = row[key] ? row[key].trim() : '';
+                }
+                return cleanRow;
+            });
+
+            currentScheduleData = cleanedRows;
+
+            // Header title from CSV 'Name' column if available
+            if (cleanedRows[0] && cleanedRows[0]['Name']) {
+                scheduleTitle = `Teacher Schedule - ${cleanedRows[0]['Name']}`;
+            } else {
+                scheduleTitle = "Teacher Schedule";
+            }
+
+            // Initialize class colors
+            initializeColors(cleanedRows);
+
+            // Persist
+            saveToLocalStorage();
+
+            // Render
+            renderUI();
+        }
+
+        // Assign colors to unique active classes
+        function initializeColors(rows) {
+            let colorIdx = 0;
+            rows.forEach(row => {
+                const classCode = getRowValue(row, ['Class', 'ClassCode', 'Course']);
+                if (classCode && !classColorMap[classCode]) {
+                    classColorMap[classCode] = DEFAULT_PALETTE[colorIdx % DEFAULT_PALETTE.length];
+                    colorIdx++;
+                }
+            });
+        }
+
+        // Flexible key lookup helper
+        function getRowValue(row, keys) {
+            for (let k of keys) {
+                if (row[k] !== undefined && row[k] !== '') return row[k];
+            }
+            return '';
+        }
+
+        // Schedule Expression Parser Logic
+        // Handles ranges (T-W(1)), lists (M,W,F(6)), individual (F(1))
+        function parseScheduleExpression(scheduleStr) {
+            if (!scheduleStr || typeof scheduleStr !== 'string') return [];
+            
+            const pattern = /([A-Za-z,-]+)\(([^)]+)\)/g;
+            const slots = [];
+            const matches = [...scheduleStr.matchAll(pattern)];
+
+            for (const match of matches) {
+                const daySpec = match[1];
+                const period = match[2].trim();
+
+                const commaParts = daySpec.split(',');
+                for (let part of commaParts) {
+                    part = part.trim().toUpperCase();
+                    if (part.includes('-')) {
+                        const [startDay, endDay] = part.split('-').map(s => s.trim());
+                        const sIdx = ALL_DAYS_KEYS.indexOf(startDay);
+                        const eIdx = ALL_DAYS_KEYS.indexOf(endDay);
+
+                        if (sIdx !== -1 && eIdx !== -1) {
+                            const range = sIdx <= eIdx 
+                                ? ALL_DAYS_KEYS.slice(sIdx, eIdx + 1)
+                                : [...ALL_DAYS_KEYS.slice(sIdx), ...ALL_DAYS_KEYS.slice(0, eIdx + 1)];
+                            
+                            for (const d of range) {
+                                if (DAYS_MAP[d]) {
+                                    slots.push({ day: DAYS_MAP[d], period: period });
+                                }
+                            }
+                        }
+                    } else {
+                        if (DAYS_MAP[part]) {
+                            slots.push({ day: DAYS_MAP[part], period: period });
+                        }
+                    }
+                }
+            }
+            return slots;
+        }
+
+        // Render Schedule Table & Controls
+        function renderUI() {
+            if (!currentScheduleData || currentScheduleData.length === 0) {
+                emptyState.classList.remove('hidden');
+                scheduleTable.classList.add('hidden');
+                colorLegendSection.classList.add('hidden');
+                unscheduledSection.classList.add('hidden');
+                mobileScheduleTools.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            scheduleTable.classList.remove('hidden');
+            colorLegendSection.classList.remove('hidden');
+            mobileScheduleTools.classList.remove('hidden');
+
+            teacherScheduleTitle.textContent = scheduleTitle;
+            if (window.innerWidth < 768) {
+                requestAnimationFrame(() => updateActiveMobileDay());
+            }
+
+            // Matrix Grid: Grid[period][day] = classObj
+            const grid = {};
+            for (let p = 1; p <= 7; p++) {
+                grid[p] = {};
+                DAYS_LIST.forEach(d => grid[p][d] = null);
+            }
+
+            const activeClasses = new Set();
+            const unscheduledClasses = [];
+
+            currentScheduleData.forEach(row => {
+                const classCode = getRowValue(row, ['Class', 'ClassCode', 'Course']);
+                const description = getRowValue(row, ['Description', 'Desc', 'Title']);
+                const secNo = getRowValue(row, ['SecNo', 'Section', 'Sec']);
+                const classroom = getRowValue(row, ['Clssrm', 'Room', 'Classroom']);
+                const schedExpr = getRowValue(row, ['Schedule', 'Sched', 'Time']);
+
+                const slots = parseScheduleExpression(schedExpr);
+
+                if (slots.length > 0) {
+                    activeClasses.add(classCode);
+                    slots.forEach(slot => {
+                        const pNum = parseInt(slot.period, 10);
+                        if (pNum >= 1 && pNum <= 7 && DAYS_LIST.includes(slot.day)) {
+                            grid[pNum][slot.day] = {
+                                classCode,
+                                description,
+                                secNo,
+                                classroom,
+                                origExpr: schedExpr
+                            };
+                        }
+                    });
+                } else {
+                    if (classCode) {
+                        unscheduledClasses.push({ classCode, description, secNo, classroom });
+                    }
+                }
+            });
+
+            // Render Color Legend Controls
+            renderColorLegend(Array.from(activeClasses));
+
+            // Render Table Rows (Period 1 to 7)
+            scheduleTableBody.innerHTML = '';
+            for (let p = 1; p <= 7; p++) {
+                const tr = document.createElement('tr');
+                
+                // Period Column with an editable, persistent time label.
+                const tdPeriod = document.createElement('td');
+                tdPeriod.className = 'period-cell';
+
+                const periodLabel = document.createElement('div');
+                periodLabel.className = 'period-label';
+                periodLabel.textContent = `P${p}`;
+
+                const periodTime = document.createElement('div');
+                periodTime.className = 'period-time-editable';
+                periodTime.contentEditable = 'true';
+                periodTime.spellcheck = false;
+                periodTime.setAttribute('role', 'textbox');
+                periodTime.setAttribute('aria-label', `Edit Period ${p} time`);
+                periodTime.setAttribute('title', 'Click to edit this period time');
+                periodTime.dataset.period = String(p);
+                periodTime.textContent = periodTimes[p] || DEFAULT_PERIOD_TIMES[p] || '';
+
+                // Keep pasted content as plain text so schedule HTML cannot be injected.
+                periodTime.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                    document.execCommand('insertText', false, text);
+                });
+
+                const savePeriodTime = () => {
+                    const newValue = periodTime.innerText.replace(/\u00a0/g, ' ').trim();
+                    periodTimes[p] = newValue || DEFAULT_PERIOD_TIMES[p];
+                    if (!newValue) periodTime.textContent = periodTimes[p];
+                    saveToLocalStorage();
+                };
+
+                periodTime.addEventListener('blur', savePeriodTime);
+                periodTime.addEventListener('input', () => {
+                    periodTimes[p] = periodTime.innerText.replace(/\u00a0/g, ' ');
+                    saveToLocalStorage();
+                });
+
+                tdPeriod.appendChild(periodLabel);
+                tdPeriod.appendChild(periodTime);
+                tr.appendChild(tdPeriod);
+
+                // Days Columns (Monday to Friday)
+                DAYS_LIST.forEach(day => {
+                    const td = document.createElement('td');
+                    td.className = 'class-slot';
+
+                    const item = grid[p][day];
+                    if (item) {
+                        const bgColor = classColorMap[item.classCode] || '#3b82f6';
+                        const textColor = getContrastYIQ(bgColor);
+
+                        td.dataset.classCode = item.classCode;
+                        td.innerHTML = `
+                            <div class="class-card" style="background-color: ${bgColor}; color: ${textColor};">
+                                <div>
+                                    <div class="font-extrabold text-sm tracking-tight leading-tight">${escapeHtml(item.classCode)}</div>
+                                    <div class="class-description text-xs font-medium opacity-90 truncate mt-0.5" title="${escapeHtml(item.description)}">${escapeHtml(item.description)}</div>
+                                </div>
+                                <div class="class-meta flex items-center justify-between text-[11px] opacity-85 mt-1 pt-1 border-t border-black/10">
+                                    <span>Sec: ${escapeHtml(item.secNo || 'N/A')}</span>
+                                    <span><i class="fa-solid fa-door-open text-[10px]"></i> ${escapeHtml(item.classroom || 'N/A')}</span>
+                                </div>
+                            </div>
+                        `;
+
+                        // Add Hover Highlight Effect across timetable
+                        td.addEventListener('mouseenter', () => {
+                            document.querySelectorAll(`[data-class-code="${item.classCode}"]`).forEach(el => {
+                                const card = el.querySelector('.class-card');
+                                if (card) card.classList.add('highlight-class');
+                            });
+                        });
+                        td.addEventListener('mouseleave', () => {
+                            document.querySelectorAll(`[data-class-code="${item.classCode}"]`).forEach(el => {
+                                const card = el.querySelector('.class-card');
+                                if (card) card.classList.remove('highlight-class');
+                            });
+                        });
+
+                        // On touch devices there is no reliable hover. Tapping a class
+                        // highlights every meeting of that same class; tapping it again
+                        // clears the highlight.
+                        td.addEventListener('click', () => {
+                            if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+                            const matchingCards = Array.from(document.querySelectorAll(`[data-class-code="${item.classCode}"] .class-card`));
+                            const shouldHighlight = !matchingCards.some(card => card.classList.contains('highlight-class'));
+                            document.querySelectorAll('.class-card.highlight-class').forEach(card => card.classList.remove('highlight-class'));
+                            if (shouldHighlight) matchingCards.forEach(card => card.classList.add('highlight-class'));
+                        });
+
+                    } else {
+                        td.innerHTML = `<div class="h-full flex items-center justify-center text-slate-300 text-xs italic opacity-30">&mdash;</div>`;
+                    }
+                    tr.appendChild(td);
+                });
+
+                scheduleTableBody.appendChild(tr);
+            }
+
+            // Unscheduled Classes Section
+            if (unscheduledClasses.length > 0) {
+                unscheduledSection.classList.remove('hidden');
+                unscheduledList.innerHTML = unscheduledClasses.map(c => `
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
+                        <strong class="font-semibold text-slate-800">${escapeHtml(c.classCode)}</strong> 
+                        <span>(${escapeHtml(c.description || 'No Schedule')})</span>
+                    </span>
+                `).join('');
+            } else {
+                unscheduledSection.classList.add('hidden');
+            }
+        }
+
+        // Render Color Control Badges
+        function renderColorLegend(activeClassCodes) {
+            colorPickerContainer.innerHTML = '';
+            
+            if (activeClassCodes.length === 0) {
+                colorPickerContainer.innerHTML = '<span class="text-xs text-slate-400">No scheduled classes found.</span>';
+                return;
+            }
+
+            activeClassCodes.forEach(classCode => {
+                const color = classColorMap[classCode] || '#3b82f6';
+                
+                const rowObj = currentScheduleData.find(r => getRowValue(r, ['Class', 'ClassCode', 'Course']) === classCode);
+                const desc = rowObj ? getRowValue(rowObj, ['Description', 'Desc']) : '';
+
+                const item = document.createElement('div');
+                item.className = 'flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs hover:bg-slate-100 transition-colors shadow-2xs';
+                
+                item.innerHTML = `
+                    <input type="color" value="${color}" data-class="${escapeHtml(classCode)}" class="w-6 h-6 rounded cursor-pointer border-0 bg-transparent">
+                    <div class="flex flex-col">
+                        <span class="font-bold text-slate-800">${escapeHtml(classCode)}</span>
+                        <span class="text-[10px] text-slate-500 truncate max-w-[120px]">${escapeHtml(desc)}</span>
+                    </div>
+                `;
+
+                // Real-time color picker update
+                const input = item.querySelector('input[type="color"]');
+                input.addEventListener('input', (e) => {
+                    const newColor = e.target.value;
+                    classColorMap[classCode] = newColor;
+                    saveToLocalStorage();
+                    
+                    // Update matching schedule cells instantly
+                    document.querySelectorAll(`[data-class-code="${classCode}"]`).forEach(td => {
+                        const card = td.querySelector('.class-card');
+                        if (card) {
+                            card.style.backgroundColor = newColor;
+                            card.style.color = getContrastYIQ(newColor);
+                        }
+                    });
+                });
+
+                colorPickerContainer.appendChild(item);
+            });
+        }
+
+        // Text Contrast Ratio Calculator
+        function getContrastYIQ(hexcolor) {
+            hexcolor = hexcolor.replace("#", "");
+            if (hexcolor.length === 3) {
+                hexcolor = hexcolor.split('').map(c => c + c).join('');
+            }
+            const r = parseInt(hexcolor.substring(0, 2), 16);
+            const g = parseInt(hexcolor.substring(2, 4), 16);
+            const b = parseInt(hexcolor.substring(4, 6), 16);
+            const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+            return (yiq >= 128) ? '#0f172a' : '#ffffff';
+        }
+
+        // Persistence Helpers
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('teacher_schedule_rows', JSON.stringify(currentScheduleData));
+                localStorage.setItem('teacher_schedule_colors', JSON.stringify(classColorMap));
+                localStorage.setItem('teacher_schedule_title', scheduleTitle);
+                localStorage.setItem('teacher_schedule_period_times', JSON.stringify(periodTimes));
+                localStorage.setItem('teacher_schedule_title_hint_dismissed', String(titleEditHintDismissed));
+            } catch (e) {
+                console.warn("localStorage save failed:", e);
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const savedRows = localStorage.getItem('teacher_schedule_rows');
+                const savedColors = localStorage.getItem('teacher_schedule_colors');
+                const savedTitle = localStorage.getItem('teacher_schedule_title');
+                const savedPeriodTimes = localStorage.getItem('teacher_schedule_period_times');
+                const savedTitleHintDismissed = localStorage.getItem('teacher_schedule_title_hint_dismissed');
+
+                titleEditHintDismissed = savedTitleHintDismissed === 'true';
+                teacherScheduleTitle.classList.toggle('edit-hint-dismissed', titleEditHintDismissed);
+
+                periodTimes = savedPeriodTimes
+                    ? { ...DEFAULT_PERIOD_TIMES, ...JSON.parse(savedPeriodTimes) }
+                    : { ...DEFAULT_PERIOD_TIMES };
+
+                if (savedRows) {
+                    currentScheduleData = JSON.parse(savedRows);
+                    classColorMap = savedColors ? JSON.parse(savedColors) : {};
+                    scheduleTitle = savedTitle || "Teacher Schedule";
+                    renderUI();
+                } else {
+                    parseCSVString(SAMPLE_CSV);
+                }
+            } catch (e) {
+                console.warn("localStorage load failed:", e);
+                parseCSVString(SAMPLE_CSV);
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
