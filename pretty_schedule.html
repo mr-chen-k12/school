@@ -64,6 +64,41 @@
             vertical-align: middle;
             width: 110px;
             font-size: 0.9rem;
+            padding: 6px;
+        }
+
+        .period-label {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #334155;
+            margin-bottom: 3px;
+        }
+
+        .period-time-editable {
+            min-height: 30px;
+            padding: 3px 4px;
+            border: 1px dashed transparent;
+            border-radius: 6px;
+            font-size: 0.66rem;
+            line-height: 1.25;
+            font-weight: 600;
+            color: #64748b;
+            white-space: pre-line;
+            cursor: text;
+            transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+            outline: none;
+        }
+
+        .period-time-editable:hover {
+            background-color: #ffffff;
+            border-color: #94a3b8;
+        }
+
+        .period-time-editable:focus {
+            background-color: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+            color: #334155;
         }
 
         .class-slot {
@@ -146,6 +181,13 @@
 
             .class-card {
                 box-shadow: none !important;
+            }
+
+            .period-time-editable {
+                border-color: transparent !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                cursor: default !important;
             }
         }
     </style>
@@ -253,7 +295,7 @@
                         </th>
                     </tr>
                     <tr class="schedule-header-days">
-                        <th style="width: 10%;">Period</th>
+                        <th style="width: 10%;" title="Click a period time below to edit it">Period / Time <i class="fa-solid fa-pen-to-square text-[10px] ml-1 opacity-50 no-print"></i></th>
                         <th style="width: 18%;">Monday</th>
                         <th style="width: 18%;">Tuesday</th>
                         <th style="width: 18%;">Wednesday</th>
@@ -347,6 +389,18 @@ GR-318,Group,318,FY,,318,23,2026-2027 Active Schedule`;
         let classColorMap = {}; // Key: ClassCode, Value: Hex Color
         let scheduleTitle = "Teacher Schedule";
 
+        // Editable period-time labels shown in the left column of the schedule.
+        const DEFAULT_PERIOD_TIMES = {
+            1: '8:40 AM to\n9:35 AM',
+            2: '9:35 AM to\n10:30 AM',
+            3: '10:30 AM to\n11:25 AM',
+            4: 'Lunch\n11:25-11:52\nRecess\n11:54-12:20',
+            5: '12:20 PM to\n1:15 PM',
+            6: '1:15 PM to\n2:10 PM',
+            7: '2:10 PM to\n3:05 PM'
+        };
+        let periodTimes = { ...DEFAULT_PERIOD_TIMES };
+
         // DOM Elements
         const csvFileInput = document.getElementById('csvFileInput');
         const dropZone = document.getElementById('dropZone');
@@ -404,9 +458,11 @@ GR-318,Group,318,FY,,318,23,2026-2027 Active Schedule`;
                     localStorage.removeItem('teacher_schedule_rows');
                     localStorage.removeItem('teacher_schedule_colors');
                     localStorage.removeItem('teacher_schedule_title');
+                    localStorage.removeItem('teacher_schedule_period_times');
                     currentScheduleData = [];
                     classColorMap = {};
                     scheduleTitle = "Teacher Schedule";
+                    periodTimes = { ...DEFAULT_PERIOD_TIMES };
                     renderUI();
                 }
             });
@@ -677,10 +733,46 @@ GR-318,Group,318,FY,,318,23,2026-2027 Active Schedule`;
             for (let p = 1; p <= 7; p++) {
                 const tr = document.createElement('tr');
                 
-                // Period Column
+                // Period Column with an editable, persistent time label.
                 const tdPeriod = document.createElement('td');
                 tdPeriod.className = 'period-cell';
-                tdPeriod.innerHTML = `<div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider"></div><div>Period ${p}</div>`;
+
+                const periodLabel = document.createElement('div');
+                periodLabel.className = 'period-label';
+                periodLabel.textContent = `P${p}`;
+
+                const periodTime = document.createElement('div');
+                periodTime.className = 'period-time-editable';
+                periodTime.contentEditable = 'true';
+                periodTime.spellcheck = false;
+                periodTime.setAttribute('role', 'textbox');
+                periodTime.setAttribute('aria-label', `Edit Period ${p} time`);
+                periodTime.setAttribute('title', 'Click to edit this period time');
+                periodTime.dataset.period = String(p);
+                periodTime.textContent = periodTimes[p] || DEFAULT_PERIOD_TIMES[p] || '';
+
+                // Keep pasted content as plain text so schedule HTML cannot be injected.
+                periodTime.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                    document.execCommand('insertText', false, text);
+                });
+
+                const savePeriodTime = () => {
+                    const newValue = periodTime.innerText.replace(/\u00a0/g, ' ').trim();
+                    periodTimes[p] = newValue || DEFAULT_PERIOD_TIMES[p];
+                    if (!newValue) periodTime.textContent = periodTimes[p];
+                    saveToLocalStorage();
+                };
+
+                periodTime.addEventListener('blur', savePeriodTime);
+                periodTime.addEventListener('input', () => {
+                    periodTimes[p] = periodTime.innerText.replace(/\u00a0/g, ' ');
+                    saveToLocalStorage();
+                });
+
+                tdPeriod.appendChild(periodLabel);
+                tdPeriod.appendChild(periodTime);
                 tr.appendChild(tdPeriod);
 
                 // Days Columns (Monday to Friday)
@@ -810,6 +902,7 @@ GR-318,Group,318,FY,,318,23,2026-2027 Active Schedule`;
                 localStorage.setItem('teacher_schedule_rows', JSON.stringify(currentScheduleData));
                 localStorage.setItem('teacher_schedule_colors', JSON.stringify(classColorMap));
                 localStorage.setItem('teacher_schedule_title', scheduleTitle);
+                localStorage.setItem('teacher_schedule_period_times', JSON.stringify(periodTimes));
             } catch (e) {
                 console.warn("localStorage save failed:", e);
             }
@@ -820,6 +913,11 @@ GR-318,Group,318,FY,,318,23,2026-2027 Active Schedule`;
                 const savedRows = localStorage.getItem('teacher_schedule_rows');
                 const savedColors = localStorage.getItem('teacher_schedule_colors');
                 const savedTitle = localStorage.getItem('teacher_schedule_title');
+                const savedPeriodTimes = localStorage.getItem('teacher_schedule_period_times');
+
+                periodTimes = savedPeriodTimes
+                    ? { ...DEFAULT_PERIOD_TIMES, ...JSON.parse(savedPeriodTimes) }
+                    : { ...DEFAULT_PERIOD_TIMES };
 
                 if (savedRows) {
                     currentScheduleData = JSON.parse(savedRows);
