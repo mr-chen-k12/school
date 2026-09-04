@@ -1,0 +1,1946 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A family guide to 6th Grade Math, including course topics, materials, expectations, policies, and important links.">
+  <title>6th Grade Math | Family Guide</title>
+  <style>
+    :root {
+      --navy: #102a43;
+      --navy-2: #173f5f;
+      --blue: #1f6feb;
+      --teal: #0f766e;
+      --gold: #f4b942;
+      --cream: #fffaf0;
+      --paper: #ffffff;
+      --ink: #17212b;
+      --muted: #52606d;
+      --line: #d9e2ec;
+      --soft-blue: #eaf3ff;
+      --soft-teal: #e9f8f5;
+      --soft-gold: #fff6d8;
+      --warning: #8a4b08;
+      --warning-bg: #fff4d6;
+      --shadow: 0 18px 45px rgba(16, 42, 67, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(244, 185, 66, 0.22), transparent 28rem),
+        radial-gradient(circle at 92% 14%, rgba(31, 111, 235, 0.16), transparent 30rem),
+        #f5f8fb;
+      font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -4rem;
+      z-index: 1000;
+      padding: 0.7rem 1rem;
+      border-radius: 0.6rem;
+      color: white;
+      background: var(--navy);
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background:
+        linear-gradient(130deg, rgba(16, 42, 67, 0.98), rgba(23, 63, 95, 0.95) 58%, rgba(15, 118, 110, 0.92));
+      padding: 1.25rem clamp(1rem, 4vw, 4rem) 5.5rem;
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 26rem;
+      height: 26rem;
+      right: -8rem;
+      top: -13rem;
+      border: 3rem solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero::after {
+      width: 18rem;
+      height: 18rem;
+      left: -9rem;
+      bottom: -11rem;
+      background: rgba(244, 185, 66, 0.12);
+    }
+
+    .topbar,
+    .hero-content,
+    main,
+    .footer-inner {
+      width: min(1160px, 100%);
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 850;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.7rem;
+      height: 2.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 0.9rem;
+      color: var(--navy);
+      background: var(--gold);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+      font-size: 1.25rem;
+      font-weight: 950;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.4rem;
+    }
+
+    nav a {
+      padding: 0.45rem 0.75rem;
+      border-radius: 99px;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+    }
+
+    .language-list {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      width: min(1160px, 100%);
+      margin: 1rem auto 0;
+      padding: 0.45rem 0.55rem;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 1rem;
+      color: white;
+      background: rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(12px);
+      font-weight: 850;
+    }
+
+    .language-list-label {
+      padding: 0.25rem 0.45rem;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .language-option {
+      padding: 0.42rem 0.72rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 99px;
+      color: white;
+      background: rgba(255, 255, 255, 0.07);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 800;
+      transition: background 150ms ease, color 150ms ease, transform 150ms ease;
+    }
+
+    .language-option:hover,
+    .language-option:focus-visible {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.18);
+      outline: none;
+    }
+
+    .language-option.active,
+    .language-option[aria-pressed="true"] {
+      border-color: var(--gold);
+      color: var(--navy);
+      background: var(--gold);
+    }
+
+    dialog {
+      width: min(520px, calc(100% - 2rem));
+      padding: 0;
+      border: 0;
+      border-radius: 1.3rem;
+      color: var(--ink);
+      background: white;
+      box-shadow: 0 30px 80px rgba(16, 42, 67, 0.35);
+    }
+
+    dialog::backdrop {
+      background: rgba(16, 42, 67, 0.68);
+      backdrop-filter: blur(4px);
+    }
+
+    .dialog-content {
+      padding: 1.6rem;
+    }
+
+    .dialog-content h2 {
+      font-size: 1.8rem;
+    }
+
+    .dialog-content p {
+      color: var(--muted);
+    }
+
+    .dialog-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1.2rem;
+    }
+
+    .dialog-actions .button.secondary {
+      border-color: var(--line);
+      color: var(--navy);
+      background: white;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-top: clamp(3.5rem, 8vw, 7rem);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin: 0 0 1rem;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 99px;
+      color: #fff7df;
+      background: rgba(255, 255, 255, 0.09);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(2.65rem, 7vw, 5.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .hero-lead {
+      max-width: 740px;
+      margin: 1.5rem 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 3rem;
+      padding: 0.75rem 1.1rem;
+      border: 0;
+      border-radius: 0.85rem;
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+      outline: none;
+    }
+
+    .button.secondary {
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: none;
+    }
+
+    .button.disabled,
+    .button[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.68;
+    }
+
+    main {
+      position: relative;
+      z-index: 3;
+      margin-top: -2.1rem;
+      padding: 0 clamp(1rem, 4vw, 2rem) 5rem;
+    }
+
+    .setup-notice {
+      margin-bottom: 1.4rem;
+      padding: 1rem 1.15rem;
+      border: 1px solid #f0c36a;
+      border-radius: 1rem;
+      color: var(--warning);
+      background: var(--warning-bg);
+      box-shadow: var(--shadow);
+      font-weight: 700;
+    }
+
+    section {
+      scroll-margin-top: 1rem;
+      margin-bottom: clamp(3.2rem, 7vw, 5.4rem);
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      overflow: hidden;
+      border: 1px solid rgba(217, 226, 236, 0.95);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .quick-link {
+      display: block;
+      padding: 1.5rem;
+      text-decoration: none;
+    }
+
+    .quick-link + .quick-link {
+      border-left: 1px solid var(--line);
+    }
+
+    .quick-link:hover,
+    .quick-link:focus-visible {
+      background: var(--soft-blue);
+      outline: none;
+    }
+
+    .quick-kicker {
+      color: var(--blue);
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .quick-title {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--navy);
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .quick-copy {
+      display: block;
+      margin-top: 0.35rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.75fr) minmax(280px, 1fr);
+      align-items: end;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-number {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 950;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+    }
+
+    .section-intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .materials-panel {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      overflow: hidden;
+      border-radius: var(--radius);
+      color: white;
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .materials-copy {
+      padding: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .materials-copy h3 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      line-height: 1.15;
+    }
+
+    .materials-copy > p {
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .materials-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin: 1.4rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .materials-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 0.85rem;
+      background: rgba(255, 255, 255, 0.07);
+      font-weight: 800;
+    }
+
+    .check {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 1.55rem;
+      height: 1.55rem;
+      border-radius: 50%;
+      color: var(--navy);
+      background: var(--gold);
+      font-size: 0.84rem;
+      font-weight: 950;
+    }
+
+    .ready-card {
+      display: grid;
+      align-content: center;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      color: var(--navy);
+      background: var(--gold);
+    }
+
+    .ready-card span {
+      font-size: 0.78rem;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .ready-card strong {
+      margin-top: 0.55rem;
+      font-size: clamp(1.5rem, 3vw, 2.3rem);
+      line-height: 1.12;
+    }
+
+    .ready-card p {
+      margin-bottom: 0;
+      color: #3e4c59;
+      font-weight: 650;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .unit {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      background: var(--paper);
+      box-shadow: 0 8px 22px rgba(16, 42, 67, 0.07);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .unit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(16, 42, 67, 0.11);
+    }
+
+    .unit summary {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .unit summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .unit-number {
+      display: grid;
+      place-items: center;
+      width: 2.65rem;
+      height: 2.65rem;
+      border-radius: 0.85rem;
+      color: var(--teal);
+      background: var(--soft-teal);
+      font-weight: 950;
+    }
+
+    .unit-name {
+      color: var(--navy);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .plus {
+      color: var(--blue);
+      font-size: 1.4rem;
+      font-weight: 500;
+      transition: transform 160ms ease;
+    }
+
+    .unit[open] .plus {
+      transform: rotate(45deg);
+    }
+
+    .unit-body {
+      padding: 0 1rem 1.1rem 4.45rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .unit-body ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .unit-body li + li {
+      margin-top: 0.3rem;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      padding: clamp(1.35rem, 3vw, 2.1rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 10px 28px rgba(16, 42, 67, 0.08);
+    }
+
+    .card.accent {
+      border-color: #b8e5dd;
+      background: linear-gradient(145deg, #ffffff, var(--soft-teal));
+    }
+
+    .card h3 {
+      margin: 0 0 0.7rem;
+      color: var(--navy);
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .expectation-list,
+    .family-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .expectation-list li,
+    .family-list li {
+      position: relative;
+      padding-left: 1.75rem;
+    }
+
+    .expectation-list li + li,
+    .family-list li + li {
+      margin-top: 0.75rem;
+    }
+
+    .expectation-list li::before,
+    .family-list li::before {
+      position: absolute;
+      left: 0;
+      top: 0.05rem;
+      color: var(--teal);
+      content: "✓";
+      font-weight: 950;
+    }
+
+    .policy {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border-radius: var(--radius);
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #243b53);
+      box-shadow: var(--shadow);
+    }
+
+    .policy::after {
+      position: absolute;
+      right: -4rem;
+      bottom: -5rem;
+      width: 15rem;
+      height: 15rem;
+      border: 2rem solid rgba(244, 185, 66, 0.13);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .policy-label {
+      display: inline-block;
+      padding: 0.35rem 0.7rem;
+      border-radius: 99px;
+      color: var(--navy);
+      background: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 950;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .policy h3 {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0.8rem 0 0.7rem;
+      font-size: clamp(1.7rem, 4vw, 2.8rem);
+      line-height: 1.08;
+    }
+
+    .policy p {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .policy strong {
+      color: white;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .contact-card {
+      min-height: 150px;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: 1.2rem;
+      background: white;
+      box-shadow: 0 8px 22px rgba(16, 42, 67, 0.07);
+    }
+
+    .contact-card.primary {
+      color: white;
+      background: var(--teal);
+    }
+
+    .contact-label {
+      display: block;
+      color: var(--teal);
+      font-size: 0.75rem;
+      font-weight: 950;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .contact-card.primary .contact-label {
+      color: #c9fff3;
+    }
+
+    .contact-value {
+      display: block;
+      margin-top: 0.4rem;
+      color: var(--navy);
+      font-size: 1.13rem;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-card.primary .contact-value {
+      color: white;
+      font-size: 1.45rem;
+    }
+
+    .contact-note {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .contact-card.primary .contact-note {
+      color: rgba(255, 255, 255, 0.77);
+    }
+
+    footer {
+      padding: 2rem clamp(1rem, 4vw, 4rem);
+      color: rgba(255, 255, 255, 0.78);
+      background: var(--navy);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+
+      .quick-links,
+      .topics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-link + .quick-link {
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .section-heading,
+      .materials-panel,
+      .two-column,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        align-items: start;
+        gap: 0.8rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        padding-inline: 1rem;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .language-list {
+        align-items: stretch;
+        margin-top: 0.8rem;
+      }
+
+      .language-list-label {
+        width: 100%;
+      }
+
+      .language-option {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+
+      .brand-mark {
+        width: 2.35rem;
+        height: 2.35rem;
+      }
+
+      .hero-actions,
+      .hero-actions .button {
+        width: 100%;
+      }
+
+      main {
+        padding-inline: 0.75rem;
+      }
+
+      .materials-list {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        font-size: 10pt;
+      }
+
+      .hero {
+        padding: 1rem 1.5rem 2rem;
+        color: var(--navy);
+        background: white;
+        border-bottom: 3px solid var(--navy);
+      }
+
+      .hero-lead,
+      .eyebrow {
+        color: var(--navy);
+      }
+
+      .eyebrow {
+        border-color: var(--line);
+        background: var(--soft-gold);
+      }
+
+      nav,
+      .hero-actions,
+      .setup-notice,
+      .language-list,
+      dialog,
+      .plus {
+        display: none !important;
+      }
+
+      main {
+        margin-top: 0;
+        padding: 1.5rem;
+      }
+
+      section {
+        margin-bottom: 2rem;
+        break-inside: avoid;
+      }
+
+      .quick-links,
+      .materials-panel,
+      .policy,
+      .contact-card,
+      .card,
+      .unit {
+        box-shadow: none;
+      }
+
+      .topics-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .unit-body {
+        display: block;
+      }
+
+      footer {
+        color: var(--navy);
+        background: white;
+        border-top: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="hero">
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">6</span>
+        <span><span data-config="teacherName">Mr. Chen</span> · Mathematics</span>
+      </div>
+      <div class="top-actions">
+        <nav aria-label="Page sections">
+          <a href="#materials">Materials</a>
+          <a href="#learning">Learning</a>
+          <a href="#expectations">Expectations</a>
+          <a href="#devices">Devices</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="language-list" aria-label="Choose a language">
+      <span class="language-list-label">🌐 Read this page in:</span>
+      <button class="language-option active" type="button" data-language="en" aria-pressed="true">English</button>
+      <button class="language-option" type="button" data-language="es" aria-pressed="false">Español</button>
+      <button class="language-option" type="button" data-language="vi" aria-pressed="false">Tiếng Việt</button>
+      <button class="language-option" type="button" data-language="zh" aria-pressed="false">中文</button>
+      <button class="language-option" type="button" data-language="other" aria-pressed="false">Other…</button>
+    </div>
+
+    <div class="hero-content">
+      <p class="eyebrow">2026–2027 Family Guide</p>
+      <h1>Welcome to<br>6th Grade Math.</h1>
+      <p class="hero-lead">
+        Everything families need in one place: what we are learning, what students
+        should bring, how to access class resources, and how we can work together.
+      </p>
+      <div class="hero-actions">
+        <a class="button classroom-link" href="#" aria-disabled="true">Open Google Classroom →</a>
+        <a class="button secondary syllabus-link" href="#" aria-disabled="true">View the syllabus</a>
+        <button class="button secondary" type="button" onclick="window.print()">Print this guide</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="setup-notice" id="setup-notice" role="status">
+      Before sharing: add your email, school information, Google Classroom URL,
+      and syllabus URL in the <strong>PAGE_CONFIG</strong> section near the bottom of this file.
+    </div>
+
+    <section aria-label="Quick links">
+      <div class="quick-links">
+        <a class="quick-link classroom-link" href="#" aria-disabled="true">
+          <span class="quick-kicker">Assignments &amp; announcements</span>
+          <span class="quick-title">Google Classroom →</span>
+          <span class="quick-copy">The central location for class materials, updates, and textbook access.</span>
+        </a>
+        <a class="quick-link syllabus-link" href="#" aria-disabled="true">
+          <span class="quick-kicker">Course information</span>
+          <span class="quick-title">Course Syllabus →</span>
+          <span class="quick-copy">Read the complete course expectations, grading information, and routines.</span>
+        </a>
+        <a class="quick-link email-link" href="#" aria-disabled="true">
+          <span class="quick-kicker">Questions or concerns</span>
+          <span class="quick-title">Contact <span data-config="teacherName">Mr. Chen</span> →</span>
+          <span class="quick-copy">Please reach out early so we can work together to support your student.</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="materials">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">01 · Be ready</span>
+          <h2>Materials for every class</h2>
+        </div>
+        <p class="section-intro">
+          Students should arrive with these materials and have them visible and
+          ready at the beginning of class.
+        </p>
+      </div>
+
+      <div class="materials-panel">
+        <div class="materials-copy">
+          <h3>Bring these four essentials every day.</h3>
+          <p>A simple, consistent setup helps us begin learning without losing instructional time.</p>
+          <ul class="materials-list">
+            <li><span class="check">✓</span> Math notebook</li>
+            <li><span class="check">✓</span> Pencils</li>
+            <li><span class="check">✓</span> Pencil sharpener</li>
+            <li><span class="check">✓</span> Eraser</li>
+          </ul>
+        </div>
+        <aside class="ready-card">
+          <span>Wooden-pencil reminder</span>
+          <strong>Bring a handheld sharpener and an eraser.</strong>
+          <p>Students should not need to leave their seats or wait to borrow basic materials.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="learning">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">02 · Course overview</span>
+          <h2>What we will learn</h2>
+        </div>
+        <p class="section-intro">
+          Our year moves from visual and geometric reasoning into proportional
+          reasoning, number operations, algebra, coordinate geometry, and statistics.
+          Select any unit to see its major topics.
+        </p>
+      </div>
+
+      <div class="topics-grid">
+        <details class="unit">
+          <summary>
+            <span class="unit-number">1</span>
+            <span class="unit-name">Area &amp; Surface Area</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Decomposing and rearranging shapes</li>
+              <li>Area of parallelograms, triangles, and polygons</li>
+              <li>Polyhedra, nets, surface area, and volume</li>
+              <li>Squares, cubes, and the designing-a-tent application</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">2</span>
+            <span class="unit-name">Ratios</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Ratio language and diagrams</li>
+              <li>Equivalent ratios</li>
+              <li>Double number lines and tables</li>
+              <li>Unit rates, constant speed, and ratio problems</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">3</span>
+            <span class="unit-name">Rates &amp; Percentages</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Units of measurement and unit conversion</li>
+              <li>Comparing speeds and prices</li>
+              <li>Interpreting and solving rate problems</li>
+              <li>Percentages, tape diagrams, and percent problems</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">4</span>
+            <span class="unit-name">Fraction Division</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Making sense of division situations</li>
+              <li>Meaning and diagrams of fraction division</li>
+              <li>Fraction-division algorithms</li>
+              <li>Fractional lengths, area, and volume</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">5</span>
+            <span class="unit-name">Decimal Operations</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Decimals in real-world contexts</li>
+              <li>Adding and subtracting decimals</li>
+              <li>Multiplying decimals with diagrams and algorithms</li>
+              <li>Partial quotients, long division, and decimal division</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">6</span>
+            <span class="unit-name">Expressions &amp; Equations</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Tape diagrams and one-variable equations</li>
+              <li>Equality, equivalence, and balance</li>
+              <li>The distributive property</li>
+              <li>Exponents, expressions, tables, equations, and graphs</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">7</span>
+            <span class="unit-name">Rational Numbers</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Positive and negative numbers</li>
+              <li>Absolute value and inequalities</li>
+              <li>The coordinate plane and distance</li>
+              <li>Common factors and common multiples</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">8</span>
+            <span class="unit-name">Data &amp; Statistics</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Statistical questions and variability</li>
+              <li>Dot plots and histograms</li>
+              <li>Mean, median, MAD, and IQR</li>
+              <li>Quartiles, box plots, and comparing distributions</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="unit">
+          <summary>
+            <span class="unit-number">9</span>
+            <span class="unit-name">Applications &amp; Connections</span>
+            <span class="plus" aria-hidden="true">+</span>
+          </summary>
+          <div class="unit-body">
+            <ul>
+              <li>Fermi problems and estimation</li>
+              <li>“If Our Class Were the World”</li>
+              <li>Rectangle investigations</li>
+              <li>Voting methods and choosing representatives</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="expectations">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">03 · Learning habits</span>
+          <h2>What I expect from students</h2>
+        </div>
+        <p class="section-intro">
+          Students do not need to know everything immediately. They do need to
+          arrive prepared, participate, make an honest attempt, and help create a
+          classroom where everyone can think and learn.
+        </p>
+      </div>
+
+      <div class="two-column">
+        <article class="card accent">
+          <h3>During math class</h3>
+          <ul class="expectation-list">
+            <li>Arrive on time with all daily materials ready.</li>
+            <li>Attempt each problem and show mathematical thinking.</li>
+            <li>Explain ideas, listen to classmates, and ask questions.</li>
+            <li>Use feedback to revise work and strengthen understanding.</li>
+            <li>Treat classmates, adults, materials, and learning time with respect.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>How families can help</h3>
+          <ul class="family-list">
+            <li>Check Google Classroom regularly for announcements and assignments.</li>
+            <li>Ask your student to explain a problem or strategy from their notebook.</li>
+            <li>Help your student maintain the daily notebook-and-pencil routine.</li>
+            <li>Encourage consistent practice, even when a problem feels challenging.</li>
+            <li>Contact me early when questions, circumstances, or concerns arise.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="resources">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">04 · Class resources</span>
+          <h2>Textbook and syllabus</h2>
+        </div>
+        <p class="section-intro">
+          Course resources are organized through Google Classroom so students and
+          families know where to look.
+        </p>
+      </div>
+
+      <div class="two-column">
+        <article class="card">
+          <h3>Digital textbook access</h3>
+          <p>
+            Because the textbook is copyrighted, it will not be posted on this public
+            page. Students and families can access the textbook through
+            <strong>Google Classroom</strong> using the student's school account.
+          </p>
+          <p><a class="classroom-link" href="#" aria-disabled="true"><strong>Open Google Classroom →</strong></a></p>
+        </article>
+
+        <article class="card">
+          <h3>Course syllabus</h3>
+          <p>
+            The syllabus contains the complete course overview, learning expectations,
+            grading information, classroom routines, and other important details.
+          </p>
+          <p><a class="syllabus-link" href="#" aria-disabled="true"><strong>Read the course syllabus →</strong></a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="devices">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">05 · School-day focus</span>
+          <h2>Cell phones and electronics</h2>
+        </div>
+        <p class="section-intro">
+          This procedure protects students' attention and supports a focused,
+          respectful learning environment throughout the school day.
+        </p>
+      </div>
+
+      <article class="policy">
+        <span class="policy-label">Important family information</span>
+        <h3>Cell phones are turned in and secured at the beginning of the school day.</h3>
+        <p>
+          Students must turn in their cell phones to their <strong>homeroom teacher</strong>
+          during homeroom. Phones will be placed in secured, locked storage according
+          to the school's procedure.
+        </p>
+        <p>
+          If a student has a special circumstance requiring access to a device, it must
+          be communicated in advance so that the parent or guardian, teachers, and
+          appropriate school staff are aware.
+        </p>
+        <p>
+          Other personal electronic devices may not be used unless the school has
+          specifically approved the device as an instructional or accessibility tool.
+          Families who need to reach a student during the school day should use the
+          school's approved communication process.
+        </p>
+      </article>
+    </section>
+
+    <section id="contact">
+      <div class="section-heading">
+        <div>
+          <span class="section-number">06 · Stay connected</span>
+          <h2>Contact information</h2>
+        </div>
+        <p class="section-intro">
+          Questions are welcome. Clear, early communication helps us support students
+          before a small concern becomes a larger one.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <article class="contact-card primary">
+          <span class="contact-label">Teacher</span>
+          <span class="contact-value" data-config="teacherName">Mr. Chen</span>
+          <span class="contact-note">6th Grade Mathematics</span>
+        </article>
+        <article class="contact-card">
+          <span class="contact-label">Email</span>
+          <a class="contact-value email-link" href="#" aria-disabled="true" data-config="teacherEmail">Add email address</a>
+          <span class="contact-note">Best method for non-urgent questions</span>
+        </article>
+        <article class="contact-card">
+          <span class="contact-label">School phone</span>
+          <span class="contact-value" data-config="schoolPhone">Add school phone</span>
+          <span class="contact-note" data-config="schoolName">Add school name</span>
+        </article>
+        <article class="contact-card">
+          <span class="contact-label">Classroom</span>
+          <span class="contact-value" data-config="room">Add room number</span>
+          <span class="contact-note">Please arrange visits through the school office.</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="other-language-dialog">
+    <div class="dialog-content">
+      <span class="section-number">More languages</span>
+      <h2>Need another language?</h2>
+      <p>
+        Open your browser's menu and choose <strong>Translate</strong> to select
+        another language. In Safari, use the translation button in the address bar.
+      </p>
+      <div class="dialog-actions">
+        <button class="button" id="close-language-dialog" type="button">Got it</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer>
+    <div class="footer-inner">
+      <span>6th Grade Mathematics · <span data-config="schoolYear">2026–2027</span></span>
+      <span>Prepared for students and families by <span data-config="teacherName">Mr. Chen</span></span>
+    </div>
+  </footer>
+
+  <script>
+    /*
+      EDIT ONLY THIS SECTION BEFORE SHARING.
+      Paste full links beginning with https://
+    */
+    const PAGE_CONFIG = {
+      teacherName: "Mr. Chen",
+      teacherEmail: "",
+      schoolName: "",
+      schoolPhone: "",
+      room: "",
+      schoolYear: "2026–2027",
+      googleClassroomUrl: "",
+      syllabusUrl: ""
+    };
+
+    function setText(key, value, fallback) {
+      document.querySelectorAll('[data-config="' + key + '"]').forEach((element) => {
+        element.textContent = value || fallback;
+      });
+    }
+
+    function setLinks(selector, url) {
+      document.querySelectorAll(selector).forEach((link) => {
+        if (url) {
+          link.href = url;
+          link.removeAttribute("aria-disabled");
+          link.classList.remove("disabled");
+          if (url.startsWith("http")) {
+            link.target = "_blank";
+            link.rel = "noopener";
+          }
+        } else {
+          link.href = "#";
+          link.setAttribute("aria-disabled", "true");
+          link.classList.add("disabled");
+          link.addEventListener("click", (event) => event.preventDefault());
+        }
+      });
+    }
+
+    setText("teacherName", PAGE_CONFIG.teacherName, "Your Math Teacher");
+    setText("teacherEmail", PAGE_CONFIG.teacherEmail, "Add email address");
+    setText("schoolName", PAGE_CONFIG.schoolName, "Add school name");
+    setText("schoolPhone", PAGE_CONFIG.schoolPhone, "Add school phone");
+    setText("room", PAGE_CONFIG.room, "Add room number");
+    setText("schoolYear", PAGE_CONFIG.schoolYear, "2026–2027");
+
+    setLinks(".classroom-link", PAGE_CONFIG.googleClassroomUrl);
+    setLinks(".syllabus-link", PAGE_CONFIG.syllabusUrl);
+    setLinks(".email-link", PAGE_CONFIG.teacherEmail ? "mailto:" + PAGE_CONFIG.teacherEmail : "");
+
+    const needsSetup = [
+      PAGE_CONFIG.teacherEmail,
+      PAGE_CONFIG.schoolName,
+      PAGE_CONFIG.schoolPhone,
+      PAGE_CONFIG.room,
+      PAGE_CONFIG.googleClassroomUrl,
+      PAGE_CONFIG.syllabusUrl
+    ].some((value) => !value);
+
+    if (!needsSetup) {
+      document.getElementById("setup-notice").hidden = true;
+    }
+  </script>
+
+  <script>
+    const TRANSLATIONS = {
+      es: {
+        "Skip to main content": "Saltar al contenido principal",
+        "🌐 Read this page in:": "🌐 Leer esta página en:",
+        "Other…": "Otro…",
+        "· Mathematics": "· Matemáticas",
+        "Materials": "Materiales",
+        "Learning": "Aprendizaje",
+        "Expectations": "Expectativas",
+        "Devices": "Dispositivos",
+        "Contact": "Contacto",
+        "2026–2027 Family Guide": "Guía para familias 2026–2027",
+        "Welcome to": "Bienvenidos a",
+        "6th Grade Math.": "Matemáticas de 6.º grado.",
+        "Everything families need in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "Todo lo que las familias necesitan en un solo lugar: qué estamos aprendiendo, qué deben traer los estudiantes, cómo acceder a los recursos de la clase y cómo podemos colaborar.",
+        "Open Google Classroom →": "Abrir Google Classroom →",
+        "View the syllabus": "Ver el programa del curso",
+        "Print this guide": "Imprimir esta guía",
+        "Before sharing: add your email, school information, Google Classroom URL, and syllabus URL in the": "Antes de compartir: agregue su correo electrónico, la información de la escuela, el enlace de Google Classroom y el enlace del programa en la sección",
+        "section near the bottom of this file.": "que se encuentra cerca del final de este archivo.",
+        "Assignments & announcements": "Tareas y anuncios",
+        "The central location for class materials, updates, and textbook access.": "El lugar central para los materiales, las novedades y el acceso al libro de texto.",
+        "Course information": "Información del curso",
+        "Course Syllabus →": "Programa del curso →",
+        "Read the complete course expectations, grading information, and routines.": "Consulte las expectativas completas del curso, la información de calificaciones y las rutinas.",
+        "Questions or concerns": "Preguntas o inquietudes",
+        "Please reach out early so we can work together to support your student.": "Comuníquese con anticipación para que podamos colaborar y apoyar a su estudiante.",
+        "01 · Be ready": "01 · Estar preparado",
+        "Materials for every class": "Materiales para cada clase",
+        "Students should arrive with these materials and have them visible and ready at the beginning of class.": "Los estudiantes deben llegar con estos materiales y tenerlos a la vista y listos al comienzo de la clase.",
+        "Bring these four essentials every day.": "Traiga estos cuatro elementos esenciales todos los días.",
+        "A simple, consistent setup helps us begin learning without losing instructional time.": "Una preparación sencilla y constante nos ayuda a comenzar sin perder tiempo de aprendizaje.",
+        "Math notebook": "Cuaderno de matemáticas",
+        "Pencils": "Lápices",
+        "Pencil sharpener": "Sacapuntas",
+        "Eraser": "Borrador",
+        "Wooden-pencil reminder": "Recordatorio para lápices de madera",
+        "Bring a handheld sharpener and an eraser.": "Traiga un sacapuntas de mano y un borrador.",
+        "Students should not need to leave their seats or wait to borrow basic materials.": "Los estudiantes no deben tener que levantarse ni esperar para pedir prestados materiales básicos.",
+        "02 · Course overview": "02 · Resumen del curso",
+        "What we will learn": "Lo que aprenderemos",
+        "Our year moves from visual and geometric reasoning into proportional reasoning, number operations, algebra, coordinate geometry, and statistics. Select any unit to see its major topics.": "Durante el año avanzaremos del razonamiento visual y geométrico al razonamiento proporcional, las operaciones numéricas, el álgebra, la geometría en el plano cartesiano y la estadística. Seleccione una unidad para ver sus temas principales.",
+        "Area & Surface Area": "Área y área de superficie",
+        "Decomposing and rearranging shapes": "Descomponer y reorganizar figuras",
+        "Area of parallelograms, triangles, and polygons": "Área de paralelogramos, triángulos y polígonos",
+        "Polyhedra, nets, surface area, and volume": "Poliedros, desarrollos planos, área de superficie y volumen",
+        "Squares, cubes, and the designing-a-tent application": "Cuadrados, cubos y la aplicación de diseño de una tienda de campaña",
+        "Ratios": "Razones",
+        "Ratio language and diagrams": "Lenguaje y diagramas de razones",
+        "Equivalent ratios": "Razones equivalentes",
+        "Double number lines and tables": "Rectas numéricas dobles y tablas",
+        "Unit rates, constant speed, and ratio problems": "Tasas unitarias, velocidad constante y problemas de razones",
+        "Rates & Percentages": "Tasas y porcentajes",
+        "Units of measurement and unit conversion": "Unidades de medida y conversiones",
+        "Comparing speeds and prices": "Comparar velocidades y precios",
+        "Interpreting and solving rate problems": "Interpretar y resolver problemas de tasas",
+        "Percentages, tape diagrams, and percent problems": "Porcentajes, diagramas de cinta y problemas de porcentajes",
+        "Fraction Division": "División de fracciones",
+        "Making sense of division situations": "Comprender situaciones de división",
+        "Meaning and diagrams of fraction division": "Significado y diagramas de la división de fracciones",
+        "Fraction-division algorithms": "Algoritmos para dividir fracciones",
+        "Fractional lengths, area, and volume": "Longitudes fraccionarias, área y volumen",
+        "Decimal Operations": "Operaciones con decimales",
+        "Decimals in real-world contexts": "Decimales en contextos de la vida real",
+        "Adding and subtracting decimals": "Suma y resta de decimales",
+        "Multiplying decimals with diagrams and algorithms": "Multiplicación de decimales con diagramas y algoritmos",
+        "Partial quotients, long division, and decimal division": "Cocientes parciales, división larga y división de decimales",
+        "Expressions & Equations": "Expresiones y ecuaciones",
+        "Tape diagrams and one-variable equations": "Diagramas de cinta y ecuaciones de una variable",
+        "Equality, equivalence, and balance": "Igualdad, equivalencia y equilibrio",
+        "The distributive property": "La propiedad distributiva",
+        "Exponents, expressions, tables, equations, and graphs": "Exponentes, expresiones, tablas, ecuaciones y gráficas",
+        "Rational Numbers": "Números racionales",
+        "Positive and negative numbers": "Números positivos y negativos",
+        "Absolute value and inequalities": "Valor absoluto y desigualdades",
+        "The coordinate plane and distance": "El plano cartesiano y la distancia",
+        "Common factors and common multiples": "Factores comunes y múltiplos comunes",
+        "Data & Statistics": "Datos y estadística",
+        "Statistical questions and variability": "Preguntas estadísticas y variabilidad",
+        "Dot plots and histograms": "Diagramas de puntos e histogramas",
+        "Mean, median, MAD, and IQR": "Media, mediana, DAM y RIC",
+        "Quartiles, box plots, and comparing distributions": "Cuartiles, diagramas de caja y comparación de distribuciones",
+        "Applications & Connections": "Aplicaciones y conexiones",
+        "Fermi problems and estimation": "Problemas de Fermi y estimación",
+        "“If Our Class Were the World”": "«Si nuestra clase fuera el mundo»",
+        "Rectangle investigations": "Investigaciones con rectángulos",
+        "Voting methods and choosing representatives": "Métodos de votación y elección de representantes",
+        "03 · Learning habits": "03 · Hábitos de aprendizaje",
+        "What I expect from students": "Lo que espero de los estudiantes",
+        "Students do not need to know everything immediately. They do need to arrive prepared, participate, make an honest attempt, and help create a classroom where everyone can think and learn.": "Los estudiantes no necesitan saberlo todo de inmediato. Sí deben llegar preparados, participar, hacer un esfuerzo sincero y ayudar a crear un salón donde todos puedan pensar y aprender.",
+        "During math class": "Durante la clase de matemáticas",
+        "Arrive on time with all daily materials ready.": "Llegar a tiempo con todos los materiales diarios listos.",
+        "Attempt each problem and show mathematical thinking.": "Intentar cada problema y mostrar el razonamiento matemático.",
+        "Explain ideas, listen to classmates, and ask questions.": "Explicar ideas, escuchar a los compañeros y hacer preguntas.",
+        "Use feedback to revise work and strengthen understanding.": "Usar los comentarios para revisar el trabajo y fortalecer la comprensión.",
+        "Treat classmates, adults, materials, and learning time with respect.": "Tratar con respeto a los compañeros, los adultos, los materiales y el tiempo de aprendizaje.",
+        "How families can help": "Cómo pueden ayudar las familias",
+        "Check Google Classroom regularly for announcements and assignments.": "Revisar Google Classroom con regularidad para ver anuncios y tareas.",
+        "Ask your student to explain a problem or strategy from their notebook.": "Pedirle a su estudiante que explique un problema o una estrategia de su cuaderno.",
+        "Help your student maintain the daily notebook-and-pencil routine.": "Ayudar a su estudiante a mantener la rutina diaria de cuaderno y lápiz.",
+        "Encourage consistent practice, even when a problem feels challenging.": "Fomentar la práctica constante, incluso cuando un problema resulte difícil.",
+        "Contact me early when questions, circumstances, or concerns arise.": "Comunicarse conmigo con anticipación cuando surjan preguntas, circunstancias o inquietudes.",
+        "04 · Class resources": "04 · Recursos de la clase",
+        "Textbook and syllabus": "Libro de texto y programa del curso",
+        "Course resources are organized through Google Classroom so students and families know where to look.": "Los recursos del curso están organizados en Google Classroom para que los estudiantes y las familias sepan dónde encontrarlos.",
+        "Digital textbook access": "Acceso al libro de texto digital",
+        "Because the textbook is copyrighted, it will not be posted on this public page. Students and families can access the textbook through": "Debido a que el libro de texto está protegido por derechos de autor, no se publicará en esta página pública. Los estudiantes y las familias pueden acceder al libro a través de",
+        "using the student's school account.": "utilizando la cuenta escolar del estudiante.",
+        "Course syllabus": "Programa del curso",
+        "The syllabus contains the complete course overview, learning expectations, grading information, classroom routines, and other important details.": "El programa contiene la descripción completa del curso, las expectativas de aprendizaje, la información de calificaciones, las rutinas y otros detalles importantes.",
+        "Read the course syllabus →": "Leer el programa del curso →",
+        "05 · School-day focus": "05 · Concentración durante el día escolar",
+        "Cell phones and electronics": "Teléfonos celulares y dispositivos electrónicos",
+        "This procedure protects students' attention and supports a focused, respectful learning environment throughout the school day.": "Este procedimiento protege la atención de los estudiantes y favorece un ambiente de aprendizaje concentrado y respetuoso durante todo el día escolar.",
+        "Important family information": "Información importante para las familias",
+        "Cell phones are turned in and secured at the beginning of the school day.": "Los teléfonos celulares se entregan y se guardan de forma segura al comienzo del día escolar.",
+        "Students must turn in their cell phones to their": "Los estudiantes deben entregar sus teléfonos celulares a su",
+        "homeroom teacher": "maestro o maestra de grupo",
+        "during homeroom. Phones will be placed in secured, locked storage according to the school's procedure.": "durante el período de grupo. Los teléfonos se colocarán en un lugar seguro y cerrado con llave, de acuerdo con el procedimiento de la escuela.",
+        "If a student has a special circumstance requiring access to a device, it must be communicated in advance so that the parent or guardian, teachers, and appropriate school staff are aware.": "Si un estudiante tiene una circunstancia especial que requiere acceso a un dispositivo, debe comunicarse con anticipación para que el padre, madre o tutor, los docentes y el personal escolar correspondiente estén informados.",
+        "Other personal electronic devices may not be used unless the school has specifically approved the device as an instructional or accessibility tool. Families who need to reach a student during the school day should use the school's approved communication process.": "No se pueden usar otros dispositivos electrónicos personales, a menos que la escuela los haya aprobado específicamente como herramientas educativas o de accesibilidad. Las familias que necesiten comunicarse con un estudiante durante el día escolar deben usar el proceso de comunicación aprobado por la escuela.",
+        "06 · Stay connected": "06 · Manténgase en contacto",
+        "Contact information": "Información de contacto",
+        "Questions are welcome. Clear, early communication helps us support students before a small concern becomes a larger one.": "Las preguntas son bienvenidas. Una comunicación clara y oportuna nos ayuda a apoyar a los estudiantes antes de que una inquietud pequeña se convierta en una mayor.",
+        "Teacher": "Docente",
+        "6th Grade Mathematics": "Matemáticas de 6.º grado",
+        "Email": "Correo electrónico",
+        "Add email address": "Agregar correo electrónico",
+        "Best method for non-urgent questions": "Mejor medio para preguntas no urgentes",
+        "School phone": "Teléfono de la escuela",
+        "Add school phone": "Agregar teléfono de la escuela",
+        "Add school name": "Agregar nombre de la escuela",
+        "Classroom": "Salón",
+        "Add room number": "Agregar número de salón",
+        "Please arrange visits through the school office.": "Coordine las visitas a través de la oficina de la escuela.",
+        "6th Grade Mathematics ·": "Matemáticas de 6.º grado ·",
+        "Prepared for students and families by": "Preparado para estudiantes y familias por",
+        "More languages": "Más idiomas",
+        "Need another language?": "¿Necesita otro idioma?",
+        "Open your browser's menu and choose": "Abra el menú de su navegador y elija",
+        "Translate": "Traducir",
+        "to select another language. In Safari, use the translation button in the address bar.": "para seleccionar otro idioma. En Safari, use el botón de traducción de la barra de direcciones.",
+        "Got it": "Entendido"
+      },
+      vi: {
+        "Skip to main content": "Chuyển đến nội dung chính",
+        "🌐 Read this page in:": "🌐 Đọc trang này bằng:",
+        "Other…": "Ngôn ngữ khác…",
+        "· Mathematics": "· Toán học",
+        "Materials": "Dụng cụ",
+        "Learning": "Nội dung học",
+        "Expectations": "Kỳ vọng",
+        "Devices": "Thiết bị",
+        "Contact": "Liên hệ",
+        "2026–2027 Family Guide": "Cẩm nang gia đình 2026–2027",
+        "Welcome to": "Chào mừng đến với",
+        "6th Grade Math.": "Toán lớp 6.",
+        "Everything families need in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "Mọi thông tin gia đình cần đều ở một nơi: nội dung đang học, đồ dùng học sinh cần mang theo, cách truy cập tài liệu lớp và cách chúng ta cùng phối hợp.",
+        "Open Google Classroom →": "Mở Google Classroom →",
+        "View the syllabus": "Xem đề cương môn học",
+        "Print this guide": "In cẩm nang này",
+        "Before sharing: add your email, school information, Google Classroom URL, and syllabus URL in the": "Trước khi chia sẻ: hãy thêm email, thông tin trường, đường dẫn Google Classroom và đường dẫn đề cương vào mục",
+        "section near the bottom of this file.": "ở gần cuối tệp này.",
+        "Assignments & announcements": "Bài tập và thông báo",
+        "The central location for class materials, updates, and textbook access.": "Nơi chính để tìm tài liệu lớp, thông báo cập nhật và truy cập sách giáo khoa.",
+        "Course information": "Thông tin môn học",
+        "Course Syllabus →": "Đề cương môn học →",
+        "Read the complete course expectations, grading information, and routines.": "Xem đầy đủ kỳ vọng của môn học, thông tin chấm điểm và các nề nếp.",
+        "Questions or concerns": "Câu hỏi hoặc thắc mắc",
+        "Please reach out early so we can work together to support your student.": "Vui lòng liên hệ sớm để chúng ta cùng hỗ trợ học sinh.",
+        "01 · Be ready": "01 · Sẵn sàng",
+        "Materials for every class": "Dụng cụ cho mỗi buổi học",
+        "Students should arrive with these materials and have them visible and ready at the beginning of class.": "Học sinh cần mang theo những dụng cụ này và đặt sẵn trên bàn vào đầu giờ.",
+        "Bring these four essentials every day.": "Mang theo bốn vật dụng thiết yếu này mỗi ngày.",
+        "A simple, consistent setup helps us begin learning without losing instructional time.": "Việc chuẩn bị đơn giản và đều đặn giúp lớp bắt đầu học ngay mà không mất thời gian.",
+        "Math notebook": "Vở Toán",
+        "Pencils": "Bút chì",
+        "Pencil sharpener": "Gọt bút chì",
+        "Eraser": "Tẩy",
+        "Wooden-pencil reminder": "Nhắc nhở về bút chì gỗ",
+        "Bring a handheld sharpener and an eraser.": "Mang theo đồ gọt bút chì cầm tay và tẩy.",
+        "Students should not need to leave their seats or wait to borrow basic materials.": "Học sinh không nên phải rời chỗ hoặc chờ mượn những dụng cụ cơ bản.",
+        "02 · Course overview": "02 · Tổng quan môn học",
+        "What we will learn": "Nội dung chúng ta sẽ học",
+        "Our year moves from visual and geometric reasoning into proportional reasoning, number operations, algebra, coordinate geometry, and statistics. Select any unit to see its major topics.": "Trong năm học, chúng ta sẽ đi từ suy luận trực quan và hình học đến suy luận tỉ lệ, phép tính với số, đại số, hình học tọa độ và thống kê. Chọn một bài học để xem các chủ đề chính.",
+        "Area & Surface Area": "Diện tích và diện tích bề mặt",
+        "Decomposing and rearranging shapes": "Phân tách và sắp xếp lại các hình",
+        "Area of parallelograms, triangles, and polygons": "Diện tích hình bình hành, tam giác và đa giác",
+        "Polyhedra, nets, surface area, and volume": "Khối đa diện, hình khai triển, diện tích bề mặt và thể tích",
+        "Squares, cubes, and the designing-a-tent application": "Hình vuông, hình lập phương và bài toán thiết kế lều",
+        "Ratios": "Tỉ số",
+        "Ratio language and diagrams": "Ngôn ngữ và sơ đồ tỉ số",
+        "Equivalent ratios": "Các tỉ số tương đương",
+        "Double number lines and tables": "Trục số kép và bảng",
+        "Unit rates, constant speed, and ratio problems": "Tỉ lệ đơn vị, tốc độ không đổi và bài toán tỉ số",
+        "Rates & Percentages": "Tỉ lệ và phần trăm",
+        "Units of measurement and unit conversion": "Đơn vị đo và đổi đơn vị",
+        "Comparing speeds and prices": "So sánh tốc độ và giá cả",
+        "Interpreting and solving rate problems": "Giải thích và giải bài toán về tỉ lệ",
+        "Percentages, tape diagrams, and percent problems": "Phần trăm, sơ đồ đoạn thẳng và bài toán phần trăm",
+        "Fraction Division": "Phép chia phân số",
+        "Making sense of division situations": "Hiểu các tình huống phép chia",
+        "Meaning and diagrams of fraction division": "Ý nghĩa và sơ đồ của phép chia phân số",
+        "Fraction-division algorithms": "Thuật toán chia phân số",
+        "Fractional lengths, area, and volume": "Độ dài phân số, diện tích và thể tích",
+        "Decimal Operations": "Phép tính với số thập phân",
+        "Decimals in real-world contexts": "Số thập phân trong tình huống thực tế",
+        "Adding and subtracting decimals": "Cộng và trừ số thập phân",
+        "Multiplying decimals with diagrams and algorithms": "Nhân số thập phân bằng sơ đồ và thuật toán",
+        "Partial quotients, long division, and decimal division": "Thương từng phần, phép chia dài và chia số thập phân",
+        "Expressions & Equations": "Biểu thức và phương trình",
+        "Tape diagrams and one-variable equations": "Sơ đồ đoạn thẳng và phương trình một ẩn",
+        "Equality, equivalence, and balance": "Đẳng thức, tương đương và cân bằng",
+        "The distributive property": "Tính chất phân phối",
+        "Exponents, expressions, tables, equations, and graphs": "Số mũ, biểu thức, bảng, phương trình và đồ thị",
+        "Rational Numbers": "Số hữu tỉ",
+        "Positive and negative numbers": "Số dương và số âm",
+        "Absolute value and inequalities": "Giá trị tuyệt đối và bất đẳng thức",
+        "The coordinate plane and distance": "Mặt phẳng tọa độ và khoảng cách",
+        "Common factors and common multiples": "Ước chung và bội chung",
+        "Data & Statistics": "Dữ liệu và thống kê",
+        "Statistical questions and variability": "Câu hỏi thống kê và độ biến thiên",
+        "Dot plots and histograms": "Biểu đồ chấm và biểu đồ tần số",
+        "Mean, median, MAD, and IQR": "Trung bình, trung vị, MAD và IQR",
+        "Quartiles, box plots, and comparing distributions": "Tứ phân vị, biểu đồ hộp và so sánh phân phối",
+        "Applications & Connections": "Ứng dụng và kết nối",
+        "Fermi problems and estimation": "Bài toán Fermi và ước lượng",
+        "“If Our Class Were the World”": "“Nếu lớp chúng ta là cả thế giới”",
+        "Rectangle investigations": "Khám phá hình chữ nhật",
+        "Voting methods and choosing representatives": "Phương pháp bỏ phiếu và chọn đại diện",
+        "03 · Learning habits": "03 · Thói quen học tập",
+        "What I expect from students": "Những điều tôi mong đợi ở học sinh",
+        "Students do not need to know everything immediately. They do need to arrive prepared, participate, make an honest attempt, and help create a classroom where everyone can think and learn.": "Học sinh không cần biết mọi thứ ngay lập tức. Các em cần đến lớp với sự chuẩn bị, tham gia, cố gắng nghiêm túc và góp phần tạo nên một lớp học nơi mọi người đều có thể suy nghĩ và học tập.",
+        "During math class": "Trong giờ Toán",
+        "Arrive on time with all daily materials ready.": "Đến đúng giờ với đầy đủ dụng cụ học tập hằng ngày.",
+        "Attempt each problem and show mathematical thinking.": "Thử giải từng bài và thể hiện cách suy nghĩ toán học.",
+        "Explain ideas, listen to classmates, and ask questions.": "Giải thích ý tưởng, lắng nghe bạn học và đặt câu hỏi.",
+        "Use feedback to revise work and strengthen understanding.": "Dùng phản hồi để chỉnh sửa bài và hiểu sâu hơn.",
+        "Treat classmates, adults, materials, and learning time with respect.": "Tôn trọng bạn học, người lớn, đồ dùng và thời gian học tập.",
+        "How families can help": "Gia đình có thể hỗ trợ như thế nào",
+        "Check Google Classroom regularly for announcements and assignments.": "Kiểm tra Google Classroom thường xuyên để xem thông báo và bài tập.",
+        "Ask your student to explain a problem or strategy from their notebook.": "Yêu cầu học sinh giải thích một bài toán hoặc cách làm trong vở.",
+        "Help your student maintain the daily notebook-and-pencil routine.": "Giúp học sinh duy trì thói quen mang vở và bút chì mỗi ngày.",
+        "Encourage consistent practice, even when a problem feels challenging.": "Khuyến khích luyện tập đều đặn, ngay cả khi bài toán khó.",
+        "Contact me early when questions, circumstances, or concerns arise.": "Liên hệ với tôi sớm khi có câu hỏi, hoàn cảnh đặc biệt hoặc điều lo ngại.",
+        "04 · Class resources": "04 · Tài liệu lớp học",
+        "Textbook and syllabus": "Sách giáo khoa và đề cương",
+        "Course resources are organized through Google Classroom so students and families know where to look.": "Tài liệu môn học được sắp xếp trên Google Classroom để học sinh và gia đình biết nơi tìm kiếm.",
+        "Digital textbook access": "Truy cập sách giáo khoa điện tử",
+        "Because the textbook is copyrighted, it will not be posted on this public page. Students and families can access the textbook through": "Vì sách giáo khoa có bản quyền, sách sẽ không được đăng trên trang công khai này. Học sinh và gia đình có thể truy cập sách qua",
+        "using the student's school account.": "bằng tài khoản trường học của học sinh.",
+        "Course syllabus": "Đề cương môn học",
+        "The syllabus contains the complete course overview, learning expectations, grading information, classroom routines, and other important details.": "Đề cương bao gồm toàn bộ tổng quan môn học, kỳ vọng học tập, thông tin chấm điểm, nề nếp lớp và các chi tiết quan trọng khác.",
+        "Read the course syllabus →": "Đọc đề cương môn học →",
+        "05 · School-day focus": "05 · Tập trung trong ngày học",
+        "Cell phones and electronics": "Điện thoại và thiết bị điện tử",
+        "This procedure protects students' attention and supports a focused, respectful learning environment throughout the school day.": "Quy trình này giúp bảo vệ sự tập trung của học sinh và duy trì môi trường học tập tập trung, tôn trọng trong suốt ngày học.",
+        "Important family information": "Thông tin quan trọng dành cho gia đình",
+        "Cell phones are turned in and secured at the beginning of the school day.": "Điện thoại phải được nộp và cất giữ an toàn vào đầu ngày học.",
+        "Students must turn in their cell phones to their": "Học sinh phải nộp điện thoại cho",
+        "homeroom teacher": "giáo viên chủ nhiệm",
+        "during homeroom. Phones will be placed in secured, locked storage according to the school's procedure.": "trong giờ sinh hoạt chủ nhiệm. Điện thoại sẽ được cất trong nơi an toàn có khóa theo quy trình của trường.",
+        "If a student has a special circumstance requiring access to a device, it must be communicated in advance so that the parent or guardian, teachers, and appropriate school staff are aware.": "Nếu học sinh có hoàn cảnh đặc biệt cần sử dụng thiết bị, gia đình phải thông báo trước để phụ huynh hoặc người giám hộ, giáo viên và nhân viên nhà trường phù hợp đều biết.",
+        "Other personal electronic devices may not be used unless the school has specifically approved the device as an instructional or accessibility tool. Families who need to reach a student during the school day should use the school's approved communication process.": "Không được sử dụng các thiết bị điện tử cá nhân khác, trừ khi nhà trường phê duyệt thiết bị đó làm công cụ học tập hoặc hỗ trợ tiếp cận. Gia đình cần liên lạc với học sinh trong ngày học nên sử dụng quy trình liên lạc được nhà trường phê duyệt.",
+        "06 · Stay connected": "06 · Giữ liên lạc",
+        "Contact information": "Thông tin liên hệ",
+        "Questions are welcome. Clear, early communication helps us support students before a small concern becomes a larger one.": "Mọi câu hỏi đều được hoan nghênh. Trao đổi rõ ràng và sớm giúp chúng ta hỗ trợ học sinh trước khi một vấn đề nhỏ trở nên lớn hơn.",
+        "Teacher": "Giáo viên",
+        "6th Grade Mathematics": "Toán lớp 6",
+        "Email": "Email",
+        "Add email address": "Thêm địa chỉ email",
+        "Best method for non-urgent questions": "Cách tốt nhất cho câu hỏi không khẩn cấp",
+        "School phone": "Điện thoại trường",
+        "Add school phone": "Thêm số điện thoại trường",
+        "Add school name": "Thêm tên trường",
+        "Classroom": "Phòng học",
+        "Add room number": "Thêm số phòng",
+        "Please arrange visits through the school office.": "Vui lòng sắp xếp việc đến thăm qua văn phòng trường.",
+        "6th Grade Mathematics ·": "Toán lớp 6 ·",
+        "Prepared for students and families by": "Được chuẩn bị cho học sinh và gia đình bởi",
+        "More languages": "Ngôn ngữ khác",
+        "Need another language?": "Cần ngôn ngữ khác?",
+        "Open your browser's menu and choose": "Mở trình đơn của trình duyệt và chọn",
+        "Translate": "Dịch",
+        "to select another language. In Safari, use the translation button in the address bar.": "để chọn ngôn ngữ khác. Trên Safari, dùng nút dịch ở thanh địa chỉ.",
+        "Got it": "Đã hiểu"
+      },
+      zh: {
+        "Skip to main content": "跳到主要内容",
+        "🌐 Read this page in:": "🌐 选择阅读语言：",
+        "Other…": "其他…",
+        "· Mathematics": "· 数学",
+        "Materials": "学习用品",
+        "Learning": "学习内容",
+        "Expectations": "课堂要求",
+        "Devices": "电子设备",
+        "Contact": "联系方式",
+        "2026–2027 Family Guide": "2026–2027 学年家庭指南",
+        "Welcome to": "欢迎来到",
+        "6th Grade Math.": "六年级数学。",
+        "Everything families need in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "家长所需的信息尽在此处：我们将学习什么、学生需要携带什么、如何获取课堂资源，以及家校如何共同合作。",
+        "Open Google Classroom →": "打开 Google Classroom →",
+        "View the syllabus": "查看课程大纲",
+        "Print this guide": "打印本指南",
+        "Before sharing: add your email, school information, Google Classroom URL, and syllabus URL in the": "分享前：请在本文件底部附近的",
+        "section near the bottom of this file.": "部分填写电子邮箱、学校信息、Google Classroom 链接和课程大纲链接。",
+        "Assignments & announcements": "作业与通知",
+        "The central location for class materials, updates, and textbook access.": "获取课堂资料、最新通知和电子教材的主要位置。",
+        "Course information": "课程信息",
+        "Course Syllabus →": "课程大纲 →",
+        "Read the complete course expectations, grading information, and routines.": "查看完整的课程要求、评分信息和课堂常规。",
+        "Questions or concerns": "问题或疑虑",
+        "Please reach out early so we can work together to support your student.": "如有问题，请尽早联系，以便我们共同支持您的孩子。",
+        "01 · Be ready": "01 · 做好准备",
+        "Materials for every class": "每节课所需用品",
+        "Students should arrive with these materials and have them visible and ready at the beginning of class.": "学生应携带这些用品，并在上课开始时将它们摆放好。",
+        "Bring these four essentials every day.": "每天携带以下四项必需品。",
+        "A simple, consistent setup helps us begin learning without losing instructional time.": "简单而固定的准备习惯能帮助我们立即开始学习，不浪费课堂时间。",
+        "Math notebook": "数学笔记本",
+        "Pencils": "铅笔",
+        "Pencil sharpener": "卷笔刀",
+        "Eraser": "橡皮",
+        "Wooden-pencil reminder": "木铅笔提示",
+        "Bring a handheld sharpener and an eraser.": "请携带手持卷笔刀和橡皮。",
+        "Students should not need to leave their seats or wait to borrow basic materials.": "学生不应因借用基本用品而离开座位或等待。",
+        "02 · Course overview": "02 · 课程概览",
+        "What we will learn": "我们将学习什么",
+        "Our year moves from visual and geometric reasoning into proportional reasoning, number operations, algebra, coordinate geometry, and statistics. Select any unit to see its major topics.": "本学年将从直观与几何推理，逐步学习比例推理、数的运算、代数、坐标几何和统计。选择任一单元即可查看主要主题。",
+        "Area & Surface Area": "面积与表面积",
+        "Decomposing and rearranging shapes": "分解与重新排列图形",
+        "Area of parallelograms, triangles, and polygons": "平行四边形、三角形和多边形的面积",
+        "Polyhedra, nets, surface area, and volume": "多面体、展开图、表面积和体积",
+        "Squares, cubes, and the designing-a-tent application": "平方、立方及帐篷设计应用",
+        "Ratios": "比",
+        "Ratio language and diagrams": "比的语言与图示",
+        "Equivalent ratios": "等值比",
+        "Double number lines and tables": "双数轴与表格",
+        "Unit rates, constant speed, and ratio problems": "单位率、恒定速度和比的问题",
+        "Rates & Percentages": "率与百分比",
+        "Units of measurement and unit conversion": "测量单位与单位换算",
+        "Comparing speeds and prices": "比较速度与价格",
+        "Interpreting and solving rate problems": "理解并解决率的问题",
+        "Percentages, tape diagrams, and percent problems": "百分比、线段图和百分比问题",
+        "Fraction Division": "分数除法",
+        "Making sense of division situations": "理解除法情境",
+        "Meaning and diagrams of fraction division": "分数除法的意义与图示",
+        "Fraction-division algorithms": "分数除法算法",
+        "Fractional lengths, area, and volume": "分数长度、面积和体积",
+        "Decimal Operations": "小数运算",
+        "Decimals in real-world contexts": "实际情境中的小数",
+        "Adding and subtracting decimals": "小数加减法",
+        "Multiplying decimals with diagrams and algorithms": "用图示和算法进行小数乘法",
+        "Partial quotients, long division, and decimal division": "部分商、长除法和小数除法",
+        "Expressions & Equations": "代数式与方程",
+        "Tape diagrams and one-variable equations": "线段图和一元方程",
+        "Equality, equivalence, and balance": "相等、等价与平衡",
+        "The distributive property": "分配律",
+        "Exponents, expressions, tables, equations, and graphs": "指数、代数式、表格、方程和图像",
+        "Rational Numbers": "有理数",
+        "Positive and negative numbers": "正数与负数",
+        "Absolute value and inequalities": "绝对值与不等式",
+        "The coordinate plane and distance": "坐标平面与距离",
+        "Common factors and common multiples": "公因数与公倍数",
+        "Data & Statistics": "数据与统计",
+        "Statistical questions and variability": "统计问题与变异性",
+        "Dot plots and histograms": "点图与直方图",
+        "Mean, median, MAD, and IQR": "平均数、中位数、平均绝对偏差和四分位距",
+        "Quartiles, box plots, and comparing distributions": "四分位数、箱线图和分布比较",
+        "Applications & Connections": "应用与联系",
+        "Fermi problems and estimation": "费米问题与估算",
+        "“If Our Class Were the World”": "“如果我们的班级代表全世界”",
+        "Rectangle investigations": "长方形探究",
+        "Voting methods and choosing representatives": "投票方法与代表选举",
+        "03 · Learning habits": "03 · 学习习惯",
+        "What I expect from students": "我对学生的期望",
+        "Students do not need to know everything immediately. They do need to arrive prepared, participate, make an honest attempt, and help create a classroom where everyone can think and learn.": "学生不需要立刻掌握所有内容，但需要做好准备、积极参与、认真尝试，并共同营造一个人人都能思考和学习的课堂。",
+        "During math class": "数学课上",
+        "Arrive on time with all daily materials ready.": "准时到课并准备好每日所需用品。",
+        "Attempt each problem and show mathematical thinking.": "尝试每一道题，并展示数学思考过程。",
+        "Explain ideas, listen to classmates, and ask questions.": "解释自己的想法，倾听同学，并提出问题。",
+        "Use feedback to revise work and strengthen understanding.": "利用反馈修改作业并加深理解。",
+        "Treat classmates, adults, materials, and learning time with respect.": "尊重同学、成人、学习用品和课堂时间。",
+        "How families can help": "家庭可以如何提供帮助",
+        "Check Google Classroom regularly for announcements and assignments.": "定期查看 Google Classroom 中的通知和作业。",
+        "Ask your student to explain a problem or strategy from their notebook.": "请孩子讲解笔记本中的一道题或一种解题策略。",
+        "Help your student maintain the daily notebook-and-pencil routine.": "帮助孩子养成每天携带笔记本和铅笔的习惯。",
+        "Encourage consistent practice, even when a problem feels challenging.": "即使题目有难度，也要鼓励孩子坚持练习。",
+        "Contact me early when questions, circumstances, or concerns arise.": "如有问题、特殊情况或疑虑，请尽早与我联系。",
+        "04 · Class resources": "04 · 课堂资源",
+        "Textbook and syllabus": "教材与课程大纲",
+        "Course resources are organized through Google Classroom so students and families know where to look.": "课程资源统一放在 Google Classroom 中，方便学生和家长查找。",
+        "Digital textbook access": "电子教材访问",
+        "Because the textbook is copyrighted, it will not be posted on this public page. Students and families can access the textbook through": "由于教材受版权保护，不会发布在本公开网页上。学生和家长可通过",
+        "using the student's school account.": "并使用学生的学校账号访问教材。",
+        "Course syllabus": "课程大纲",
+        "The syllabus contains the complete course overview, learning expectations, grading information, classroom routines, and other important details.": "课程大纲包含完整的课程概述、学习要求、评分信息、课堂常规和其他重要内容。",
+        "Read the course syllabus →": "阅读课程大纲 →",
+        "05 · School-day focus": "05 · 专注校园学习",
+        "Cell phones and electronics": "手机和电子设备",
+        "This procedure protects students' attention and supports a focused, respectful learning environment throughout the school day.": "这一流程有助于保护学生的注意力，并在整个上学日营造专注、相互尊重的学习环境。",
+        "Important family information": "家庭须知",
+        "Cell phones are turned in and secured at the beginning of the school day.": "手机须在上学日开始时上交并妥善保管。",
+        "Students must turn in their cell phones to their": "学生必须在班会时间将手机交给",
+        "homeroom teacher": "班主任",
+        "during homeroom. Phones will be placed in secured, locked storage according to the school's procedure.": "。手机将按照学校流程存放在上锁的安全位置。",
+        "If a student has a special circumstance requiring access to a device, it must be communicated in advance so that the parent or guardian, teachers, and appropriate school staff are aware.": "如果学生因特殊情况需要使用设备，必须提前沟通，确保家长或监护人、教师及相关学校工作人员知情。",
+        "Other personal electronic devices may not be used unless the school has specifically approved the device as an instructional or accessibility tool. Families who need to reach a student during the school day should use the school's approved communication process.": "除非学校特别批准某设备作为教学或无障碍辅助工具，否则不得使用其他个人电子设备。家长如需在上学期间联系学生，应使用学校认可的沟通方式。",
+        "06 · Stay connected": "06 · 保持联系",
+        "Contact information": "联系信息",
+        "Questions are welcome. Clear, early communication helps us support students before a small concern becomes a larger one.": "欢迎提出问题。清晰、及时的沟通有助于我们尽早支持学生，避免小问题发展成大问题。",
+        "Teacher": "教师",
+        "6th Grade Mathematics": "六年级数学",
+        "Email": "电子邮箱",
+        "Add email address": "添加电子邮箱",
+        "Best method for non-urgent questions": "非紧急问题的最佳联系方式",
+        "School phone": "学校电话",
+        "Add school phone": "添加学校电话",
+        "Add school name": "添加学校名称",
+        "Classroom": "教室",
+        "Add room number": "添加教室号码",
+        "Please arrange visits through the school office.": "如需到访，请通过学校办公室安排。",
+        "6th Grade Mathematics ·": "六年级数学 ·",
+        "Prepared for students and families by": "为学生和家庭编制：",
+        "More languages": "更多语言",
+        "Need another language?": "需要其他语言？",
+        "Open your browser's menu and choose": "打开浏览器菜单并选择",
+        "Translate": "翻译",
+        "to select another language. In Safari, use the translation button in the address bar.": "以选择其他语言。在 Safari 中，请使用地址栏中的翻译按钮。",
+        "Got it": "知道了"
+      }
+    };
+
+    const DOCUMENT_TITLES = {
+      en: "6th Grade Math | Family Guide",
+      es: "Matemáticas de 6.º grado | Guía para familias",
+      vi: "Toán lớp 6 | Cẩm nang gia đình",
+      zh: "六年级数学 | 家庭指南"
+    };
+
+    const translationNodes = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+
+    while ((textNode = walker.nextNode())) {
+      const parentTag = textNode.parentElement ? textNode.parentElement.tagName : "";
+      if (parentTag === "SCRIPT" || parentTag === "STYLE") continue;
+
+      const rawText = textNode.nodeValue;
+      const englishText = rawText.replace(/\s+/g, " ").trim();
+      if (!englishText) continue;
+
+      translationNodes.push({
+        node: textNode,
+        englishText,
+        leadingSpace: (rawText.match(/^\s*/) || [""])[0],
+        trailingSpace: (rawText.match(/\s*$/) || [""])[0]
+      });
+    }
+
+    const languageButtons = Array.from(document.querySelectorAll(".language-option"));
+    const otherLanguageDialog = document.getElementById("other-language-dialog");
+    const closeLanguageDialog = document.getElementById("close-language-dialog");
+    let currentLanguage = "en";
+
+    function applyLanguage(language) {
+      const dictionary = TRANSLATIONS[language] || {};
+
+      translationNodes.forEach((item) => {
+        const translatedText = dictionary[item.englishText] || item.englishText;
+        item.node.nodeValue = item.leadingSpace + translatedText + item.trailingSpace;
+      });
+
+      currentLanguage = language;
+      document.documentElement.lang = language === "zh" ? "zh-Hans" : language;
+      document.title = DOCUMENT_TITLES[language] || DOCUMENT_TITLES.en;
+
+      languageButtons.forEach((button) => {
+        const isActive = button.dataset.language === language;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      try {
+        localStorage.setItem("familyGuideLanguage", language);
+      } catch (error) {
+        // The page still works when browser storage is unavailable.
+      }
+    }
+
+    languageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedLanguage = button.dataset.language;
+
+        if (selectedLanguage === "other") {
+          if (typeof otherLanguageDialog.showModal === "function") {
+            otherLanguageDialog.showModal();
+          } else {
+            alert("Use your browser's Translate feature to choose another language.");
+          }
+          return;
+        }
+
+        applyLanguage(selectedLanguage);
+      });
+    });
+
+    closeLanguageDialog.addEventListener("click", () => {
+      otherLanguageDialog.close();
+    });
+
+    let savedLanguage = "en";
+    try {
+      savedLanguage = localStorage.getItem("familyGuideLanguage") || "en";
+    } catch (error) {
+      savedLanguage = "en";
+    }
+
+    if (!["en", "es", "vi", "zh"].includes(savedLanguage)) {
+      savedLanguage = "en";
+    }
+    applyLanguage(savedLanguage);
+  </script>
+</body>
+</html>
