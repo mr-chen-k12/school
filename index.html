@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -355,6 +354,55 @@
       background: var(--warning-bg);
       box-shadow: var(--shadow);
       font-weight: 700;
+    }
+
+    .donation-request {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 1.4rem;
+      padding: clamp(1.25rem, 3vw, 2rem);
+      border: 1px solid #e4b140;
+      border-radius: var(--radius);
+      color: var(--navy);
+      background: linear-gradient(135deg, #fff7db, var(--gold));
+      box-shadow: var(--shadow);
+    }
+
+    .donation-icon {
+      display: grid;
+      place-items: center;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 1.3rem;
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 2rem;
+    }
+
+    .donation-request h2 {
+      margin: 0.15rem 0 0.45rem;
+      font-size: clamp(1.5rem, 3vw, 2.35rem);
+    }
+
+    .donation-request p {
+      margin: 0;
+      color: #3e4c59;
+      font-weight: 650;
+    }
+
+    .classroom-invite-note {
+      margin-top: 0.9rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid #b9d4f5;
+      border-radius: 0.9rem;
+      color: var(--navy);
+      background: var(--soft-blue);
+    }
+
+    .classroom-invite-note a {
+      color: var(--blue);
+      font-weight: 900;
     }
 
     section {
@@ -856,6 +904,10 @@
         grid-template-columns: 1fr;
       }
 
+      .donation-request {
+        grid-template-columns: 1fr;
+      }
+
       .footer-inner {
         flex-direction: column;
       }
@@ -904,6 +956,7 @@
       }
 
       .quick-links,
+      .donation-request,
       .materials-panel,
       .policy,
       .contact-card,
@@ -961,8 +1014,10 @@
       <p class="eyebrow">2026–2027 Family Guide</p>
       <h1>Welcome to<br>6th Grade Math.</h1>
       <p class="hero-lead">
-        Everything families need in one place: what we are learning, what students
-        should bring, how to access class resources, and how we can work together.
+        I am looking forward to teaching your child and working with you to ensure
+        that this upcoming school year is a success! Everything families need is
+        here in one place: what we are learning, what students should bring, how to
+        access class resources, and how we can work together.
       </p>
       <div class="hero-actions">
         <a class="button classroom-link" href="#" aria-disabled="true">Open Google Classroom →</a>
@@ -977,6 +1032,19 @@
       Before sharing: add your email, school information, Google Classroom URL,
       and syllabus URL in the <strong>PAGE_CONFIG</strong> section near the bottom of this file.
     </div>
+
+    <aside class="donation-request" aria-labelledby="donation-title">
+      <div class="donation-icon" aria-hidden="true">✏️</div>
+      <div>
+        <span class="section-number">Optional classroom donations</span>
+        <h2 id="donation-title">Help us stock Room 318</h2>
+        <p>
+          Mr. Chen is requesting donations of tissues, disinfecting wipes, and/or
+          pencils for the classroom. Students may bring donations to Room 318 and
+          place them on Mr. Chen's desk. Thank you for helping us stay ready to learn!
+        </p>
+      </div>
+    </aside>
 
     <section aria-label="Quick links">
       <div class="quick-links">
@@ -995,6 +1063,11 @@
           <span class="quick-title">Contact <span data-config="teacherName">Mr. Chen</span> →</span>
           <span class="quick-copy">Please reach out early so we can work together to support your student.</span>
         </a>
+      </div>
+      <div class="classroom-invite-note">
+        <strong>Family access:</strong>
+        Parents and guardians who would like a Google Classroom invitation can email me at
+        <a class="email-link" href="#" aria-disabled="true" data-config="teacherEmail">Add email address</a>.
       </div>
     </section>
 
@@ -1320,7 +1393,7 @@
         </article>
         <article class="contact-card">
           <span class="contact-label">School phone</span>
-          <span class="contact-value" data-config="schoolPhone">Add school phone</span>
+          <a class="contact-value phone-link" href="#" aria-disabled="true" data-config="schoolPhone">Add school phone</a>
           <span class="contact-note" data-config="schoolName">Add school name</span>
         </article>
         <article class="contact-card">
@@ -1360,13 +1433,13 @@
     */
     const PAGE_CONFIG = {
       teacherName: "Mr. Chen",
-      teacherEmail: "",
-      schoolName: "",
-      schoolPhone: "",
-      room: "",
+      teacherEmail: "ychen2@bostonpublicschools.org",
+      schoolName: "Murphy School",
+      schoolPhone: "(617) 635-8781",
+      room: "Room 318",
       schoolYear: "2026–2027",
-      googleClassroomUrl: "",
-      syllabusUrl: ""
+      googleClassroomUrl: "https://classroom.google.com/",
+      syllabusUrl: "Grade-6-Math-Syllabus.html"
     };
 
     function setText(key, value, fallback) {
@@ -1404,6 +1477,7 @@
     setLinks(".classroom-link", PAGE_CONFIG.googleClassroomUrl);
     setLinks(".syllabus-link", PAGE_CONFIG.syllabusUrl);
     setLinks(".email-link", PAGE_CONFIG.teacherEmail ? "mailto:" + PAGE_CONFIG.teacherEmail : "");
+    setLinks(".phone-link", PAGE_CONFIG.schoolPhone ? "tel:+16176358781" : "");
 
     const needsSetup = [
       PAGE_CONFIG.teacherEmail,
@@ -1435,6 +1509,12 @@
         "Welcome to": "Bienvenidos a",
         "6th Grade Math.": "Matemáticas de 6.º grado.",
         "Everything families need in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "Todo lo que las familias necesitan en un solo lugar: qué estamos aprendiendo, qué deben traer los estudiantes, cómo acceder a los recursos de la clase y cómo podemos colaborar.",
+        "I am looking forward to teaching your child and working with you to ensure that this upcoming school year is a success! Everything families need is here in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "¡Estoy deseando enseñar a su hijo/a y colaborar con usted para asegurar que este próximo año escolar sea un éxito! Aquí encontrará todo lo que las familias necesitan: qué estamos aprendiendo, qué deben traer los estudiantes, cómo acceder a los recursos de la clase y cómo podemos colaborar.",
+        "Optional classroom donations": "Donaciones opcionales para el salón",
+        "Help us stock Room 318": "Ayúdenos a abastecer el salón 318",
+        "Mr. Chen is requesting donations of tissues, disinfecting wipes, and/or pencils for the classroom. Students may bring donations to Room 318 and place them on Mr. Chen's desk. Thank you for helping us stay ready to learn!": "El Sr. Chen solicita donaciones de pañuelos desechables, toallitas desinfectantes y/o lápices para el salón. Los estudiantes pueden llevar las donaciones al salón 318 y colocarlas sobre el escritorio del Sr. Chen. ¡Gracias por ayudarnos a estar listos para aprender!",
+        "Family access:": "Acceso para las familias:",
+        "Parents and guardians who would like a Google Classroom invitation can email me at": "Los padres y tutores que deseen recibir una invitación a Google Classroom pueden enviarme un correo electrónico a",
         "Open Google Classroom →": "Abrir Google Classroom →",
         "View the syllabus": "Ver el programa del curso",
         "Print this guide": "Imprimir esta guía",
@@ -1578,6 +1658,12 @@
         "Welcome to": "Chào mừng đến với",
         "6th Grade Math.": "Toán lớp 6.",
         "Everything families need in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "Mọi thông tin gia đình cần đều ở một nơi: nội dung đang học, đồ dùng học sinh cần mang theo, cách truy cập tài liệu lớp và cách chúng ta cùng phối hợp.",
+        "I am looking forward to teaching your child and working with you to ensure that this upcoming school year is a success! Everything families need is here in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "Tôi rất mong được dạy con em quý vị và phối hợp với quý vị để bảo đảm năm học sắp tới thành công! Mọi thông tin gia đình cần đều có tại đây: nội dung đang học, đồ dùng học sinh cần mang theo, cách truy cập tài liệu lớp và cách chúng ta cùng phối hợp.",
+        "Optional classroom donations": "Đóng góp tùy nguyện cho lớp học",
+        "Help us stock Room 318": "Giúp phòng 318 có đủ đồ dùng",
+        "Mr. Chen is requesting donations of tissues, disinfecting wipes, and/or pencils for the classroom. Students may bring donations to Room 318 and place them on Mr. Chen's desk. Thank you for helping us stay ready to learn!": "Thầy Chen xin nhận khăn giấy, khăn lau khử trùng và/hoặc bút chì để dùng trong lớp. Học sinh có thể mang đồ đóng góp đến phòng 318 và đặt trên bàn của thầy Chen. Cảm ơn quý vị đã giúp lớp luôn sẵn sàng học tập!",
+        "Family access:": "Quyền truy cập dành cho gia đình:",
+        "Parents and guardians who would like a Google Classroom invitation can email me at": "Phụ huynh hoặc người giám hộ muốn nhận lời mời vào Google Classroom có thể gửi email cho tôi tại",
         "Open Google Classroom →": "Mở Google Classroom →",
         "View the syllabus": "Xem đề cương môn học",
         "Print this guide": "In cẩm nang này",
@@ -1721,6 +1807,12 @@
         "Welcome to": "欢迎来到",
         "6th Grade Math.": "六年级数学。",
         "Everything families need in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "家长所需的信息尽在此处：我们将学习什么、学生需要携带什么、如何获取课堂资源，以及家校如何共同合作。",
+        "I am looking forward to teaching your child and working with you to ensure that this upcoming school year is a success! Everything families need is here in one place: what we are learning, what students should bring, how to access class resources, and how we can work together.": "我期待教您的孩子，并与您共同努力，确保新学年取得成功！家长所需的信息都在这里：我们将学习什么、学生需要携带什么、如何获取课堂资源，以及家校如何共同合作。",
+        "Optional classroom donations": "自愿捐赠课堂用品",
+        "Help us stock Room 318": "帮助318教室补充用品",
+        "Mr. Chen is requesting donations of tissues, disinfecting wipes, and/or pencils for the classroom. Students may bring donations to Room 318 and place them on Mr. Chen's desk. Thank you for helping us stay ready to learn!": "陈老师诚请家长为教室捐赠纸巾、消毒湿巾和/或铅笔。学生可以把捐赠物品带到318教室，并放在陈老师的桌上。感谢您帮助我们随时做好学习准备！",
+        "Family access:": "家长访问：",
+        "Parents and guardians who would like a Google Classroom invitation can email me at": "希望收到 Google Classroom 邀请的家长或监护人可发送电子邮件至",
         "Open Google Classroom →": "打开 Google Classroom →",
         "View the syllabus": "查看课程大纲",
         "Print this guide": "打印本指南",
