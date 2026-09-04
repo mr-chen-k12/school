@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Grade 6 mathematics course syllabus, routines, expectations, grading, and family acknowledgment.">
+  <title>Grade 6 Mathematics | Course Syllabus</title>
+  <style>
+    :root {
+      --navy: #102a43;
+      --blue: #2166d1;
+      --teal: #087f73;
+      --gold: #f2b84b;
+      --ink: #17212b;
+      --muted: #536271;
+      --paper: #ffffff;
+      --bg: #f3f7fb;
+      --line: #d9e2ec;
+      --soft-blue: #eaf3ff;
+      --soft-teal: #e7f7f3;
+      --soft-gold: #fff5d6;
+      --radius: 20px;
+      --shadow: 0 16px 40px rgba(16, 42, 67, 0.11);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 5% 2%, rgba(242, 184, 75, 0.22), transparent 26rem),
+        radial-gradient(circle at 95% 7%, rgba(33, 102, 209, 0.14), transparent 32rem),
+        var(--bg);
+      font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.62;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .print-sheet {
+      display: none;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: -5rem;
+      left: 1rem;
+      z-index: 1000;
+      padding: 0.7rem 1rem;
+      border-radius: 0.6rem;
+      color: white;
+      background: var(--navy);
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 1.2rem clamp(1rem, 4vw, 4rem) 5.5rem;
+      color: white;
+      background: linear-gradient(132deg, #102a43 0%, #173f5f 58%, #087f73 100%);
+    }
+
+    .hero::before {
+      position: absolute;
+      right: -8rem;
+      top: -12rem;
+      width: 27rem;
+      height: 27rem;
+      border: 3rem solid rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .topbar,
+    .language-list,
+    .hero-inner,
+    main,
+    .footer-inner {
+      width: min(1120px, 100%);
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 900;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.9rem;
+      color: var(--navy);
+      background: var(--gold);
+      font-size: 1.2rem;
+      font-weight: 950;
+    }
+
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.45rem;
+    }
+
+    .top-links a,
+    .top-links button {
+      padding: 0.48rem 0.72rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 99px;
+      color: white;
+      background: rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .language-list {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+      padding: 0.48rem 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-list-label {
+      padding: 0.2rem 0.4rem;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .language-option {
+      padding: 0.42rem 0.72rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 99px;
+      color: white;
+      background: rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 850;
+    }
+
+    .language-option:hover,
+    .language-option:focus-visible {
+      background: rgba(255, 255, 255, 0.17);
+      outline: none;
+    }
+
+    .language-option.active,
+    .language-option[aria-pressed="true"] {
+      border-color: var(--gold);
+      color: var(--navy);
+      background: var(--gold);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      padding-top: clamp(3.5rem, 8vw, 6rem);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 0.9rem;
+      padding: 0.4rem 0.78rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 99px;
+      color: #fff5d6;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(2.7rem, 7vw, 5.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 1.35rem 0 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    main {
+      position: relative;
+      z-index: 3;
+      margin-top: -2rem;
+      padding: 0 clamp(0.8rem, 3vw, 2rem) 5rem;
+    }
+
+    .setup-notice {
+      margin-bottom: 1.25rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid #edc46a;
+      border-radius: 0.9rem;
+      color: #7a4608;
+      background: var(--soft-gold);
+      box-shadow: var(--shadow);
+      font-weight: 700;
+    }
+
+    .grading-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .grade-stat {
+      padding: 1.45rem;
+    }
+
+    .grade-stat + .grade-stat {
+      border-left: 1px solid var(--line);
+    }
+
+    .grade-number {
+      display: block;
+      color: var(--teal);
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .grade-label {
+      display: block;
+      margin-top: 0.45rem;
+      color: var(--navy);
+      font-weight: 900;
+    }
+
+    .grade-note {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    section {
+      scroll-margin-top: 1rem;
+      margin-top: clamp(3.5rem, 7vw, 5.3rem);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(280px, 1fr);
+      align-items: end;
+      gap: 2rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .section-kicker {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--teal);
+      font-size: 0.76rem;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.07;
+      letter-spacing: -0.04em;
+    }
+
+    .section-intro {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .purpose {
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border-radius: var(--radius);
+      color: white;
+      background: linear-gradient(140deg, var(--navy), #214d70);
+      box-shadow: var(--shadow);
+    }
+
+    .purpose blockquote {
+      max-width: 930px;
+      margin: 0;
+      color: white;
+      font-size: clamp(1.45rem, 3.5vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1.22;
+      letter-spacing: -0.025em;
+    }
+
+    .purpose p {
+      max-width: 880px;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .routine {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .routine-card {
+      position: relative;
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: 0 10px 28px rgba(16, 42, 67, 0.08);
+    }
+
+    .routine-card.featured {
+      color: white;
+      background: var(--teal);
+    }
+
+    .routine-number {
+      display: grid;
+      place-items: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 0.75rem;
+      color: var(--teal);
+      background: var(--soft-teal);
+      font-weight: 950;
+    }
+
+    .routine-card.featured .routine-number {
+      color: var(--navy);
+      background: var(--gold);
+    }
+
+    .routine-card h3 {
+      margin: 1rem 0 0.45rem;
+      color: var(--navy);
+      font-size: 1.35rem;
+      line-height: 1.15;
+    }
+
+    .routine-card.featured h3 {
+      color: white;
+    }
+
+    .routine-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .routine-card.featured p {
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .flow-label {
+      display: inline-block;
+      margin-top: 0.7rem;
+      padding: 0.3rem 0.58rem;
+      border-radius: 99px;
+      color: var(--blue);
+      background: var(--soft-blue);
+      font-size: 0.76rem;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .routine-card.featured .flow-label {
+      color: var(--navy);
+      background: var(--gold);
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+
+    .card {
+      padding: clamp(1.35rem, 3vw, 2.1rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: 0 10px 28px rgba(16, 42, 67, 0.08);
+    }
+
+    .card.accent {
+      border-color: #b8e3dc;
+      background: linear-gradient(145deg, white, var(--soft-teal));
+    }
+
+    .card h3 {
+      margin: 0 0 0.7rem;
+      color: var(--navy);
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .check-list,
+    .topic-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      position: relative;
+      padding-left: 1.7rem;
+    }
+
+    .check-list li + li {
+      margin-top: 0.72rem;
+    }
+
+    .check-list li::before {
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      content: "✓";
+      font-weight: 950;
+    }
+
+    .topics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .topics li {
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      color: var(--navy);
+      background: white;
+      font-weight: 850;
+      box-shadow: 0 6px 18px rgba(16, 42, 67, 0.06);
+    }
+
+    .topics strong {
+      display: block;
+      color: var(--teal);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .grading {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      overflow: hidden;
+      border-radius: var(--radius);
+      color: white;
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .grading-chart {
+      display: grid;
+      grid-template-columns: 20% 80%;
+      min-height: 255px;
+    }
+
+    .grading-chart > div {
+      display: grid;
+      place-items: end center;
+      padding: 1rem 0.35rem;
+      text-align: center;
+      font-weight: 950;
+    }
+
+    .assessment-bar {
+      color: var(--navy);
+      background: var(--gold);
+    }
+
+    .practice-bar {
+      color: white;
+      background: var(--teal);
+    }
+
+    .grading-copy {
+      padding: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    .grading-copy h3 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(1.55rem, 3vw, 2.3rem);
+      line-height: 1.15;
+    }
+
+    .grading-copy p {
+      color: rgba(255, 255, 255, 0.84);
+    }
+
+    .retake-note {
+      margin-top: 1.1rem;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .policy {
+      padding: clamp(1.4rem, 4vw, 2.5rem);
+      border-left: 7px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .policy h3 {
+      margin: 0 0 0.6rem;
+      color: var(--navy);
+      font-size: 1.5rem;
+    }
+
+    .support-callout {
+      padding: clamp(1.5rem, 4vw, 2.8rem);
+      border-radius: var(--radius);
+      color: var(--navy);
+      background: var(--gold);
+      box-shadow: var(--shadow);
+    }
+
+    .support-callout h3 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+      line-height: 1.1;
+    }
+
+    .support-callout p {
+      max-width: 900px;
+      margin-bottom: 0;
+      color: #3e4c59;
+      font-weight: 650;
+    }
+
+    .signature-box {
+      padding: clamp(1.4rem, 4vw, 2.5rem);
+      border: 2px solid var(--navy);
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    .signature-box h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.55rem;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.45fr;
+      gap: 1.6rem 1rem;
+      margin-top: 2.2rem;
+    }
+
+    .signature-line {
+      min-height: 2.2rem;
+      border-bottom: 1.5px solid var(--ink);
+    }
+
+    .signature-label {
+      display: block;
+      margin-top: 0.32rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 750;
+    }
+
+    dialog {
+      width: min(520px, calc(100% - 2rem));
+      padding: 1.6rem;
+      border: 0;
+      border-radius: 1.2rem;
+      box-shadow: 0 30px 80px rgba(16, 42, 67, 0.35);
+    }
+
+    dialog::backdrop {
+      background: rgba(16, 42, 67, 0.68);
+      backdrop-filter: blur(4px);
+    }
+
+    dialog h2 {
+      font-size: 1.8rem;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 0.8rem;
+      padding: 0.7rem 1rem;
+      border: 0;
+      border-radius: 0.75rem;
+      color: var(--navy);
+      background: var(--gold);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .disabled,
+    [aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    footer {
+      padding: 2rem clamp(1rem, 4vw, 4rem);
+      color: rgba(255, 255, 255, 0.78);
+      background: var(--navy);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 820px) {
+      .grading-strip,
+      .routine,
+      .topics,
+      .two-column,
+      .section-heading,
+      .grading {
+        grid-template-columns: 1fr;
+      }
+
+      .grade-stat + .grade-stat {
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .section-heading {
+        align-items: start;
+        gap: 0.8rem;
+      }
+
+      .grading-chart {
+        min-height: 150px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .top-links {
+        display: none;
+      }
+
+      .language-list-label {
+        width: 100%;
+      }
+
+      .language-option {
+        flex: 1 1 auto;
+      }
+
+      .signature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @page {
+      size: Letter portrait;
+      margin: 0.28in;
+    }
+
+    @media print {
+      html,
+      body {
+        width: auto;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+        color: #111827;
+        background: white;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 7.8pt;
+        line-height: 1.18;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      html[lang="es"] body,
+      html[lang="vi"] body {
+        font-size: 7.35pt;
+      }
+
+      .skip-link,
+      .hero,
+      main,
+      dialog,
+      footer {
+        display: none !important;
+      }
+
+      .print-sheet {
+        display: block !important;
+        width: 100%;
+        margin: 0;
+      }
+
+      .print-sheet * {
+        box-shadow: none !important;
+      }
+
+      .print-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 0.18in;
+        padding: 0.08in 0.12in;
+        border: 1.4pt solid #102a43;
+        border-radius: 0.08in;
+        background: #eef5fb;
+      }
+
+      .print-kicker {
+        margin: 0 0 0.01in;
+        color: #2166d1;
+        font-size: 6.7pt;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .print-header h1 {
+        margin: 0;
+        color: #102a43;
+        font-size: 18pt;
+        line-height: 1;
+      }
+
+      .print-contact {
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .print-contact strong {
+        color: #102a43;
+        font-size: 9pt;
+      }
+
+      .print-summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.06in;
+        margin: 0.07in 0;
+      }
+
+      .print-stat {
+        padding: 0.045in 0.06in;
+        border: 0.8pt solid #94a3b8;
+        border-radius: 0.055in;
+        text-align: center;
+      }
+
+      .print-stat strong {
+        display: inline-block;
+        margin-right: 0.035in;
+        color: #102a43;
+        font-size: 10pt;
+      }
+
+      .print-columns {
+        display: table;
+        width: calc(100% + 0.065in);
+        margin-left: -0.0325in;
+        margin-top: 0.065in;
+        border-collapse: separate;
+        border-spacing: 0.0325in 0;
+        table-layout: fixed;
+      }
+
+      .print-column {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+      }
+
+      .print-column .print-card + .print-card {
+        margin-top: 0.065in;
+      }
+
+      .print-card {
+        margin: 0;
+        padding: 0.065in 0.075in;
+        border: 0.75pt solid #a8b3bf;
+        border-radius: 0.055in;
+        break-inside: avoid;
+      }
+
+      .print-card h2 {
+        margin: 0 0 0.025in;
+        padding-bottom: 0.018in;
+        border-bottom: 0.65pt solid #d4dce5;
+        color: #102a43;
+        font-size: 8.5pt;
+        line-height: 1.05;
+      }
+
+      .print-card p {
+        margin: 0.025in 0 0;
+      }
+
+      .print-card ul,
+      .print-card ol {
+        margin: 0.025in 0 0;
+        padding-left: 0.17in;
+      }
+
+      .print-card li {
+        margin: 0.008in 0;
+      }
+
+      .print-wide {
+        margin: 0.065in 0 0;
+      }
+
+      .print-topics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 0.12in;
+        row-gap: 0.01in;
+        list-style-position: inside;
+        padding-left: 0 !important;
+      }
+
+      .print-topics strong {
+        margin-right: 0.035in;
+      }
+
+      .print-resources {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.035in 0.1in;
+        margin-top: 0.035in;
+      }
+
+      .print-sheet a {
+        color: #0645ad;
+        font-weight: 700;
+        text-decoration: underline;
+      }
+
+      .print-signatures {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr 1.3fr 0.7fr;
+        gap: 0.08in;
+        margin-top: 0.055in;
+      }
+
+      .print-signature-line {
+        min-height: 0.19in;
+        border-bottom: 0.7pt solid #334155;
+      }
+
+      .print-signature-label {
+        display: block;
+        margin-top: 0.015in;
+        color: #475569;
+        font-size: 6.2pt;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="hero">
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">6</span>
+        <span><span data-config="teacherName">Mr. Chen</span> · Mathematics</span>
+      </div>
+      <div class="top-links">
+        <a href="Grade-6-Math-Family-Guide.html">Family Guide</a>
+        <a class="email-link" href="#" aria-disabled="true">Contact teacher</a>
+        <a class="deltamath-link" href="https://www.deltamath.com/" target="_blank" rel="noopener">DeltaMath</a>
+        <a class="classroom-link" href="https://classroom.google.com/" target="_blank" rel="noopener">Google Classroom</a>
+        <button type="button" onclick="window.print()">Print</button>
+      </div>
+    </div>
+
+    <div class="language-list" aria-label="Choose a language">
+      <span class="language-list-label">🌐 Read this syllabus in:</span>
+      <button class="language-option active" type="button" data-language="en" aria-pressed="true">English</button>
+      <button class="language-option" type="button" data-language="es" aria-pressed="false">Español</button>
+      <button class="language-option" type="button" data-language="vi" aria-pressed="false">Tiếng Việt</button>
+      <button class="language-option" type="button" data-language="zh" aria-pressed="false">中文</button>
+      <button class="language-option" type="button" data-language="other" aria-pressed="false">Other…</button>
+    </div>
+
+    <div class="hero-inner">
+      <span class="eyebrow">2026–2027 Course Syllabus</span>
+      <h1>Grade 6<br>Mathematics</h1>
+      <p class="hero-copy">
+        A course built around practice, productive struggle, mathematical discussion,
+        and the belief that students can improve through effort, support, and another try.
+      </p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="setup-notice" id="setup-notice">
+      Before sharing: add the teacher email and Google Classroom link in the
+      <strong>PAGE_CONFIG</strong> section near the bottom of this file.
+    </div>
+
+    <div class="grading-strip" aria-label="Grading summary">
+      <div class="grade-stat">
+        <span class="grade-number">20%</span>
+        <span class="grade-label">Assessments</span>
+        <span class="grade-note">Tests and other demonstrations of learning</span>
+      </div>
+      <div class="grade-stat">
+        <span class="grade-number">80%</span>
+        <span class="grade-label">Classwork &amp; Homework</span>
+        <span class="grade-note">Daily practice, participation, notebooks, and DeltaMath</span>
+      </div>
+      <div class="grade-stat">
+        <span class="grade-number">↻</span>
+        <span class="grade-label">Retakes Available</span>
+        <span class="grade-note">Students may retake tests to earn a higher grade</span>
+      </div>
+    </div>
+
+    <section id="purpose">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">01 · Why we practice</span>
+          <h2>Learning mathematics</h2>
+        </div>
+        <p class="section-intro">
+          The goal is not to get every answer immediately. The goal is to build
+          understanding by thinking, trying, discussing, revising, and trying again.
+        </p>
+      </div>
+
+      <div class="purpose">
+        <blockquote>“Struggling with a problem is not failing—it is part of learning mathematics.”</blockquote>
+        <p>
+          Students are expected to make a genuine attempt before checking an answer.
+          Afterward, they should compare, ask questions, and use the answer or feedback
+          to understand what worked and what needs to change.
+        </p>
+      </div>
+    </section>
+
+    <section id="routine">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">02 · Our daily routine</span>
+          <h2>How class usually works</h2>
+        </div>
+        <p class="section-intro">
+          A predictable routine helps students begin independently, learn from a partner,
+          and then connect their ideas during a whole-class conversation.
+        </p>
+      </div>
+
+      <div class="routine">
+        <article class="routine-card">
+          <span class="routine-number">1</span>
+          <span class="flow-label">Enter &amp; begin</span>
+          <h3>DeltaMath warm-up</h3>
+          <p>Students begin DeltaMath with paper and pencil visible and ready to show their work.</p>
+        </article>
+        <article class="routine-card">
+          <span class="routine-number">2</span>
+          <span class="flow-label">Prepare</span>
+          <h3>Notebook or IM workbook</h3>
+          <p>After the warm-up, students open their notebook or retrieve the IM Math workbook from its classroom location.</p>
+        </article>
+        <article class="routine-card featured">
+          <span class="routine-number">3</span>
+          <span class="flow-label">You</span>
+          <h3>Think independently</h3>
+          <p>Each student first reads, attempts, and records the problem independently.</p>
+        </article>
+        <article class="routine-card featured">
+          <span class="routine-number">4</span>
+          <span class="flow-label">You All</span>
+          <h3>Discuss with an elbow partner</h3>
+          <p>Partners compare strategies, explain their reasoning, ask questions, and make revisions.</p>
+        </article>
+        <article class="routine-card featured">
+          <span class="routine-number">5</span>
+          <span class="flow-label">We</span>
+          <h3>Build understanding together</h3>
+          <p>The whole class discusses the problem while Mr. Chen writes live on an iPad and displays the thinking on the classroom TV.</p>
+        </article>
+        <article class="routine-card">
+          <span class="routine-number">6</span>
+          <span class="flow-label">Record &amp; reflect</span>
+          <h3>Write, question, and revise</h3>
+          <p>Students record the displayed mathematics in their workbook, ask questions, and revise their work as understanding grows.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="expectations">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">03 · Student expectations</span>
+          <h2>What successful participation looks like</h2>
+        </div>
+        <p class="section-intro">
+          Students should expect to be challenged. They are not expected to understand
+          everything on the first try, but they are expected to participate in the process.
+        </p>
+      </div>
+
+      <div class="two-column">
+        <article class="card accent">
+          <h3>Students will</h3>
+          <ul class="check-list">
+            <li>Arrive on time with materials ready.</li>
+            <li>Attempt problems before checking an answer.</li>
+            <li>Write mathematical work and explain their reasoning.</li>
+            <li>Discuss ideas respectfully with an elbow partner and the class.</li>
+            <li>Ask questions and communicate when they do not understand yet.</li>
+            <li>Use feedback and additional practice to improve.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Bring every day</h3>
+          <ul class="check-list">
+            <li>A dedicated mathematics notebook</li>
+            <li>Pencils</li>
+            <li>Paper for showing work</li>
+            <li>A handheld sharpener and eraser when using wooden pencils</li>
+          </ul>
+          <p><strong>These materials should be visible and ready at the beginning of class.</strong></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="topics">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">04 · Course content</span>
+          <h2>What we will study</h2>
+        </div>
+        <p class="section-intro">
+          Grade 6 mathematics connects visual models, numerical reasoning,
+          algebraic thinking, real-world applications, and mathematical communication.
+        </p>
+      </div>
+
+      <ol class="topics">
+        <li><strong>Unit 1</strong>Area and Surface Area</li>
+        <li><strong>Unit 2</strong>Ratios</li>
+        <li><strong>Unit 3</strong>Rates and Percentages</li>
+        <li><strong>Unit 4</strong>Fraction Division</li>
+        <li><strong>Unit 5</strong>Decimal Operations</li>
+        <li><strong>Unit 6</strong>Expressions and Equations</li>
+        <li><strong>Unit 7</strong>Rational Numbers and the Coordinate Plane</li>
+        <li><strong>Unit 8</strong>Data and Statistics</li>
+        <li><strong>Unit 9</strong>Applications, Connections, and Voting</li>
+      </ol>
+    </section>
+
+    <section id="grading">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">05 · Grading</span>
+          <h2>Practice matters most</h2>
+        </div>
+        <p class="section-intro">
+          The grade is weighted to emphasize the daily work through which students
+          develop mathematical understanding and learning habits.
+        </p>
+      </div>
+
+      <div class="grading">
+        <div class="grading-chart" aria-hidden="true">
+          <div class="assessment-bar">20%</div>
+          <div class="practice-bar">80%</div>
+        </div>
+        <div class="grading-copy">
+          <h3>20% assessments · 80% classwork and homework</h3>
+          <p>
+            Assessments include tests and other opportunities to demonstrate learning.
+            Classwork and homework include daily mathematical practice, written work,
+            participation, notebooks or workbooks, and DeltaMath.
+          </p>
+          <div class="retake-note">
+            <strong>Tests may be retaken for a higher grade.</strong>
+            Retakes are intended to motivate students to keep learning after mistakes
+            and to demonstrate stronger understanding after additional practice.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="homework">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">06 · Practice outside class</span>
+          <h2>Homework and course resources</h2>
+        </div>
+        <p class="section-intro">
+          Assignments and resources are organized online so students and families
+          have one consistent place to look.
+        </p>
+      </div>
+
+      <div class="two-column">
+        <article class="card accent">
+          <h3>DeltaMath homework</h3>
+          <p>
+            Homework will be assigned through DeltaMath. Students should use paper and
+            pencil to show their thinking rather than only entering answers on the screen.
+          </p>
+          <a class="button deltamath-link" href="https://www.deltamath.com/" target="_blank" rel="noopener">Open DeltaMath →</a>
+        </article>
+        <article class="card">
+          <h3>Google Classroom and textbook</h3>
+          <p>
+            Google Classroom contains announcements, links, and class resources.
+            Because the IM Math textbook is copyrighted, digital access is provided
+            through Google Classroom using the student's school account.
+          </p>
+          <a class="button classroom-link" href="https://classroom.google.com/" target="_blank" rel="noopener">Open Google Classroom →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="support">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">07 · Getting help</span>
+          <h2>It is okay not to understand—yet</h2>
+        </div>
+        <p class="section-intro">
+          Students should let Mr. Chen know when they are stuck. Asking for help is
+          an important part of becoming an independent learner.
+        </p>
+      </div>
+
+      <div class="support-callout">
+        <h3>Challenge is expected. Silence is not required.</h3>
+        <p>
+          Mr. Chen will look for another pathway when a student needs more support.
+          This may include a smaller set of problems, another model or explanation,
+          guided practice, additional time, or support from a classmate.
+        </p>
+      </div>
+    </section>
+
+    <section id="devices">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">08 · Phones and electronics</span>
+          <h2>Protecting learning time</h2>
+        </div>
+        <p class="section-intro">
+          The school-day device routine supports focus, safety, and a respectful
+          learning environment.
+        </p>
+      </div>
+
+      <div class="policy">
+        <h3>Cell phones are turned in during homeroom.</h3>
+        <p>
+          Students must turn in their cell phones to their homeroom teacher at the
+          beginning of the school day. Phones are placed in secured, locked storage
+          according to the school's procedure.
+        </p>
+        <p>
+          A special circumstance requiring device access must be communicated in
+          advance so the parent or guardian, teachers, and appropriate school staff
+          are aware. Other personal electronic devices may not be used unless the
+          school has specifically approved the device as an instructional or
+          accessibility tool.
+        </p>
+      </div>
+    </section>
+
+    <section id="acknowledgment">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">09 · Family acknowledgment</span>
+          <h2>Please review, sign, and return</h2>
+        </div>
+        <p class="section-intro">
+          Signing confirms that the student and family reviewed the course routines,
+          expectations, grading, retakes, homework, materials, and device procedure.
+        </p>
+      </div>
+
+      <div class="signature-box">
+        <h3>Student and family acknowledgment</h3>
+        <p>
+          We have reviewed this syllabus and know that questions are welcome.
+          We understand that ongoing communication will help support the student's learning.
+        </p>
+        <div class="signature-grid">
+          <div><div class="signature-line"></div><span class="signature-label">Student name</span></div>
+          <div><div class="signature-line"></div><span class="signature-label">Class/section</span></div>
+          <div><div class="signature-line"></div><span class="signature-label">Student signature</span></div>
+          <div><div class="signature-line"></div><span class="signature-label">Date</span></div>
+          <div><div class="signature-line"></div><span class="signature-label">Parent/guardian signature</span></div>
+          <div><div class="signature-line"></div><span class="signature-label">Date</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="print-sheet" aria-label="Printable course syllabus">
+    <div class="print-header">
+      <div>
+        <p class="print-kicker">2026–2027 Course Syllabus</p>
+        <h1>Grade 6 Mathematics</h1>
+      </div>
+      <div class="print-contact">
+        <strong data-config="teacherName">Mr. Chen</strong><br>
+        <a class="email-link" href="mailto:ychen2@bostonpublicschools.org">ychen2@bostonpublicschools.org</a>
+      </div>
+    </div>
+
+    <div class="print-summary" aria-label="Grading summary">
+      <div class="print-stat"><strong>20%</strong> Assessments</div>
+      <div class="print-stat"><strong>80%</strong> Classwork &amp; Homework</div>
+      <div class="print-stat"><strong>↻</strong> Retakes Available</div>
+    </div>
+
+    <article class="print-card">
+      <h2>What we will study</h2>
+      <ol class="print-topics">
+        <li><strong>Unit 1</strong> Area and Surface Area</li>
+        <li><strong>Unit 2</strong> Ratios</li>
+        <li><strong>Unit 3</strong> Rates and Percentages</li>
+        <li><strong>Unit 4</strong> Fraction Division</li>
+        <li><strong>Unit 5</strong> Decimal Operations</li>
+        <li><strong>Unit 6</strong> Expressions and Equations</li>
+        <li><strong>Unit 7</strong> Rational Numbers and the Coordinate Plane</li>
+        <li><strong>Unit 8</strong> Data and Statistics</li>
+        <li><strong>Unit 9</strong> Applications, Connections, and Voting</li>
+      </ol>
+    </article>
+
+    <div class="print-columns">
+      <div class="print-column">
+        <article class="print-card">
+          <h2>Learning mathematics</h2>
+          <p>The goal is not to get every answer immediately. The goal is to build understanding by thinking, trying, discussing, revising, and trying again.</p>
+          <p>Students are expected to make a genuine attempt before checking an answer. Afterward, they should compare, ask questions, and use the answer or feedback to understand what worked and what needs to change.</p>
+        </article>
+
+        <article class="print-card">
+          <h2>What successful participation looks like</h2>
+          <ul>
+            <li>Arrive on time with materials ready.</li>
+            <li>Attempt problems before checking an answer.</li>
+            <li>Write mathematical work and explain their reasoning.</li>
+            <li>Discuss ideas respectfully with an elbow partner and the class.</li>
+            <li>Ask questions and communicate when they do not understand yet.</li>
+            <li>Use feedback and additional practice to improve.</li>
+          </ul>
+        </article>
+
+        <article class="print-card">
+          <h2>Practice matters most</h2>
+          <p>Assessments include tests and other opportunities to demonstrate learning. Classwork and homework include daily mathematical practice, written work, participation, notebooks or workbooks, and DeltaMath.</p>
+          <p><strong>Tests may be retaken for a higher grade.</strong> Retakes are intended to motivate students to keep learning after mistakes and to demonstrate stronger understanding after additional practice.</p>
+        </article>
+
+        <article class="print-card">
+          <h2>It is okay not to understand—yet</h2>
+          <p>Mr. Chen will look for another pathway when a student needs more support. This may include a smaller set of problems, another model or explanation, guided practice, additional time, or support from a classmate.</p>
+        </article>
+      </div>
+
+      <div class="print-column">
+        <article class="print-card">
+          <h2>How class usually works</h2>
+          <ol>
+            <li><strong>DeltaMath warm-up</strong></li>
+            <li><strong>Notebook or IM workbook</strong></li>
+            <li><strong>Think independently</strong></li>
+            <li><strong>Discuss with an elbow partner</strong></li>
+            <li><strong>Build understanding together</strong></li>
+            <li><strong>Write, question, and revise</strong></li>
+          </ol>
+        </article>
+
+        <article class="print-card">
+          <h2>Bring every day</h2>
+          <ul>
+            <li>A dedicated mathematics notebook</li>
+            <li>Pencils</li>
+            <li>Paper for showing work</li>
+            <li>A handheld sharpener and eraser when using wooden pencils</li>
+          </ul>
+          <p><strong>These materials should be visible and ready at the beginning of class.</strong></p>
+        </article>
+
+        <article class="print-card">
+          <h2>Homework and course resources</h2>
+          <p>Homework will be assigned through DeltaMath. Students should use paper and pencil to show their thinking rather than only entering answers on the screen.</p>
+          <p>Because the IM Math textbook is copyrighted, digital access is provided through Google Classroom using the student's school account.</p>
+          <div class="print-resources">
+            <a class="deltamath-link" href="https://www.deltamath.com/" target="_blank" rel="noopener">https://www.deltamath.com/</a>
+            <a class="classroom-link" href="https://classroom.google.com/" target="_blank" rel="noopener">https://classroom.google.com/</a>
+          </div>
+        </article>
+
+        <article class="print-card">
+          <h2>Protecting learning time</h2>
+          <p>Students must turn in their cell phones to their homeroom teacher at the beginning of the school day. Phones are placed in secured, locked storage according to the school's procedure.</p>
+          <p>A special circumstance requiring device access must be communicated in advance so the parent or guardian, teachers, and appropriate school staff are aware. Other personal electronic devices may not be used unless the school has specifically approved the device as an instructional or accessibility tool.</p>
+        </article>
+      </div>
+    </div>
+
+    <article class="print-card print-wide">
+      <h2>Student and family acknowledgment</h2>
+      <p>We have reviewed this syllabus and know that questions are welcome. We understand that ongoing communication will help support the student's learning.</p>
+      <div class="print-signatures">
+        <div><div class="print-signature-line"></div><span class="print-signature-label">Student signature</span></div>
+        <div><div class="print-signature-line"></div><span class="print-signature-label">Date</span></div>
+        <div><div class="print-signature-line"></div><span class="print-signature-label">Parent/guardian signature</span></div>
+        <div><div class="print-signature-line"></div><span class="print-signature-label">Date</span></div>
+      </div>
+    </article>
+  </section>
+
+  <dialog id="other-language-dialog">
+    <span class="section-kicker">More languages</span>
+    <h2>Need another language?</h2>
+    <p>
+      Open your browser's menu and choose <strong>Translate</strong> to select another
+      language. In Safari, use the translation button in the address bar.
+    </p>
+    <button class="button" id="close-language-dialog" type="button">Got it</button>
+  </dialog>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Grade 6 Mathematics · <span data-config="schoolYear">2026–2027</span></span>
+      <span>Teacher: <span data-config="teacherName">Mr. Chen</span></span>
+    </div>
+  </footer>
+
+  <script>
+    /*
+      EDIT THIS SECTION BEFORE SHARING.
+      Paste a full Google Classroom link beginning with https://
+    */
+    const PAGE_CONFIG = {
+      teacherName: "Mr. Chen",
+      teacherEmail: "ychen2@bostonpublicschools.org",
+      schoolYear: "2026–2027",
+      deltaMathUrl: "https://www.deltamath.com/",
+      googleClassroomUrl: "https://classroom.google.com/"
+    };
+
+    function setConfigText(key, value, fallback) {
+      document.querySelectorAll('[data-config="' + key + '"]').forEach((element) => {
+        element.textContent = value || fallback;
+      });
+    }
+
+    function setConfigLinks(selector, url) {
+      document.querySelectorAll(selector).forEach((link) => {
+        if (url) {
+          link.href = url;
+          link.removeAttribute("aria-disabled");
+          link.classList.remove("disabled");
+          if (url.startsWith("http")) {
+            link.target = "_blank";
+            link.rel = "noopener";
+          }
+        } else {
+          link.href = "#";
+          link.setAttribute("aria-disabled", "true");
+          link.classList.add("disabled");
+          link.addEventListener("click", (event) => event.preventDefault());
+        }
+      });
+    }
+
+    setConfigText("teacherName", PAGE_CONFIG.teacherName, "Mr. Chen");
+    setConfigText("schoolYear", PAGE_CONFIG.schoolYear, "2026–2027");
+    setConfigLinks(".email-link", PAGE_CONFIG.teacherEmail ? "mailto:" + PAGE_CONFIG.teacherEmail : "");
+    setConfigLinks(".deltamath-link", PAGE_CONFIG.deltaMathUrl);
+    setConfigLinks(".classroom-link", PAGE_CONFIG.googleClassroomUrl);
+
+    if (PAGE_CONFIG.teacherEmail && PAGE_CONFIG.googleClassroomUrl) {
+      document.getElementById("setup-notice").hidden = true;
+    }
+  </script>
+
+  <script>
+    const TRANSLATIONS = {
+      es: {
+        "Skip to main content": "Saltar al contenido principal",
+        "· Mathematics": "· Matemáticas",
+        "Family Guide": "Guía para familias",
+        "Contact teacher": "Contactar al docente",
+        "Print": "Imprimir",
+        "🌐 Read this syllabus in:": "🌐 Leer este programa en:",
+        "Other…": "Otro…",
+        "2026–2027 Course Syllabus": "Programa del curso 2026–2027",
+        "Grade 6": "6.º grado",
+        "Mathematics": "Matemáticas",
+        "Grade 6 Mathematics": "Matemáticas de 6.º grado",
+        "A course built around practice, productive struggle, mathematical discussion, and the belief that students can improve through effort, support, and another try.": "Un curso basado en la práctica, el esfuerzo productivo, la conversación matemática y la convicción de que los estudiantes pueden mejorar con esfuerzo, apoyo y otro intento.",
+        "Before sharing: add the teacher email and Google Classroom link in the": "Antes de compartir: agregue el correo del docente y el enlace de Google Classroom en la sección",
+        "section near the bottom of this file.": "que se encuentra cerca del final de este archivo.",
+        "Assessments": "Evaluaciones",
+        "Tests and other demonstrations of learning": "Pruebas y otras demostraciones de aprendizaje",
+        "Classwork & Homework": "Trabajo de clase y tarea",
+        "Daily practice, participation, notebooks, and DeltaMath": "Práctica diaria, participación, cuadernos y DeltaMath",
+        "Retakes Available": "Se permiten repeticiones",
+        "Students may retake tests to earn a higher grade": "Los estudiantes pueden repetir las pruebas para obtener una nota más alta",
+        "01 · Why we practice": "01 · Por qué practicamos",
+        "Learning mathematics": "Aprender matemáticas",
+        "The goal is not to get every answer immediately. The goal is to build understanding by thinking, trying, discussing, revising, and trying again.": "La meta no es obtener cada respuesta de inmediato. La meta es comprender mediante el pensamiento, los intentos, la conversación, la revisión y nuevos intentos.",
+        "“Struggling with a problem is not failing—it is part of learning mathematics.”": "«Tener dificultad con un problema no es fracasar; es parte de aprender matemáticas».",
+        "Students are expected to make a genuine attempt before checking an answer. Afterward, they should compare, ask questions, and use the answer or feedback to understand what worked and what needs to change.": "Se espera que los estudiantes hagan un intento sincero antes de comprobar una respuesta. Después deben comparar, hacer preguntas y usar la respuesta o los comentarios para comprender qué funcionó y qué deben cambiar.",
+        "02 · Our daily routine": "02 · Nuestra rutina diaria",
+        "How class usually works": "Cómo funciona normalmente la clase",
+        "A predictable routine helps students begin independently, learn from a partner, and then connect their ideas during a whole-class conversation.": "Una rutina predecible ayuda a los estudiantes a comenzar de forma independiente, aprender con un compañero y conectar sus ideas durante una conversación con toda la clase.",
+        "Enter & begin": "Entrar y comenzar",
+        "DeltaMath warm-up": "Calentamiento en DeltaMath",
+        "Students begin DeltaMath with paper and pencil visible and ready to show their work.": "Los estudiantes comienzan DeltaMath con papel y lápiz a la vista, listos para mostrar su trabajo.",
+        "Prepare": "Prepararse",
+        "Notebook or IM workbook": "Cuaderno o libro de ejercicios IM",
+        "After the warm-up, students open their notebook or retrieve the IM Math workbook from its classroom location.": "Después del calentamiento, los estudiantes abren su cuaderno o recogen el libro de ejercicios de IM Math de su lugar en el salón.",
+        "You": "Tú",
+        "Think independently": "Pensar de manera independiente",
+        "Each student first reads, attempts, and records the problem independently.": "Cada estudiante primero lee, intenta y registra el problema de manera independiente.",
+        "You All": "Ustedes",
+        "Discuss with an elbow partner": "Conversar con un compañero cercano",
+        "Partners compare strategies, explain their reasoning, ask questions, and make revisions.": "Los compañeros comparan estrategias, explican su razonamiento, hacen preguntas y revisan su trabajo.",
+        "We": "Nosotros",
+        "Build understanding together": "Construir comprensión juntos",
+        "The whole class discusses the problem while Mr. Chen writes live on an iPad and displays the thinking on the classroom TV.": "Toda la clase conversa sobre el problema mientras el Sr. Chen escribe en vivo en un iPad y muestra el razonamiento en la pantalla del salón.",
+        "Record & reflect": "Registrar y reflexionar",
+        "Write, question, and revise": "Escribir, preguntar y revisar",
+        "Students record the displayed mathematics in their workbook, ask questions, and revise their work as understanding grows.": "Los estudiantes registran las matemáticas mostradas en su libro, hacen preguntas y revisan su trabajo a medida que aumenta su comprensión.",
+        "03 · Student expectations": "03 · Expectativas de los estudiantes",
+        "What successful participation looks like": "Cómo se ve una participación exitosa",
+        "Students should expect to be challenged. They are not expected to understand everything on the first try, but they are expected to participate in the process.": "Los estudiantes deben esperar desafíos. No se espera que entiendan todo al primer intento, pero sí que participen en el proceso.",
+        "Students will": "Los estudiantes deberán",
+        "Arrive on time with materials ready.": "Llegar a tiempo con los materiales listos.",
+        "Attempt problems before checking an answer.": "Intentar los problemas antes de comprobar una respuesta.",
+        "Write mathematical work and explain their reasoning.": "Escribir el trabajo matemático y explicar su razonamiento.",
+        "Discuss ideas respectfully with an elbow partner and the class.": "Conversar respetuosamente con un compañero cercano y con la clase.",
+        "Ask questions and communicate when they do not understand yet.": "Hacer preguntas y comunicar cuando todavía no entiendan.",
+        "Use feedback and additional practice to improve.": "Usar comentarios y práctica adicional para mejorar.",
+        "Bring every day": "Traer todos los días",
+        "A dedicated mathematics notebook": "Un cuaderno dedicado a matemáticas",
+        "Pencils": "Lápices",
+        "Paper for showing work": "Papel para mostrar el trabajo",
+        "A handheld sharpener and eraser when using wooden pencils": "Un sacapuntas de mano y un borrador al usar lápices de madera",
+        "These materials should be visible and ready at the beginning of class.": "Estos materiales deben estar a la vista y listos al comienzo de la clase.",
+        "04 · Course content": "04 · Contenido del curso",
+        "What we will study": "Lo que estudiaremos",
+        "Grade 6 mathematics connects visual models, numerical reasoning, algebraic thinking, real-world applications, and mathematical communication.": "Las matemáticas de 6.º grado conectan modelos visuales, razonamiento numérico, pensamiento algebraico, aplicaciones del mundo real y comunicación matemática.",
+        "Unit 1": "Unidad 1",
+        "Area and Surface Area": "Área y área de superficie",
+        "Unit 2": "Unidad 2",
+        "Ratios": "Razones",
+        "Unit 3": "Unidad 3",
+        "Rates and Percentages": "Tasas y porcentajes",
+        "Unit 4": "Unidad 4",
+        "Fraction Division": "División de fracciones",
+        "Unit 5": "Unidad 5",
+        "Decimal Operations": "Operaciones con decimales",
+        "Unit 6": "Unidad 6",
+        "Expressions and Equations": "Expresiones y ecuaciones",
+        "Unit 7": "Unidad 7",
+        "Rational Numbers and the Coordinate Plane": "Números racionales y el plano cartesiano",
+        "Unit 8": "Unidad 8",
+        "Data and Statistics": "Datos y estadística",
+        "Unit 9": "Unidad 9",
+        "Applications, Connections, and Voting": "Aplicaciones, conexiones y votación",
+        "05 · Grading": "05 · Calificaciones",
+        "Practice matters most": "La práctica es lo más importante",
+        "The grade is weighted to emphasize the daily work through which students develop mathematical understanding and learning habits.": "La calificación da mayor peso al trabajo diario mediante el cual los estudiantes desarrollan comprensión matemática y hábitos de aprendizaje.",
+        "20% assessments · 80% classwork and homework": "20% evaluaciones · 80% trabajo de clase y tarea",
+        "Assessments include tests and other opportunities to demonstrate learning. Classwork and homework include daily mathematical practice, written work, participation, notebooks or workbooks, and DeltaMath.": "Las evaluaciones incluyen pruebas y otras oportunidades para demostrar el aprendizaje. El trabajo de clase y la tarea incluyen práctica matemática diaria, trabajo escrito, participación, cuadernos o libros de ejercicios y DeltaMath.",
+        "Tests may be retaken for a higher grade.": "Las pruebas pueden repetirse para obtener una nota más alta.",
+        "Retakes are intended to motivate students to keep learning after mistakes and to demonstrate stronger understanding after additional practice.": "Las repeticiones motivan a los estudiantes a seguir aprendiendo después de los errores y a demostrar mayor comprensión después de practicar más.",
+        "06 · Practice outside class": "06 · Práctica fuera de clase",
+        "Homework and course resources": "Tarea y recursos del curso",
+        "Assignments and resources are organized online so students and families have one consistent place to look.": "Las tareas y los recursos están organizados en línea para que estudiantes y familias tengan un lugar constante donde buscar.",
+        "DeltaMath homework": "Tarea de DeltaMath",
+        "Homework will be assigned through DeltaMath. Students should use paper and pencil to show their thinking rather than only entering answers on the screen.": "La tarea se asignará en DeltaMath. Los estudiantes deben usar papel y lápiz para mostrar su razonamiento, no solo ingresar respuestas en la pantalla.",
+        "Because the IM Math textbook is copyrighted, digital access is provided through Google Classroom using the student's school account.": "Debido a que el libro de IM Math está protegido por derechos de autor, el acceso digital se proporciona mediante Google Classroom con la cuenta escolar del estudiante.",
+        "Google Classroom and textbook": "Google Classroom y libro de texto",
+        "Google Classroom contains announcements, links, and class resources. Because the IM Math textbook is copyrighted, digital access is provided through Google Classroom using the student's school account.": "Google Classroom contiene anuncios, enlaces y recursos de clase. Debido a los derechos de autor del libro de IM Math, el acceso digital se ofrece a través de Google Classroom con la cuenta escolar del estudiante.",
+        "Open Google Classroom →": "Abrir Google Classroom →",
+        "Open DeltaMath →": "Abrir DeltaMath →",
+        "07 · Getting help": "07 · Obtener ayuda",
+        "It is okay not to understand—yet": "Está bien no entender—todavía",
+        "Students should let Mr. Chen know when they are stuck. Asking for help is an important part of becoming an independent learner.": "Los estudiantes deben avisar al Sr. Chen cuando estén atascados. Pedir ayuda es una parte importante de convertirse en un estudiante independiente.",
+        "Challenge is expected. Silence is not required.": "Se espera el desafío. No es necesario quedarse callado.",
+        "Mr. Chen will look for another pathway when a student needs more support. This may include a smaller set of problems, another model or explanation, guided practice, additional time, or support from a classmate.": "El Sr. Chen buscará otra vía cuando un estudiante necesite más apoyo. Esto puede incluir un conjunto más pequeño de problemas, otro modelo o explicación, práctica guiada, tiempo adicional o apoyo de un compañero.",
+        "08 · Phones and electronics": "08 · Teléfonos y dispositivos electrónicos",
+        "Protecting learning time": "Proteger el tiempo de aprendizaje",
+        "The school-day device routine supports focus, safety, and a respectful learning environment.": "La rutina escolar de dispositivos favorece la concentración, la seguridad y un ambiente de aprendizaje respetuoso.",
+        "Cell phones are turned in during homeroom.": "Los teléfonos celulares se entregan durante el período de grupo.",
+        "Students must turn in their cell phones to their homeroom teacher at the beginning of the school day. Phones are placed in secured, locked storage according to the school's procedure.": "Los estudiantes deben entregar sus teléfonos a su maestro o maestra de grupo al comienzo del día escolar. Los teléfonos se guardan en un lugar seguro y cerrado con llave según el procedimiento de la escuela.",
+        "A special circumstance requiring device access must be communicated in advance so the parent or guardian, teachers, and appropriate school staff are aware. Other personal electronic devices may not be used unless the school has specifically approved the device as an instructional or accessibility tool.": "Toda circunstancia especial que requiera acceso a un dispositivo debe comunicarse con anticipación para que la familia, los docentes y el personal escolar correspondiente estén informados. No se pueden usar otros dispositivos electrónicos personales salvo que la escuela los haya aprobado como herramientas educativas o de accesibilidad.",
+        "09 · Family acknowledgment": "09 · Confirmación de la familia",
+        "Please review, sign, and return": "Por favor, revise, firme y devuelva",
+        "Signing confirms that the student and family reviewed the course routines, expectations, grading, retakes, homework, materials, and device procedure.": "La firma confirma que el estudiante y la familia revisaron las rutinas, expectativas, calificaciones, repeticiones, tarea, materiales y procedimiento de dispositivos.",
+        "Student and family acknowledgment": "Confirmación del estudiante y la familia",
+        "We have reviewed this syllabus and know that questions are welcome. We understand that ongoing communication will help support the student's learning.": "Hemos revisado este programa y sabemos que las preguntas son bienvenidas. Entendemos que la comunicación continua ayudará a apoyar el aprendizaje del estudiante.",
+        "Student name": "Nombre del estudiante",
+        "Class/section": "Clase/sección",
+        "Student signature": "Firma del estudiante",
+        "Date": "Fecha",
+        "Parent/guardian signature": "Firma del padre, madre o tutor",
+        "More languages": "Más idiomas",
+        "Need another language?": "¿Necesita otro idioma?",
+        "Open your browser's menu and choose": "Abra el menú de su navegador y elija",
+        "Translate": "Traducir",
+        "to select another language. In Safari, use the translation button in the address bar.": "para seleccionar otro idioma. En Safari, use el botón de traducción de la barra de direcciones.",
+        "Got it": "Entendido",
+        "Grade 6 Mathematics ·": "Matemáticas de 6.º grado ·",
+        "Teacher:": "Docente:"
+      },
+      vi: {
+        "Skip to main content": "Chuyển đến nội dung chính",
+        "· Mathematics": "· Toán học",
+        "Family Guide": "Cẩm nang gia đình",
+        "Contact teacher": "Liên hệ giáo viên",
+        "Print": "In",
+        "🌐 Read this syllabus in:": "🌐 Đọc đề cương này bằng:",
+        "Other…": "Ngôn ngữ khác…",
+        "2026–2027 Course Syllabus": "Đề cương môn học 2026–2027",
+        "Grade 6": "Lớp 6",
+        "Mathematics": "Toán học",
+        "Grade 6 Mathematics": "Toán lớp 6",
+        "A course built around practice, productive struggle, mathematical discussion, and the belief that students can improve through effort, support, and another try.": "Môn học được xây dựng trên việc luyện tập, nỗ lực vượt khó, thảo luận toán học và niềm tin rằng học sinh có thể tiến bộ nhờ cố gắng, hỗ trợ và thử lại.",
+        "Before sharing: add the teacher email and Google Classroom link in the": "Trước khi chia sẻ: hãy thêm email giáo viên và đường dẫn Google Classroom vào mục",
+        "section near the bottom of this file.": "ở gần cuối tệp này.",
+        "Assessments": "Bài đánh giá",
+        "Tests and other demonstrations of learning": "Bài kiểm tra và các hình thức thể hiện việc học",
+        "Classwork & Homework": "Bài trên lớp và bài tập về nhà",
+        "Daily practice, participation, notebooks, and DeltaMath": "Luyện tập hằng ngày, tham gia, vở học và DeltaMath",
+        "Retakes Available": "Được làm lại bài kiểm tra",
+        "Students may retake tests to earn a higher grade": "Học sinh có thể làm lại bài kiểm tra để đạt điểm cao hơn",
+        "01 · Why we practice": "01 · Vì sao chúng ta luyện tập",
+        "Learning mathematics": "Học toán",
+        "The goal is not to get every answer immediately. The goal is to build understanding by thinking, trying, discussing, revising, and trying again.": "Mục tiêu không phải là có ngay mọi đáp án. Mục tiêu là xây dựng hiểu biết bằng cách suy nghĩ, thử làm, thảo luận, chỉnh sửa và thử lại.",
+        "“Struggling with a problem is not failing—it is part of learning mathematics.”": "“Gặp khó khăn với một bài toán không phải là thất bại—đó là một phần của việc học toán.”",
+        "Students are expected to make a genuine attempt before checking an answer. Afterward, they should compare, ask questions, and use the answer or feedback to understand what worked and what needs to change.": "Học sinh cần cố gắng làm thật sự trước khi kiểm tra đáp án. Sau đó, các em nên so sánh, đặt câu hỏi và dùng đáp án hoặc phản hồi để hiểu điều gì đúng và điều gì cần thay đổi.",
+        "02 · Our daily routine": "02 · Nề nếp hằng ngày",
+        "How class usually works": "Lớp học thường diễn ra như thế nào",
+        "A predictable routine helps students begin independently, learn from a partner, and then connect their ideas during a whole-class conversation.": "Một nề nếp ổn định giúp học sinh bắt đầu độc lập, học cùng bạn và kết nối ý tưởng trong cuộc thảo luận cả lớp.",
+        "Enter & begin": "Vào lớp và bắt đầu",
+        "DeltaMath warm-up": "Khởi động DeltaMath",
+        "Students begin DeltaMath with paper and pencil visible and ready to show their work.": "Học sinh bắt đầu DeltaMath với giấy và bút chì đặt sẵn để trình bày bài làm.",
+        "Prepare": "Chuẩn bị",
+        "Notebook or IM workbook": "Vở hoặc sách bài tập IM",
+        "After the warm-up, students open their notebook or retrieve the IM Math workbook from its classroom location.": "Sau phần khởi động, học sinh mở vở hoặc lấy sách bài tập IM Math từ vị trí quy định trong lớp.",
+        "You": "Em",
+        "Think independently": "Suy nghĩ độc lập",
+        "Each student first reads, attempts, and records the problem independently.": "Mỗi học sinh trước tiên tự đọc, thử làm và ghi lại bài toán.",
+        "You All": "Các em",
+        "Discuss with an elbow partner": "Thảo luận với bạn ngồi cạnh",
+        "Partners compare strategies, explain their reasoning, ask questions, and make revisions.": "Các bạn so sánh cách làm, giải thích suy luận, đặt câu hỏi và chỉnh sửa.",
+        "We": "Chúng ta",
+        "Build understanding together": "Cùng nhau xây dựng hiểu biết",
+        "The whole class discusses the problem while Mr. Chen writes live on an iPad and displays the thinking on the classroom TV.": "Cả lớp thảo luận bài toán trong khi thầy Chen viết trực tiếp trên iPad và hiển thị cách suy nghĩ lên màn hình lớp.",
+        "Record & reflect": "Ghi chép và suy ngẫm",
+        "Write, question, and revise": "Viết, đặt câu hỏi và chỉnh sửa",
+        "Students record the displayed mathematics in their workbook, ask questions, and revise their work as understanding grows.": "Học sinh ghi nội dung toán được trình chiếu vào sách, đặt câu hỏi và chỉnh sửa bài khi hiểu rõ hơn.",
+        "03 · Student expectations": "03 · Kỳ vọng đối với học sinh",
+        "What successful participation looks like": "Tham gia hiệu quả là như thế nào",
+        "Students should expect to be challenged. They are not expected to understand everything on the first try, but they are expected to participate in the process.": "Học sinh nên sẵn sàng đón nhận thử thách. Các em không cần hiểu mọi thứ ngay lần đầu, nhưng cần tham gia vào quá trình học.",
+        "Students will": "Học sinh sẽ",
+        "Arrive on time with materials ready.": "Đến đúng giờ và chuẩn bị sẵn dụng cụ.",
+        "Attempt problems before checking an answer.": "Thử giải bài trước khi kiểm tra đáp án.",
+        "Write mathematical work and explain their reasoning.": "Trình bày bài toán và giải thích suy luận.",
+        "Discuss ideas respectfully with an elbow partner and the class.": "Thảo luận ý tưởng một cách tôn trọng với bạn ngồi cạnh và cả lớp.",
+        "Ask questions and communicate when they do not understand yet.": "Đặt câu hỏi và trao đổi khi chưa hiểu.",
+        "Use feedback and additional practice to improve.": "Dùng phản hồi và luyện tập thêm để tiến bộ.",
+        "Bring every day": "Mang theo mỗi ngày",
+        "A dedicated mathematics notebook": "Một quyển vở riêng cho môn Toán",
+        "Pencils": "Bút chì",
+        "Paper for showing work": "Giấy để trình bày bài làm",
+        "A handheld sharpener and eraser when using wooden pencils": "Đồ gọt bút chì cầm tay và tẩy khi dùng bút chì gỗ",
+        "These materials should be visible and ready at the beginning of class.": "Các dụng cụ này phải được đặt sẵn vào đầu giờ.",
+        "04 · Course content": "04 · Nội dung môn học",
+        "What we will study": "Nội dung chúng ta sẽ học",
+        "Grade 6 mathematics connects visual models, numerical reasoning, algebraic thinking, real-world applications, and mathematical communication.": "Toán lớp 6 kết nối mô hình trực quan, suy luận số học, tư duy đại số, ứng dụng thực tế và giao tiếp toán học.",
+        "Unit 1": "Bài 1",
+        "Area and Surface Area": "Diện tích và diện tích bề mặt",
+        "Unit 2": "Bài 2",
+        "Ratios": "Tỉ số",
+        "Unit 3": "Bài 3",
+        "Rates and Percentages": "Tỉ lệ và phần trăm",
+        "Unit 4": "Bài 4",
+        "Fraction Division": "Phép chia phân số",
+        "Unit 5": "Bài 5",
+        "Decimal Operations": "Phép tính với số thập phân",
+        "Unit 6": "Bài 6",
+        "Expressions and Equations": "Biểu thức và phương trình",
+        "Unit 7": "Bài 7",
+        "Rational Numbers and the Coordinate Plane": "Số hữu tỉ và mặt phẳng tọa độ",
+        "Unit 8": "Bài 8",
+        "Data and Statistics": "Dữ liệu và thống kê",
+        "Unit 9": "Bài 9",
+        "Applications, Connections, and Voting": "Ứng dụng, kết nối và bỏ phiếu",
+        "05 · Grading": "05 · Chấm điểm",
+        "Practice matters most": "Luyện tập là quan trọng nhất",
+        "The grade is weighted to emphasize the daily work through which students develop mathematical understanding and learning habits.": "Điểm số nhấn mạnh công việc hằng ngày giúp học sinh phát triển hiểu biết toán học và thói quen học tập.",
+        "20% assessments · 80% classwork and homework": "20% bài đánh giá · 80% bài trên lớp và bài tập về nhà",
+        "Assessments include tests and other opportunities to demonstrate learning. Classwork and homework include daily mathematical practice, written work, participation, notebooks or workbooks, and DeltaMath.": "Bài đánh giá gồm bài kiểm tra và các cơ hội khác để thể hiện việc học. Bài trên lớp và bài tập về nhà gồm luyện tập toán hằng ngày, bài viết, sự tham gia, vở hoặc sách bài tập và DeltaMath.",
+        "Tests may be retaken for a higher grade.": "Học sinh có thể làm lại bài kiểm tra để đạt điểm cao hơn.",
+        "Retakes are intended to motivate students to keep learning after mistakes and to demonstrate stronger understanding after additional practice.": "Việc làm lại khuyến khích học sinh tiếp tục học sau sai sót và thể hiện hiểu biết tốt hơn sau khi luyện tập thêm.",
+        "06 · Practice outside class": "06 · Luyện tập ngoài lớp",
+        "Homework and course resources": "Bài tập về nhà và tài liệu môn học",
+        "Assignments and resources are organized online so students and families have one consistent place to look.": "Bài tập và tài liệu được sắp xếp trực tuyến để học sinh và gia đình luôn biết nơi cần tìm.",
+        "DeltaMath homework": "Bài tập DeltaMath",
+        "Homework will be assigned through DeltaMath. Students should use paper and pencil to show their thinking rather than only entering answers on the screen.": "Bài tập về nhà sẽ được giao trên DeltaMath. Học sinh nên dùng giấy và bút chì để trình bày cách suy nghĩ thay vì chỉ nhập đáp án trên màn hình.",
+        "Because the IM Math textbook is copyrighted, digital access is provided through Google Classroom using the student's school account.": "Vì sách IM Math có bản quyền, quyền truy cập điện tử được cung cấp qua Google Classroom bằng tài khoản trường của học sinh.",
+        "Google Classroom and textbook": "Google Classroom và sách giáo khoa",
+        "Google Classroom contains announcements, links, and class resources. Because the IM Math textbook is copyrighted, digital access is provided through Google Classroom using the student's school account.": "Google Classroom có thông báo, liên kết và tài liệu lớp. Vì sách IM Math có bản quyền, quyền truy cập điện tử được cung cấp qua Google Classroom bằng tài khoản trường của học sinh.",
+        "Open Google Classroom →": "Mở Google Classroom →",
+        "Open DeltaMath →": "Mở DeltaMath →",
+        "07 · Getting help": "07 · Nhận hỗ trợ",
+        "It is okay not to understand—yet": "Chưa hiểu—không sao cả",
+        "Students should let Mr. Chen know when they are stuck. Asking for help is an important part of becoming an independent learner.": "Học sinh nên báo cho thầy Chen khi gặp khó khăn. Yêu cầu trợ giúp là một phần quan trọng của việc trở thành người học độc lập.",
+        "Challenge is expected. Silence is not required.": "Thử thách là điều bình thường. Không cần im lặng khi cần giúp đỡ.",
+        "Mr. Chen will look for another pathway when a student needs more support. This may include a smaller set of problems, another model or explanation, guided practice, additional time, or support from a classmate.": "Thầy Chen sẽ tìm một hướng khác khi học sinh cần thêm hỗ trợ. Hỗ trợ có thể gồm một nhóm bài nhỏ hơn, mô hình hoặc cách giải thích khác, luyện tập có hướng dẫn, thêm thời gian hoặc sự hỗ trợ từ bạn học.",
+        "08 · Phones and electronics": "08 · Điện thoại và thiết bị điện tử",
+        "Protecting learning time": "Bảo vệ thời gian học tập",
+        "The school-day device routine supports focus, safety, and a respectful learning environment.": "Nề nếp sử dụng thiết bị trong ngày học hỗ trợ sự tập trung, an toàn và môi trường học tập tôn trọng.",
+        "Cell phones are turned in during homeroom.": "Điện thoại được nộp trong giờ sinh hoạt chủ nhiệm.",
+        "Students must turn in their cell phones to their homeroom teacher at the beginning of the school day. Phones are placed in secured, locked storage according to the school's procedure.": "Học sinh phải nộp điện thoại cho giáo viên chủ nhiệm vào đầu ngày học. Điện thoại được cất trong nơi an toàn có khóa theo quy trình của trường.",
+        "A special circumstance requiring device access must be communicated in advance so the parent or guardian, teachers, and appropriate school staff are aware. Other personal electronic devices may not be used unless the school has specifically approved the device as an instructional or accessibility tool.": "Hoàn cảnh đặc biệt cần dùng thiết bị phải được thông báo trước để gia đình, giáo viên và nhân viên nhà trường phù hợp đều biết. Không được dùng thiết bị điện tử cá nhân khác trừ khi nhà trường phê duyệt làm công cụ học tập hoặc hỗ trợ tiếp cận.",
+        "09 · Family acknowledgment": "09 · Xác nhận của gia đình",
+        "Please review, sign, and return": "Vui lòng xem, ký và nộp lại",
+        "Signing confirms that the student and family reviewed the course routines, expectations, grading, retakes, homework, materials, and device procedure.": "Chữ ký xác nhận học sinh và gia đình đã xem nề nếp, kỳ vọng, chấm điểm, làm lại bài, bài tập về nhà, dụng cụ và quy trình thiết bị.",
+        "Student and family acknowledgment": "Xác nhận của học sinh và gia đình",
+        "We have reviewed this syllabus and know that questions are welcome. We understand that ongoing communication will help support the student's learning.": "Chúng tôi đã xem đề cương này và biết rằng mọi câu hỏi đều được hoan nghênh. Chúng tôi hiểu rằng trao đổi thường xuyên sẽ giúp hỗ trợ việc học của học sinh.",
+        "Student name": "Tên học sinh",
+        "Class/section": "Lớp/tiết",
+        "Student signature": "Chữ ký học sinh",
+        "Date": "Ngày",
+        "Parent/guardian signature": "Chữ ký phụ huynh/người giám hộ",
+        "More languages": "Ngôn ngữ khác",
+        "Need another language?": "Cần ngôn ngữ khác?",
+        "Open your browser's menu and choose": "Mở trình đơn trình duyệt và chọn",
+        "Translate": "Dịch",
+        "to select another language. In Safari, use the translation button in the address bar.": "để chọn ngôn ngữ khác. Trên Safari, dùng nút dịch ở thanh địa chỉ.",
+        "Got it": "Đã hiểu",
+        "Grade 6 Mathematics ·": "Toán lớp 6 ·",
+        "Teacher:": "Giáo viên:"
+      },
+      zh: {
+        "Skip to main content": "跳到主要内容",
+        "· Mathematics": "· 数学",
+        "Family Guide": "家庭指南",
+        "Contact teacher": "联系教师",
+        "Print": "打印",
+        "🌐 Read this syllabus in:": "🌐 选择课程大纲语言：",
+        "Other…": "其他…",
+        "2026–2027 Course Syllabus": "2026–2027 学年课程大纲",
+        "Grade 6": "六年级",
+        "Mathematics": "数学",
+        "Grade 6 Mathematics": "六年级数学",
+        "A course built around practice, productive struggle, mathematical discussion, and the belief that students can improve through effort, support, and another try.": "本课程以练习、积极克服困难和数学讨论为核心，并相信学生能够通过努力、支持和再次尝试不断进步。",
+        "Before sharing: add the teacher email and Google Classroom link in the": "分享前：请在本文件底部附近的",
+        "section near the bottom of this file.": "部分填写教师电子邮箱和 Google Classroom 链接。",
+        "Assessments": "评估",
+        "Tests and other demonstrations of learning": "测验及其他学习成果展示",
+        "Classwork & Homework": "课堂作业与家庭作业",
+        "Daily practice, participation, notebooks, and DeltaMath": "每日练习、课堂参与、笔记本和 DeltaMath",
+        "Retakes Available": "可以重考",
+        "Students may retake tests to earn a higher grade": "学生可以通过重考获得更高成绩",
+        "01 · Why we practice": "01 · 为什么要练习",
+        "Learning mathematics": "学习数学",
+        "The goal is not to get every answer immediately. The goal is to build understanding by thinking, trying, discussing, revising, and trying again.": "目标不是立刻得到每一个答案，而是通过思考、尝试、讨论、修改和再次尝试来建立理解。",
+        "“Struggling with a problem is not failing—it is part of learning mathematics.”": "“解题时遇到困难并不等于失败——这是学习数学的一部分。”",
+        "Students are expected to make a genuine attempt before checking an answer. Afterward, they should compare, ask questions, and use the answer or feedback to understand what worked and what needs to change.": "学生应在查看答案前认真尝试。之后要进行比较、提出问题，并利用答案或反馈了解哪些方法有效、哪些需要调整。",
+        "02 · Our daily routine": "02 · 每日课堂流程",
+        "How class usually works": "课堂通常如何进行",
+        "A predictable routine helps students begin independently, learn from a partner, and then connect their ideas during a whole-class conversation.": "固定的课堂流程帮助学生先独立开始，再向同伴学习，最后在全班讨论中连接彼此的想法。",
+        "Enter & begin": "入班并开始",
+        "DeltaMath warm-up": "DeltaMath 热身",
+        "Students begin DeltaMath with paper and pencil visible and ready to show their work.": "学生进入教室后开始 DeltaMath，并把纸和铅笔准备好，用于展示解题过程。",
+        "Prepare": "准备",
+        "Notebook or IM workbook": "笔记本或 IM 练习册",
+        "After the warm-up, students open their notebook or retrieve the IM Math workbook from its classroom location.": "热身后，学生打开笔记本，或从教室指定位置领取 IM Math 练习册。",
+        "You": "个人",
+        "Think independently": "独立思考",
+        "Each student first reads, attempts, and records the problem independently.": "每位学生先独立阅读、尝试并记录问题。",
+        "You All": "同伴",
+        "Discuss with an elbow partner": "与身边的同伴讨论",
+        "Partners compare strategies, explain their reasoning, ask questions, and make revisions.": "同伴比较策略、解释推理、提出问题并修改答案。",
+        "We": "全班",
+        "Build understanding together": "共同建立理解",
+        "The whole class discusses the problem while Mr. Chen writes live on an iPad and displays the thinking on the classroom TV.": "全班共同讨论问题，陈老师用 iPad 实时书写，并将思考过程显示在教室电视上。",
+        "Record & reflect": "记录与反思",
+        "Write, question, and revise": "书写、提问与修改",
+        "Students record the displayed mathematics in their workbook, ask questions, and revise their work as understanding grows.": "学生把屏幕上展示的数学内容记录到练习册中，提出问题，并随着理解加深修改自己的作业。",
+        "03 · Student expectations": "03 · 学生要求",
+        "What successful participation looks like": "有效参与的表现",
+        "Students should expect to be challenged. They are not expected to understand everything on the first try, but they are expected to participate in the process.": "学生应做好迎接挑战的准备。我们不要求一次就理解全部内容，但要求积极参与学习过程。",
+        "Students will": "学生应做到",
+        "Arrive on time with materials ready.": "准时到课并准备好学习用品。",
+        "Attempt problems before checking an answer.": "查看答案前先尝试解题。",
+        "Write mathematical work and explain their reasoning.": "写出数学过程并解释推理。",
+        "Discuss ideas respectfully with an elbow partner and the class.": "尊重地与身边同伴和全班讨论想法。",
+        "Ask questions and communicate when they do not understand yet.": "尚未理解时主动提问和沟通。",
+        "Use feedback and additional practice to improve.": "利用反馈和额外练习来改进。",
+        "Bring every day": "每天携带",
+        "A dedicated mathematics notebook": "一本专用数学笔记本",
+        "Pencils": "铅笔",
+        "Paper for showing work": "用于展示解题过程的纸",
+        "A handheld sharpener and eraser when using wooden pencils": "使用木铅笔时携带手持卷笔刀和橡皮",
+        "These materials should be visible and ready at the beginning of class.": "这些用品应在上课开始时摆放好。",
+        "04 · Course content": "04 · 课程内容",
+        "What we will study": "我们将学习什么",
+        "Grade 6 mathematics connects visual models, numerical reasoning, algebraic thinking, real-world applications, and mathematical communication.": "六年级数学连接直观模型、数值推理、代数思维、实际应用和数学交流。",
+        "Unit 1": "第一单元",
+        "Area and Surface Area": "面积与表面积",
+        "Unit 2": "第二单元",
+        "Ratios": "比",
+        "Unit 3": "第三单元",
+        "Rates and Percentages": "率与百分比",
+        "Unit 4": "第四单元",
+        "Fraction Division": "分数除法",
+        "Unit 5": "第五单元",
+        "Decimal Operations": "小数运算",
+        "Unit 6": "第六单元",
+        "Expressions and Equations": "代数式与方程",
+        "Unit 7": "第七单元",
+        "Rational Numbers and the Coordinate Plane": "有理数与坐标平面",
+        "Unit 8": "第八单元",
+        "Data and Statistics": "数据与统计",
+        "Unit 9": "第九单元",
+        "Applications, Connections, and Voting": "应用、联系与投票",
+        "05 · Grading": "05 · 评分",
+        "Practice matters most": "练习最重要",
+        "The grade is weighted to emphasize the daily work through which students develop mathematical understanding and learning habits.": "评分更重视学生通过日常学习建立数学理解和学习习惯的过程。",
+        "20% assessments · 80% classwork and homework": "20% 评估 · 80% 课堂作业与家庭作业",
+        "Assessments include tests and other opportunities to demonstrate learning. Classwork and homework include daily mathematical practice, written work, participation, notebooks or workbooks, and DeltaMath.": "评估包括测验及其他展示学习成果的机会。课堂作业与家庭作业包括每日数学练习、书面作业、课堂参与、笔记本或练习册以及 DeltaMath。",
+        "Tests may be retaken for a higher grade.": "测验可以重考以获得更高成绩。",
+        "Retakes are intended to motivate students to keep learning after mistakes and to demonstrate stronger understanding after additional practice.": "重考旨在鼓励学生从错误中继续学习，并在额外练习后展示更深入的理解。",
+        "06 · Practice outside class": "06 · 课外练习",
+        "Homework and course resources": "家庭作业与课程资源",
+        "Assignments and resources are organized online so students and families have one consistent place to look.": "作业和资源统一整理在线上，方便学生和家庭查找。",
+        "DeltaMath homework": "DeltaMath 家庭作业",
+        "Homework will be assigned through DeltaMath. Students should use paper and pencil to show their thinking rather than only entering answers on the screen.": "家庭作业将通过 DeltaMath 布置。学生应使用纸和铅笔展示思考过程，而不只是直接在屏幕上输入答案。",
+        "Because the IM Math textbook is copyrighted, digital access is provided through Google Classroom using the student's school account.": "由于 IM Math 教材受版权保护，学生需使用学校账号通过 Google Classroom 获取电子版。",
+        "Google Classroom and textbook": "Google Classroom 与教材",
+        "Google Classroom contains announcements, links, and class resources. Because the IM Math textbook is copyrighted, digital access is provided through Google Classroom using the student's school account.": "Google Classroom 包含通知、链接和课堂资源。由于 IM Math 教材受版权保护，学生需使用学校账号通过 Google Classroom 获取电子版。",
+        "Open Google Classroom →": "打开 Google Classroom →",
+        "Open DeltaMath →": "打开 DeltaMath →",
+        "07 · Getting help": "07 · 获得帮助",
+        "It is okay not to understand—yet": "暂时不理解没有关系",
+        "Students should let Mr. Chen know when they are stuck. Asking for help is an important part of becoming an independent learner.": "学生遇到困难时应告诉陈老师。主动求助是成为独立学习者的重要部分。",
+        "Challenge is expected. Silence is not required.": "遇到挑战很正常，不必沉默。",
+        "Mr. Chen will look for another pathway when a student needs more support. This may include a smaller set of problems, another model or explanation, guided practice, additional time, or support from a classmate.": "当学生需要更多支持时，陈老师会寻找另一种学习路径。这可能包括较少的一组题目、不同的模型或解释、指导练习、额外时间或同学协助。",
+        "08 · Phones and electronics": "08 · 手机和电子设备",
+        "Protecting learning time": "保护学习时间",
+        "The school-day device routine supports focus, safety, and a respectful learning environment.": "校园设备流程有助于保持专注、安全和相互尊重的学习环境。",
+        "Cell phones are turned in during homeroom.": "手机须在班会时间上交。",
+        "Students must turn in their cell phones to their homeroom teacher at the beginning of the school day. Phones are placed in secured, locked storage according to the school's procedure.": "学生必须在上学日开始时将手机交给班主任。手机将按照学校流程存放在上锁的安全位置。",
+        "A special circumstance requiring device access must be communicated in advance so the parent or guardian, teachers, and appropriate school staff are aware. Other personal electronic devices may not be used unless the school has specifically approved the device as an instructional or accessibility tool.": "如因特殊情况需要使用设备，必须提前沟通，确保家长或监护人、教师及相关学校工作人员知情。除非学校特别批准作为教学或无障碍辅助工具，否则不得使用其他个人电子设备。",
+        "09 · Family acknowledgment": "09 · 家庭确认",
+        "Please review, sign, and return": "请阅读、签字并交回",
+        "Signing confirms that the student and family reviewed the course routines, expectations, grading, retakes, homework, materials, and device procedure.": "签字表示学生和家庭已阅读课程流程、要求、评分、重考、家庭作业、学习用品和设备规定。",
+        "Student and family acknowledgment": "学生与家庭确认",
+        "We have reviewed this syllabus and know that questions are welcome. We understand that ongoing communication will help support the student's learning.": "我们已阅读本课程大纲，并知道欢迎随时提出问题。我们理解持续沟通有助于支持学生学习。",
+        "Student name": "学生姓名",
+        "Class/section": "班级/课次",
+        "Student signature": "学生签名",
+        "Date": "日期",
+        "Parent/guardian signature": "家长/监护人签名",
+        "More languages": "更多语言",
+        "Need another language?": "需要其他语言？",
+        "Open your browser's menu and choose": "打开浏览器菜单并选择",
+        "Translate": "翻译",
+        "to select another language. In Safari, use the translation button in the address bar.": "以选择其他语言。在 Safari 中，请使用地址栏中的翻译按钮。",
+        "Got it": "知道了",
+        "Grade 6 Mathematics ·": "六年级数学 ·",
+        "Teacher:": "教师："
+      }
+    };
+
+    const DOCUMENT_TITLES = {
+      en: "Grade 6 Mathematics | Course Syllabus",
+      es: "Matemáticas de 6.º grado | Programa del curso",
+      vi: "Toán lớp 6 | Đề cương môn học",
+      zh: "六年级数学 | 课程大纲"
+    };
+
+    const translationNodes = [];
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+
+    while ((textNode = walker.nextNode())) {
+      const parentTag = textNode.parentElement ? textNode.parentElement.tagName : "";
+      if (parentTag === "SCRIPT" || parentTag === "STYLE") continue;
+
+      const rawText = textNode.nodeValue;
+      const englishText = rawText.replace(/\s+/g, " ").trim();
+      if (!englishText) continue;
+
+      translationNodes.push({
+        node: textNode,
+        englishText,
+        leadingSpace: (rawText.match(/^\s*/) || [""])[0],
+        trailingSpace: (rawText.match(/\s*$/) || [""])[0]
+      });
+    }
+
+    const languageButtons = Array.from(document.querySelectorAll(".language-option"));
+    const otherLanguageDialog = document.getElementById("other-language-dialog");
+    const closeLanguageDialog = document.getElementById("close-language-dialog");
+    let currentLanguage = "en";
+
+    function applyLanguage(language) {
+      const dictionary = TRANSLATIONS[language] || {};
+
+      translationNodes.forEach((item) => {
+        item.node.nodeValue =
+          item.leadingSpace +
+          (dictionary[item.englishText] || item.englishText) +
+          item.trailingSpace;
+      });
+
+      currentLanguage = language;
+      document.documentElement.lang = language === "zh" ? "zh-Hans" : language;
+      document.title = DOCUMENT_TITLES[language] || DOCUMENT_TITLES.en;
+
+      languageButtons.forEach((button) => {
+        const active = button.dataset.language === language;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      try {
+        localStorage.setItem("grade6SyllabusLanguage", language);
+      } catch (error) {
+        // Translation still works if browser storage is unavailable.
+      }
+    }
+
+    languageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const language = button.dataset.language;
+        if (language === "other") {
+          if (typeof otherLanguageDialog.showModal === "function") {
+            otherLanguageDialog.showModal();
+          } else {
+            alert("Use your browser's Translate feature to choose another language.");
+          }
+          return;
+        }
+        applyLanguage(language);
+      });
+    });
+
+    closeLanguageDialog.addEventListener("click", () => otherLanguageDialog.close());
+
+    let savedLanguage = "en";
+    try {
+      savedLanguage = localStorage.getItem("grade6SyllabusLanguage") || "en";
+    } catch (error) {
+      savedLanguage = "en";
+    }
+    if (!["en", "es", "vi", "zh"].includes(savedLanguage)) savedLanguage = "en";
+    applyLanguage(savedLanguage);
+  </script>
+</body>
+</html>
