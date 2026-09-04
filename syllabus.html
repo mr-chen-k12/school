@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +49,28 @@
 
     .print-sheet {
       display: none;
+    }
+
+    .site-watermark {
+      position: fixed;
+      top: 54%;
+      left: 50%;
+      z-index: 0;
+      width: min(44vw, 28rem);
+      max-height: 58vh;
+      object-fit: contain;
+      opacity: 0.055;
+      filter: grayscale(100%);
+      pointer-events: none;
+      user-select: none;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
     }
 
     .skip-link {
@@ -754,9 +777,18 @@
       }
 
       .print-sheet {
+        position: relative;
+        z-index: 1;
         display: block !important;
         width: 100%;
         margin: 0;
+      }
+
+      .site-watermark {
+        top: 52%;
+        width: 4.6in;
+        max-height: 5.5in;
+        opacity: 0.055;
       }
 
       .print-sheet * {
@@ -925,6 +957,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  <img class="site-watermark" src="https://mr-chen-k12.github.io/books/image_573374.png" alt="" aria-hidden="true">
 
   <header class="hero">
     <div class="topbar">
