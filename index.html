@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -452,6 +453,86 @@
       margin: 0;
       color: #3e4c59;
       font-weight: 650;
+    }
+
+    .donorschoose-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(170px, 0.34fr);
+      align-items: center;
+      gap: clamp(1.25rem, 4vw, 3rem);
+      overflow: hidden;
+      margin-bottom: 1.4rem;
+      padding: clamp(1.4rem, 4vw, 2.5rem);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius);
+      color: white;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      box-shadow: var(--shadow);
+    }
+
+    .donorschoose-card::after {
+      position: absolute;
+      right: -5rem;
+      bottom: -7rem;
+      width: 18rem;
+      height: 18rem;
+      border: 2.5rem solid rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .donorschoose-copy,
+    .donorschoose-impact {
+      position: relative;
+      z-index: 1;
+    }
+
+    .donorschoose-card .section-number {
+      color: #fff2c2;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .donorschoose-card h2 {
+      max-width: 760px;
+      margin: 0.3rem 0 0.65rem;
+      font-size: clamp(1.65rem, 3.4vw, 2.65rem);
+      line-height: 1.08;
+    }
+
+    .donorschoose-card p {
+      max-width: 800px;
+      margin: 0.45rem 0 0;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .donorschoose-card .button {
+      margin-top: 1.1rem;
+    }
+
+    .donorschoose-impact {
+      display: grid;
+      place-items: center;
+      min-height: 12rem;
+      padding: 1.1rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 1.25rem;
+      background: rgba(255, 255, 255, 0.1);
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .donorschoose-impact strong {
+      color: var(--gold);
+      font-size: clamp(3.5rem, 8vw, 5.5rem);
+      line-height: 0.8;
+    }
+
+    .donorschoose-impact span {
+      display: block;
+      margin-top: 0.55rem;
+      font-weight: 850;
+      line-height: 1.2;
     }
 
     .classroom-invite-note {
@@ -916,6 +997,7 @@
       .section-heading,
       .materials-panel,
       .two-column,
+      .donorschoose-card,
       .contact-grid {
         grid-template-columns: 1fr;
       }
@@ -980,6 +1062,10 @@
         grid-template-columns: 1fr;
       }
 
+      .donorschoose-impact {
+        min-height: 8.5rem;
+      }
+
       .footer-inner {
         flex-direction: column;
       }
@@ -1036,6 +1122,7 @@
 
       .quick-links,
       .donation-request,
+      .donorschoose-card,
       .materials-panel,
       .policy,
       .contact-card,
@@ -1050,6 +1137,21 @@
 
       .unit-body {
         display: block;
+      }
+
+      .donorschoose-card {
+        color: var(--ink);
+        background: white;
+        border-color: var(--line);
+      }
+
+      .donorschoose-card p {
+        color: var(--ink);
+      }
+
+      .donorschoose-impact {
+        border-color: var(--line);
+        background: var(--soft-blue);
       }
 
       footer {
@@ -1129,6 +1231,26 @@
         </p>
       </div>
     </aside>
+
+    <section class="donorschoose-card" id="donorschoose" aria-labelledby="donorschoose-title">
+      <div class="donorschoose-copy">
+        <span class="section-number">Support classroom projects</span>
+        <h2 id="donorschoose-title">Help create memorable learning experiences</h2>
+        <p>
+          Through DonorsChoose, families and supporters have helped fund pizza parties,
+          Rubik's Cubes, and technology that students use to create and learn.
+        </p>
+        <p>
+          Our classroom currently has three 3D printers that students will be able to
+          use during the upcoming school year.
+        </p>
+        <a class="button" href="https://donorschoose.org/ychen" target="_blank" rel="noopener">Visit Mr. Chen's DonorsChoose page →</a>
+      </div>
+      <div class="donorschoose-impact" aria-label="Three classroom 3D printers available for student learning">
+        <strong>3</strong>
+        <span>classroom 3D printers available for student learning</span>
+      </div>
+    </section>
 
     <section aria-label="Quick links">
       <div class="quick-links">
@@ -1597,6 +1719,12 @@
         "Optional classroom donations": "Donaciones opcionales para el salón",
         "Help us stock Room 318": "Ayúdenos a abastecer el salón 318",
         "Mr. Chen is requesting donations of tissues, disinfecting wipes, and/or pencils for the classroom. Students may bring donations to Room 318 and place them on Mr. Chen's desk. Thank you for helping us stay ready to learn!": "El Sr. Chen solicita donaciones de pañuelos desechables, toallitas desinfectantes y/o lápices para el salón. Los estudiantes pueden llevar las donaciones al salón 318 y colocarlas sobre el escritorio del Sr. Chen. ¡Gracias por ayudarnos a estar listos para aprender!",
+        "Support classroom projects": "Apoye los proyectos del salón",
+        "Help create memorable learning experiences": "Ayude a crear experiencias de aprendizaje memorables",
+        "Through DonorsChoose, families and supporters have helped fund pizza parties, Rubik's Cubes, and technology that students use to create and learn.": "A través de DonorsChoose, las familias y otros colaboradores han ayudado a financiar fiestas con pizza, cubos de Rubik y tecnología que los estudiantes usan para crear y aprender.",
+        "Our classroom currently has three 3D printers that students will be able to use during the upcoming school year.": "Nuestro salón cuenta actualmente con tres impresoras 3D que los estudiantes podrán utilizar durante el próximo año escolar.",
+        "Visit Mr. Chen's DonorsChoose page →": "Visite la página de DonorsChoose del Sr. Chen →",
+        "classroom 3D printers available for student learning": "impresoras 3D del salón disponibles para el aprendizaje de los estudiantes",
         "Family access:": "Acceso para las familias:",
         "Parents and guardians who would like a Google Classroom invitation can email me at": "Los padres y tutores que deseen recibir una invitación a Google Classroom pueden enviarme un correo electrónico a",
         "Open Google Classroom →": "Abrir Google Classroom →",
@@ -1746,6 +1874,12 @@
         "Optional classroom donations": "Đóng góp tùy nguyện cho lớp học",
         "Help us stock Room 318": "Giúp phòng 318 có đủ đồ dùng",
         "Mr. Chen is requesting donations of tissues, disinfecting wipes, and/or pencils for the classroom. Students may bring donations to Room 318 and place them on Mr. Chen's desk. Thank you for helping us stay ready to learn!": "Thầy Chen xin nhận khăn giấy, khăn lau khử trùng và/hoặc bút chì để dùng trong lớp. Học sinh có thể mang đồ đóng góp đến phòng 318 và đặt trên bàn của thầy Chen. Cảm ơn quý vị đã giúp lớp luôn sẵn sàng học tập!",
+        "Support classroom projects": "Ủng hộ các dự án lớp học",
+        "Help create memorable learning experiences": "Giúp tạo nên những trải nghiệm học tập đáng nhớ",
+        "Through DonorsChoose, families and supporters have helped fund pizza parties, Rubik's Cubes, and technology that students use to create and learn.": "Thông qua DonorsChoose, gia đình và những người ủng hộ đã giúp tài trợ các bữa tiệc pizza, khối Rubik và công nghệ để học sinh sáng tạo và học tập.",
+        "Our classroom currently has three 3D printers that students will be able to use during the upcoming school year.": "Hiện lớp học của chúng ta có ba máy in 3D mà học sinh sẽ có thể sử dụng trong năm học sắp tới.",
+        "Visit Mr. Chen's DonorsChoose page →": "Truy cập trang DonorsChoose của thầy Chen →",
+        "classroom 3D printers available for student learning": "máy in 3D trong lớp dành cho học sinh học tập",
         "Family access:": "Quyền truy cập dành cho gia đình:",
         "Parents and guardians who would like a Google Classroom invitation can email me at": "Phụ huynh hoặc người giám hộ muốn nhận lời mời vào Google Classroom có thể gửi email cho tôi tại",
         "Open Google Classroom →": "Mở Google Classroom →",
@@ -1895,6 +2029,12 @@
         "Optional classroom donations": "自愿捐赠课堂用品",
         "Help us stock Room 318": "帮助318教室补充用品",
         "Mr. Chen is requesting donations of tissues, disinfecting wipes, and/or pencils for the classroom. Students may bring donations to Room 318 and place them on Mr. Chen's desk. Thank you for helping us stay ready to learn!": "陈老师诚请家长为教室捐赠纸巾、消毒湿巾和/或铅笔。学生可以把捐赠物品带到318教室，并放在陈老师的桌上。感谢您帮助我们随时做好学习准备！",
+        "Support classroom projects": "支持课堂项目",
+        "Help create memorable learning experiences": "帮助创造难忘的学习体验",
+        "Through DonorsChoose, families and supporters have helped fund pizza parties, Rubik's Cubes, and technology that students use to create and learn.": "通过 DonorsChoose，家长和支持者帮助我们筹资举办披萨派对、购买魔方，以及添置供学生创造与学习使用的各种技术设备。",
+        "Our classroom currently has three 3D printers that students will be able to use during the upcoming school year.": "目前，我们的教室有三台 3D 打印机，学生将在新学年使用它们。",
+        "Visit Mr. Chen's DonorsChoose page →": "访问陈老师的 DonorsChoose 页面 →",
+        "classroom 3D printers available for student learning": "台课堂 3D 打印机可供学生学习使用",
         "Family access:": "家长访问：",
         "Parents and guardians who would like a Google Classroom invitation can email me at": "希望收到 Google Classroom 邀请的家长或监护人可发送电子邮件至",
         "Open Google Classroom →": "打开 Google Classroom →",
