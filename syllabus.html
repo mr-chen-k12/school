@@ -1,26 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#20256f">
   <meta name="description" content="Grade 6 mathematics course syllabus, routines, expectations, grading, and family acknowledgment.">
   <title>Grade 6 Mathematics | Course Syllabus</title>
   <style>
     :root {
-      --navy: #102a43;
-      --blue: #2166d1;
-      --teal: #087f73;
-      --gold: #f2b84b;
+      --navy: #20256f;
+      --navy-2: #30368e;
+      --blue: #3d55c7;
+      --teal: #2e348f;
+      --gold: #ffb800;
       --ink: #17212b;
       --muted: #536271;
       --paper: #ffffff;
-      --bg: #f3f7fb;
-      --line: #d9e2ec;
-      --soft-blue: #eaf3ff;
-      --soft-teal: #e7f7f3;
-      --soft-gold: #fff5d6;
+      --bg: #f7f8ff;
+      --line: #dfe2f2;
+      --soft-blue: #eef0ff;
+      --soft-teal: #f0f1ff;
+      --soft-gold: #fff3c4;
       --radius: 20px;
-      --shadow: 0 16px 40px rgba(16, 42, 67, 0.11);
+      --shadow: 0 16px 40px rgba(32, 37, 111, 0.12);
     }
 
     * {
@@ -35,8 +38,8 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at 5% 2%, rgba(242, 184, 75, 0.22), transparent 26rem),
-        radial-gradient(circle at 95% 7%, rgba(33, 102, 209, 0.14), transparent 32rem),
+        radial-gradient(circle at 6% 2%, rgba(255, 184, 0, 0.2), transparent 26rem),
+        radial-gradient(circle at 95% 8%, rgba(61, 85, 199, 0.15), transparent 32rem),
         var(--bg);
       font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.62;
@@ -732,7 +735,122 @@
       font-size: 0.9rem;
     }
 
+    /* Murphy Thunder brand refresh */
+    .site-watermark {
+      width: min(52vw, 34rem);
+      opacity: 0.026;
+      filter: none;
+    }
+
+    .hero {
+      padding: 1rem clamp(1rem, 4vw, 4rem) 4.8rem;
+      border-bottom: 0.45rem solid var(--gold);
+      background: linear-gradient(118deg, rgba(32, 37, 111, 0.995) 0%, rgba(48, 54, 142, 0.985) 60%, rgba(61, 85, 199, 0.965) 100%);
+    }
+
+    .hero::before {
+      display: none;
+    }
+
+    .topbar {
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .brand-mark {
+      border-radius: 0.8rem;
+      box-shadow: 0 10px 24px rgba(7, 10, 56, 0.3);
+    }
+
+    .language-list {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(9, 12, 63, 0.28);
+      box-shadow: 0 12px 32px rgba(7, 10, 56, 0.16);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
+      align-items: center;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-top: clamp(2.8rem, 6vw, 4.8rem);
+    }
+
+    .hero-copy-block {
+      min-width: 0;
+    }
+
+    .hero-logo-panel {
+      display: grid;
+      place-items: center;
+      justify-self: end;
+      width: min(100%, 20rem);
+      aspect-ratio: 1;
+      padding: 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.23);
+      border-radius: 2rem;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.055));
+      box-shadow: 0 26px 60px rgba(7, 10, 56, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-logo {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 18px 22px rgba(7, 10, 56, 0.3));
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.8rem);
+    }
+
+    .button {
+      border-radius: 99px;
+    }
+
+    main {
+      margin-top: -2.5rem;
+    }
+
+    .grading-strip {
+      border-top: 5px solid var(--gold);
+    }
+
+    .purpose,
+    .grading {
+      background: linear-gradient(135deg, var(--navy) 0%, #30368e 66%, var(--blue) 100%);
+    }
+
+    .routine-card.featured {
+      background: var(--navy-2);
+    }
+
+    .card,
+    .routine-card,
+    .grading-strip,
+    .policy,
+    .signature-box,
+    .topics li {
+      border-color: var(--line);
+      box-shadow: 0 12px 32px rgba(32, 37, 111, 0.08);
+    }
+
+    .section-kicker {
+      color: var(--blue);
+    }
+
+    footer {
+      border-top: 0.35rem solid var(--gold);
+      background: #181c5c;
+    }
+
     @media (max-width: 820px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr) minmax(170px, 220px);
+        gap: 1.5rem;
+      }
+
       .grading-strip,
       .routine,
       .topics,
@@ -758,6 +876,19 @@
     }
 
     @media (max-width: 560px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding-top: 2.25rem;
+      }
+
+      .hero-logo-panel {
+        order: -1;
+        justify-self: center;
+        width: min(55vw, 180px);
+        padding: 0.75rem;
+        border-radius: 1.5rem;
+      }
+
       .topbar {
         align-items: flex-start;
       }
@@ -850,14 +981,14 @@
         align-items: end;
         gap: 0.18in;
         padding: 0.08in 0.12in;
-        border: 1.4pt solid #102a43;
+        border: 1.4pt solid #20256f;
         border-radius: 0.08in;
-        background: #eef5fb;
+        background: #eef0ff;
       }
 
       .print-kicker {
         margin: 0 0 0.01in;
-        color: #2166d1;
+        color: #3d55c7;
         font-size: 6.7pt;
         font-weight: 800;
         letter-spacing: 0.05em;
@@ -866,7 +997,7 @@
 
       .print-header h1 {
         margin: 0;
-        color: #102a43;
+        color: #20256f;
         font-size: 18pt;
         line-height: 1;
       }
@@ -877,7 +1008,7 @@
       }
 
       .print-contact strong {
-        color: #102a43;
+        color: #20256f;
         font-size: 9pt;
       }
 
@@ -898,7 +1029,7 @@
       .print-stat strong {
         display: inline-block;
         margin-right: 0.035in;
-        color: #102a43;
+        color: #20256f;
         font-size: 10pt;
       }
 
@@ -934,7 +1065,7 @@
         margin: 0 0 0.025in;
         padding-bottom: 0.018in;
         border-bottom: 0.65pt solid #d4dce5;
-        color: #102a43;
+        color: #20256f;
         font-size: 8.5pt;
         line-height: 1.05;
       }
@@ -1006,7 +1137,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <img class="site-watermark" src="https://mr-chen-k12.github.io/books/image_573374.png" alt="" aria-hidden="true">
+  <img class="site-watermark" src="https://mr-chen-k12.github.io/school/murphy-logo.png" alt="" aria-hidden="true">
 
   <header class="hero">
     <div class="topbar">
@@ -1037,12 +1168,17 @@
     </div>
 
     <div class="hero-inner">
-      <span class="eyebrow">2026–2027 Course Syllabus</span>
-      <h1>Grade 6<br>Mathematics</h1>
-      <p class="hero-copy">
-        A course built around practice, productive struggle, mathematical discussion,
-        and the belief that students can improve through effort, support, and another try.
-      </p>
+      <div class="hero-copy-block">
+        <span class="eyebrow">2026–2027 Course Syllabus</span>
+        <h1>Grade 6<br>Mathematics</h1>
+        <p class="hero-copy">
+          A course built around practice, productive struggle, mathematical discussion,
+          and the belief that students can improve through effort, support, and another try.
+        </p>
+      </div>
+      <div class="hero-logo-panel" aria-hidden="true">
+        <img class="hero-logo" src="https://mr-chen-k12.github.io/school/murphy-logo.png" alt="">
+      </div>
     </div>
   </header>
 
