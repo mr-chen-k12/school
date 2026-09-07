@@ -4,26 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#20256f">
   <meta name="description" content="A family guide to 6th Grade Math, including course topics, materials, expectations, policies, and important links.">
   <title>6th Grade Math | Family Guide</title>
   <style>
     :root {
-      --navy: #102a43;
-      --navy-2: #173f5f;
-      --blue: #1f6feb;
-      --teal: #0f766e;
-      --gold: #f4b942;
-      --cream: #fffaf0;
+      --navy: #20256f;
+      --navy-2: #30368e;
+      --blue: #3d55c7;
+      --teal: #2e348f;
+      --gold: #ffb800;
+      --cream: #fff9e8;
       --paper: #ffffff;
       --ink: #17212b;
       --muted: #52606d;
-      --line: #d9e2ec;
-      --soft-blue: #eaf3ff;
-      --soft-teal: #e9f8f5;
-      --soft-gold: #fff6d8;
+      --line: #dfe2f2;
+      --soft-blue: #eef0ff;
+      --soft-teal: #f0f1ff;
+      --soft-gold: #fff3c4;
       --warning: #8a4b08;
       --warning-bg: #fff4d6;
-      --shadow: 0 18px 45px rgba(16, 42, 67, 0.12);
+      --shadow: 0 18px 45px rgba(32, 37, 111, 0.13);
       --radius: 22px;
     }
 
@@ -39,9 +40,9 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at 8% 4%, rgba(244, 185, 66, 0.22), transparent 28rem),
-        radial-gradient(circle at 92% 14%, rgba(31, 111, 235, 0.16), transparent 30rem),
-        #f5f8fb;
+        radial-gradient(circle at 7% 3%, rgba(255, 184, 0, 0.2), transparent 26rem),
+        radial-gradient(circle at 95% 11%, rgba(61, 85, 199, 0.15), transparent 30rem),
+        #f7f8ff;
       font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.65;
     }
@@ -979,7 +980,147 @@
       font-size: 0.9rem;
     }
 
+    /* Murphy Thunder brand refresh */
+    .site-watermark {
+      width: min(52vw, 34rem);
+      opacity: 0.026;
+      filter: none;
+    }
+
+    .hero {
+      padding: 1rem clamp(1rem, 4vw, 4rem) 4.8rem;
+      border-bottom: 0.45rem solid var(--gold);
+      background: linear-gradient(118deg, rgba(32, 37, 111, 0.995) 0%, rgba(48, 54, 142, 0.985) 60%, rgba(61, 85, 199, 0.965) 100%);
+    }
+
+    .hero::before,
+    .hero::after {
+      display: none;
+    }
+
+    .topbar {
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .brand-mark {
+      border: 0;
+      border-radius: 0.8rem;
+      box-shadow: 0 10px 24px rgba(7, 10, 56, 0.3);
+    }
+
+    nav a {
+      border: 1px solid transparent;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .language-list {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(9, 12, 63, 0.28);
+      box-shadow: 0 12px 32px rgba(7, 10, 56, 0.16);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 330px);
+      align-items: center;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-top: clamp(2.8rem, 6vw, 4.8rem);
+    }
+
+    .hero-copy-block {
+      min-width: 0;
+    }
+
+    .hero-logo-panel {
+      display: grid;
+      place-items: center;
+      justify-self: end;
+      width: min(100%, 20rem);
+      aspect-ratio: 1;
+      padding: 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.23);
+      border-radius: 2rem;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.055));
+      box-shadow: 0 26px 60px rgba(7, 10, 56, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-logo {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 18px 22px rgba(7, 10, 56, 0.3));
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.8rem);
+    }
+
+    .button {
+      border-radius: 99px;
+    }
+
+    main {
+      margin-top: -2.5rem;
+    }
+
+    .quick-links {
+      border-top: 5px solid var(--gold);
+    }
+
+    .quick-link {
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .quick-link:hover,
+    .quick-link:focus-within {
+      background: var(--soft-blue);
+    }
+
+    .donation-request {
+      border-color: #efb000;
+      background: linear-gradient(135deg, #fff8dc, #ffd35a);
+    }
+
+    .donorschoose-card,
+    .policy {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 66%, var(--blue) 100%);
+    }
+
+    .materials-panel,
+    .card,
+    .contact-card,
+    .unit {
+      border-color: var(--line);
+      box-shadow: 0 12px 32px rgba(32, 37, 111, 0.08);
+    }
+
+    .section-heading h2,
+    .materials-copy h3,
+    .card h3 {
+      color: var(--navy);
+    }
+
+    .contact-card.primary {
+      background: var(--navy-2);
+    }
+
+    footer {
+      border-top: 0.35rem solid var(--gold);
+      background: #181c5c;
+    }
+
     @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: minmax(0, 1fr) minmax(170px, 220px);
+        gap: 1.5rem;
+      }
+
       nav {
         display: none;
       }
@@ -1011,6 +1152,19 @@
     @media (max-width: 560px) {
       .hero {
         padding-inline: 1rem;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        padding-top: 2.25rem;
+      }
+
+      .hero-logo-panel {
+        order: -1;
+        justify-self: center;
+        width: min(55vw, 180px);
+        padding: 0.75rem;
+        border-radius: 1.5rem;
       }
 
       .topbar {
@@ -1082,6 +1236,14 @@
         width: 4.6in;
         max-height: 5.5in;
         opacity: 0.055;
+      }
+
+      .hero-logo-panel {
+        display: none !important;
+      }
+
+      .hero-content {
+        display: block;
       }
 
       .hero {
@@ -1164,7 +1326,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <img class="site-watermark" src="https://mr-chen-k12.github.io/books/image_573374.png" alt="" aria-hidden="true">
+  <img class="site-watermark" src="https://mr-chen-k12.github.io/school/murphy-logo.png" alt="" aria-hidden="true">
 
   <header class="hero">
     <div class="topbar">
@@ -1197,18 +1359,23 @@
     </div>
 
     <div class="hero-content">
-      <p class="eyebrow">2026–2027 Family Guide</p>
-      <h1>Welcome to<br>6th Grade Math.</h1>
-      <p class="hero-lead">
-        I am looking forward to teaching your child and working with you to ensure
-        that this upcoming school year is a success! Everything families need is
-        here in one place: what we are learning, what students should bring, how to
-        access class resources, and how we can work together.
-      </p>
-      <div class="hero-actions">
-        <a class="button classroom-link" href="#" aria-disabled="true">Open Google Classroom →</a>
-        <a class="button secondary syllabus-link" href="#" aria-disabled="true">View the syllabus</a>
-        <button class="button secondary" type="button" onclick="window.print()">Print this guide</button>
+      <div class="hero-copy-block">
+        <p class="eyebrow">2026–2027 Family Guide</p>
+        <h1>Welcome to<br>6th Grade Math.</h1>
+        <p class="hero-lead">
+          I am looking forward to teaching your child and working with you to ensure
+          that this upcoming school year is a success! Everything families need is
+          here in one place: what we are learning, what students should bring, how to
+          access class resources, and how we can work together.
+        </p>
+        <div class="hero-actions">
+          <a class="button classroom-link" href="#" aria-disabled="true">Open Google Classroom →</a>
+          <a class="button secondary syllabus-link" href="#" aria-disabled="true">View the syllabus</a>
+          <button class="button secondary" type="button" onclick="window.print()">Print this guide</button>
+        </div>
+      </div>
+      <div class="hero-logo-panel" aria-hidden="true">
+        <img class="hero-logo" src="https://mr-chen-k12.github.io/school/murphy-logo.png" alt="">
       </div>
     </div>
   </header>
