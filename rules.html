@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -517,6 +518,20 @@
       text-align: center;
     }
 
+    .submission-note {
+      max-width: 920px;
+      margin: 0 auto 1rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(255, 191, 0, 0.5);
+      border-radius: 0.9rem;
+      color: var(--navy);
+      background: #fff8df;
+    }
+
+    .submission-note h3 { margin: 0; color: var(--navy); font-size: 1rem; }
+    .submission-note p { margin: 0.35rem 0 0; font-size: 0.9rem; }
+    .submission-note a { color: #111a68; font-weight: 850; }
+
     .signature-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -599,6 +614,18 @@
 
     .button.secondary { border: 1px solid var(--line); background: var(--soft-blue); }
     .button.danger { color: #7c1f2c; background: var(--danger-soft); }
+    .button:disabled { cursor: wait; opacity: 0.65; }
+
+    .download-status {
+      align-self: center;
+      min-height: 1.25rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 750;
+    }
+
+    .capture-mode .toolbar { display: none !important; }
+    .capture-mode .rules-document { box-shadow: none; }
 
     .document-footer {
       display: flex;
@@ -727,6 +754,9 @@
 
       .agreement { padding: 0.05in 0.065in; border-radius: 0.045in; }
       .agreement-statement { margin-bottom: 0.045in; font-size: 7pt; }
+      .submission-note { margin-bottom: 0.045in; padding: 0.04in 0.055in; border-radius: 0.035in; }
+      .submission-note h3 { font-size: 7.1pt; }
+      .submission-note p { margin-top: 0.012in; font-size: 6.25pt; }
       .signature-grid { gap: 0.06in; }
       .signature-card { padding: 0.055in 0.065in; border-radius: 0.04in; }
       .signature-card h3 { padding-bottom: 0.02in; }
@@ -792,8 +822,8 @@
           <p class="document-subtitle" data-i18n="documentSubtitle">Building a safe, respectful, and growth-minded community in Mr. Chen's class</p>
         </div>
         <div class="field">
-          <label for="homeroom" data-i18n="homeroom">Student Homeroom</label>
-          <input class="line-input" id="homeroom" type="text" placeholder="Room / Teacher" data-i18n-placeholder="homeroomPlaceholder">
+          <label for="homeroom" data-i18n="homeroom">Student Homeroom (Teacher or Room Number)</label>
+          <input class="line-input" id="homeroom" type="text" placeholder="Write homeroom teacher or room number" data-i18n-placeholder="homeroomPlaceholder">
         </div>
       </header>
 
@@ -878,6 +908,11 @@
           </div>
           <div class="agreement">
             <p class="agreement-statement" data-i18n="agreementText">I understand and agree to the classroom rules, expectations, safety non-negotiables, language policies, and privilege guidelines for Mr. Chen's Grade 6 mathematics class.</p>
+            <aside class="submission-note" aria-labelledby="submission-title">
+              <h3 id="submission-title" data-i18n="submissionTitle">How to Submit This Agreement</h3>
+              <p><span data-i18n="onlineInstructions">If you complete this agreement online, download the completed page as a PNG and email it to Mr. Chen at</span> <a href="mailto:ychen2@bostonpublicschools.org?subject=Completed%20Classroom%20Rules%20Agreement">ychen2@bostonpublicschools.org</a>.</p>
+              <p data-i18n="printInstructions">If you prefer not to email it, use Print / Pen Mode, print the agreement, complete it by hand, and return the paper copy.</p>
+            </aside>
             <div class="signature-grid">
               <article class="signature-card">
                 <h3 data-i18n="studentAcknowledgment">Student Acknowledgment</h3>
@@ -912,9 +947,11 @@
 
         <div class="toolbar" aria-label="Agreement controls">
           <button class="button" id="mode-button" type="button" data-i18n="printBlankLines">Use Print / Pen Mode</button>
+          <button class="button" id="download-button" type="button" data-i18n="downloadAgreement">Download Completed Agreement (PNG)</button>
           <button class="button secondary" type="button" onclick="window.print()" data-i18n="printAgreement">Print Agreement</button>
           <button class="button danger" id="clear-button" type="button" data-i18n="clearForm">Clear Form</button>
           <a class="button secondary" href="index.html" data-i18n="backFamilyGuide">Back to Family Guide</a>
+          <span class="download-status" id="download-status" role="status" aria-live="polite"></span>
         </div>
       </div>
 
@@ -932,47 +969,48 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     const TRANSLATIONS = {
       en: {
         familyGuide: "Family Guide", courseSyllabus: "Course Syllabus", print: "Print", readPage: "🌐 Read this page in:", moreLanguages: "More languages",
         eyebrow: "2026–2027 Classroom Agreement", heroTitle: "Classroom Rules & Expectations", heroLead: "A clear agreement for building a safe, respectful, responsible, and growth-minded mathematics community.",
-        documentKicker: "Murphy Thunder · Grade 6 Mathematics", documentTitle: "Classroom Expectations & Behavioral Agreement", documentSubtitle: "Building a safe, respectful, and growth-minded community in Mr. Chen's class", homeroom: "Student Homeroom", homeroomPlaceholder: "Room / Teacher",
+        documentKicker: "Murphy Thunder · Grade 6 Mathematics", documentTitle: "Classroom Expectations & Behavioral Agreement", documentSubtitle: "Building a safe, respectful, and growth-minded community in Mr. Chen's class", homeroom: "Student Homeroom (Teacher or Room Number)", homeroomPlaceholder: "Write homeroom teacher or room number",
         riseTitle: "Core R.I.S.E. Values", respect: "Respect", respectText: "Keep hands, feet, and personal space to yourself. Treat classmates and teachers with kind, respectful words.", integrity: "Integrity", integrityText: "Take ownership of your choices, submit honest original work, and do the right thing even when no one is looking.", safety: "Safety — Non-Negotiable", safetyText: "Physical and emotional safety are mandatory. Physical aggression, harassment, and bullying are not permitted.", effort: "Effort & Perseverance", effortText: "Give your best effort and persist through academic challenges. Repeated missing work may lead to Lunch Support with Mr. Chen.",
         safetyTitle: "Safety Non-Negotiables & Privileges", safetyRules: "Physical & Emotional Safety Rules", safetyRulesText: "Participation in field trips, grade-level events, and special privileges is an earned trust. Students must consistently demonstrate safe behavior around peers and staff. Repeated safety violations may result in the immediate loss of privileges and an administrative review of future eligibility.",
         languageTitle: "Language Policy & Support Pathways", speechStandard: "Classroom Speech Standard", speechStandardText: "Vulgarity, profanity, slurs, and culturally hurtful or offensive speech are prohibited in our learning environment.", minorSlip: "Minor Vocal Slip-Ups", minorSlipText: "The first response is verbal redirection. Continued slip-ups may lead to a seat reassignment and family contact.", severeWords: "Severe or Culturally Offensive Words", severeWordsText: "A first occurrence may bypass warnings and lead directly to family contact and school-administrator intervention.", step1: "Step 1", step1Text: "Verbal redirection", step2: "Step 2", step2Text: "Family contact and support", step3: "Step 3", step3Text: "Administrator and family conference",
         academicTitle: "Academic Accountability & Homework Support", responsibility: "Building Responsibility", responsibilityText: "Students are expected to complete and submit assignments on time. A student who consistently misses work or needs additional guidance may attend Lunch with Mr. Chen, or another available teacher, to receive coaching, catch up, and build productive habits.",
-        agreementTitle: "Student & Family Agreement", agreementText: "I understand and agree to the classroom rules, expectations, safety non-negotiables, language policies, and privilege guidelines for Mr. Chen's Grade 6 mathematics class.", studentAcknowledgment: "Student Acknowledgment", studentName: "Student Printed Name", familyAcknowledgment: "Parent / Guardian Acknowledgment", familyName: "Parent / Guardian Printed Name", namePlaceholder: "First and last name", digitalSignature: "Digital Signature Pad", clear: "Clear", studentSignature: "Student Signature", familySignature: "Parent / Guardian Signature", date: "Date", printBlankLines: "Use Print / Pen Mode", digitalSignMode: "Use Digital Signature Mode", printAgreement: "Print Agreement", clearForm: "Clear Form", backFamilyGuide: "Back to Family Guide", documentFooterLeft: "Murphy School · Grade 6 Mathematics", documentFooterRight: "Teacher: Mr. Chen · Classroom Behavioral Agreement", footerValues: "Respect · Integrity · Safety · Effort"
+        agreementTitle: "Student & Family Agreement", agreementText: "I understand and agree to the classroom rules, expectations, safety non-negotiables, language policies, and privilege guidelines for Mr. Chen's Grade 6 mathematics class.", submissionTitle: "How to Submit This Agreement", onlineInstructions: "If you complete this agreement online, download the completed page as a PNG and email it to Mr. Chen at", printInstructions: "If you prefer not to email it, use Print / Pen Mode, print the agreement, complete it by hand, and return the paper copy.", studentAcknowledgment: "Student Acknowledgment", studentName: "Student Printed Name", familyAcknowledgment: "Parent / Guardian Acknowledgment", familyName: "Parent / Guardian Printed Name", namePlaceholder: "First and last name", digitalSignature: "Digital Signature Pad", clear: "Clear", studentSignature: "Student Signature", familySignature: "Parent / Guardian Signature", date: "Date", printBlankLines: "Use Print / Pen Mode", digitalSignMode: "Use Digital Signature Mode", downloadAgreement: "Download Completed Agreement (PNG)", downloadPreparing: "Preparing your download…", downloadReady: "Download ready.", downloadError: "The image could not be created. Please use Print instead.", printAgreement: "Print Agreement", clearForm: "Clear Form", backFamilyGuide: "Back to Family Guide", documentFooterLeft: "Murphy School · Grade 6 Mathematics", documentFooterRight: "Teacher: Mr. Chen · Classroom Behavioral Agreement", footerValues: "Respect · Integrity · Safety · Effort"
       },
       es: {
         familyGuide: "Guía para las familias", courseSyllabus: "Programa del curso", print: "Imprimir", readPage: "🌐 Lea esta página en:", moreLanguages: "Más idiomas",
         eyebrow: "Acuerdo del salón 2026–2027", heroTitle: "Reglas y expectativas del salón", heroLead: "Un acuerdo claro para construir una comunidad matemática segura, respetuosa, responsable y orientada al crecimiento.",
-        documentKicker: "Murphy Thunder · Matemáticas de 6.º grado", documentTitle: "Expectativas del salón y acuerdo de conducta", documentSubtitle: "Construyendo una comunidad segura, respetuosa y orientada al crecimiento en la clase del Sr. Chen", homeroom: "Salón base del estudiante", homeroomPlaceholder: "Salón / Maestro(a)",
+        documentKicker: "Murphy Thunder · Matemáticas de 6.º grado", documentTitle: "Expectativas del salón y acuerdo de conducta", documentSubtitle: "Construyendo una comunidad segura, respetuosa y orientada al crecimiento en la clase del Sr. Chen", homeroom: "Salón base del estudiante (maestro o número de salón)", homeroomPlaceholder: "Escriba el maestro o el número del salón base",
         riseTitle: "Valores fundamentales R.I.S.E.", respect: "Respeto", respectText: "Mantén las manos, los pies y el espacio personal para ti. Trata a compañeros y maestros con palabras amables y respetuosas.", integrity: "Integridad", integrityText: "Asume responsabilidad por tus decisiones, entrega trabajo original y honesto, y haz lo correcto incluso cuando nadie esté mirando.", safety: "Seguridad — No negociable", safetyText: "La seguridad física y emocional es obligatoria. No se permiten la agresión física, el acoso ni la intimidación.", effort: "Esfuerzo y perseverancia", effortText: "Da tu mejor esfuerzo y persevera ante los desafíos académicos. El trabajo faltante repetido puede llevar a apoyo durante el almuerzo con el Sr. Chen.",
         safetyTitle: "Normas de seguridad y privilegios", safetyRules: "Reglas de seguridad física y emocional", safetyRulesText: "Participar en excursiones, eventos del grado y privilegios especiales es una confianza que se gana. Los estudiantes deben demostrar constantemente un comportamiento seguro con compañeros y personal. Las infracciones repetidas pueden causar la pérdida inmediata de privilegios y una revisión administrativa de la elegibilidad futura.",
         languageTitle: "Política de lenguaje y vías de apoyo", speechStandard: "Norma de lenguaje del salón", speechStandardText: "La vulgaridad, las blasfemias, los insultos y el lenguaje culturalmente dañino u ofensivo están prohibidos en nuestro ambiente de aprendizaje.", minorSlip: "Deslices verbales menores", minorSlipText: "La primera respuesta es una redirección verbal. Los deslices continuos pueden llevar a un cambio de asiento y contacto con la familia.", severeWords: "Palabras graves o culturalmente ofensivas", severeWordsText: "Una primera ocurrencia puede omitir las advertencias y llevar directamente al contacto familiar y a la intervención de la administración escolar.", step1: "Paso 1", step1Text: "Redirección verbal", step2: "Paso 2", step2Text: "Contacto y apoyo familiar", step3: "Paso 3", step3Text: "Conferencia con administración y familia",
         academicTitle: "Responsabilidad académica y apoyo con tareas", responsibility: "Desarrollar la responsabilidad", responsibilityText: "Se espera que los estudiantes completen y entreguen las tareas a tiempo. Quien falte trabajo de manera constante o necesite más orientación puede asistir a un almuerzo con el Sr. Chen, u otro maestro disponible, para recibir apoyo, ponerse al día y desarrollar hábitos productivos.",
-        agreementTitle: "Acuerdo del estudiante y la familia", agreementText: "Entiendo y acepto las reglas, expectativas, normas de seguridad, políticas de lenguaje y pautas de privilegios del salón de matemáticas de 6.º grado del Sr. Chen.", studentAcknowledgment: "Reconocimiento del estudiante", studentName: "Nombre completo del estudiante", familyAcknowledgment: "Reconocimiento del padre, madre o tutor", familyName: "Nombre completo del padre, madre o tutor", namePlaceholder: "Nombre y apellido", digitalSignature: "Panel de firma digital", clear: "Borrar", studentSignature: "Firma del estudiante", familySignature: "Firma del padre, madre o tutor", date: "Fecha", printBlankLines: "Usar modo para imprimir y firmar", digitalSignMode: "Usar modo de firma digital", printAgreement: "Imprimir acuerdo", clearForm: "Borrar formulario", backFamilyGuide: "Volver a la guía familiar", documentFooterLeft: "Escuela Murphy · Matemáticas de 6.º grado", documentFooterRight: "Maestro: Sr. Chen · Acuerdo de conducta del salón", footerValues: "Respeto · Integridad · Seguridad · Esfuerzo"
+        agreementTitle: "Acuerdo del estudiante y la familia", agreementText: "Entiendo y acepto las reglas, expectativas, normas de seguridad, políticas de lenguaje y pautas de privilegios del salón de matemáticas de 6.º grado del Sr. Chen.", submissionTitle: "Cómo entregar este acuerdo", onlineInstructions: "Si completa este acuerdo en línea, descargue la página terminada como PNG y envíela por correo electrónico al Sr. Chen a", printInstructions: "Si prefiere no enviarlo por correo electrónico, use el modo Imprimir / Firmar, imprima el acuerdo, complételo a mano y entregue la copia impresa.", studentAcknowledgment: "Reconocimiento del estudiante", studentName: "Nombre completo del estudiante", familyAcknowledgment: "Reconocimiento del padre, madre o tutor", familyName: "Nombre completo del padre, madre o tutor", namePlaceholder: "Nombre y apellido", digitalSignature: "Panel de firma digital", clear: "Borrar", studentSignature: "Firma del estudiante", familySignature: "Firma del padre, madre o tutor", date: "Fecha", printBlankLines: "Usar modo para imprimir y firmar", digitalSignMode: "Usar modo de firma digital", downloadAgreement: "Descargar acuerdo completo (PNG)", downloadPreparing: "Preparando la descarga…", downloadReady: "Descarga lista.", downloadError: "No se pudo crear la imagen. Use la opción Imprimir.", printAgreement: "Imprimir acuerdo", clearForm: "Borrar formulario", backFamilyGuide: "Volver a la guía familiar", documentFooterLeft: "Escuela Murphy · Matemáticas de 6.º grado", documentFooterRight: "Maestro: Sr. Chen · Acuerdo de conducta del salón", footerValues: "Respeto · Integridad · Seguridad · Esfuerzo"
       },
       vi: {
         familyGuide: "Hướng dẫn gia đình", courseSyllabus: "Đề cương khóa học", print: "In", readPage: "🌐 Đọc trang này bằng:", moreLanguages: "Ngôn ngữ khác",
         eyebrow: "Thỏa thuận lớp học 2026–2027", heroTitle: "Nội quy và kỳ vọng lớp học", heroLead: "Một thỏa thuận rõ ràng nhằm xây dựng cộng đồng học toán an toàn, tôn trọng, có trách nhiệm và luôn phát triển.",
-        documentKicker: "Murphy Thunder · Toán lớp 6", documentTitle: "Kỳ vọng lớp học và thỏa thuận hành vi", documentSubtitle: "Xây dựng một cộng đồng an toàn, tôn trọng và có tư duy phát triển trong lớp của thầy Chen", homeroom: "Lớp chủ nhiệm của học sinh", homeroomPlaceholder: "Phòng / Giáo viên",
+        documentKicker: "Murphy Thunder · Toán lớp 6", documentTitle: "Kỳ vọng lớp học và thỏa thuận hành vi", documentSubtitle: "Xây dựng một cộng đồng an toàn, tôn trọng và có tư duy phát triển trong lớp của thầy Chen", homeroom: "Lớp chủ nhiệm (giáo viên hoặc số phòng)", homeroomPlaceholder: "Viết tên giáo viên hoặc số phòng chủ nhiệm",
         riseTitle: "Các giá trị cốt lõi R.I.S.E.", respect: "Tôn trọng", respectText: "Giữ tay, chân và không gian cá nhân của mình. Dùng lời nói tử tế, tôn trọng với bạn học và giáo viên.", integrity: "Chính trực", integrityText: "Chịu trách nhiệm về lựa chọn của mình, nộp bài trung thực do chính mình làm và làm điều đúng ngay cả khi không có ai nhìn.", safety: "An toàn — Không thương lượng", safetyText: "An toàn thể chất và tinh thần là bắt buộc. Không được phép gây hấn, quấy rối hoặc bắt nạt.", effort: "Nỗ lực và kiên trì", effortText: "Hãy cố gắng hết sức và kiên trì trước thử thách học tập. Việc thường xuyên thiếu bài có thể dẫn đến hỗ trợ vào giờ ăn trưa với thầy Chen.",
         safetyTitle: "Yêu cầu an toàn và đặc quyền", safetyRules: "Quy tắc an toàn thể chất và tinh thần", safetyRulesText: "Tham gia chuyến đi thực tế, sự kiện của khối và các đặc quyền là sự tin tưởng phải được gây dựng. Học sinh phải luôn thể hiện hành vi an toàn với bạn bè và nhân viên. Vi phạm an toàn nhiều lần có thể dẫn đến mất đặc quyền ngay lập tức và được ban giám hiệu xem xét điều kiện tham gia trong tương lai.",
         languageTitle: "Quy định ngôn ngữ và các bước hỗ trợ", speechStandard: "Chuẩn mực lời nói trong lớp", speechStandardText: "Lời nói thô tục, chửi thề, miệt thị hoặc gây tổn thương và xúc phạm văn hóa đều bị cấm trong môi trường học tập.", minorSlip: "Lỡ lời ở mức nhẹ", minorSlipText: "Phản hồi đầu tiên là nhắc nhở bằng lời. Việc tiếp tục lỡ lời có thể dẫn đến đổi chỗ ngồi và liên hệ gia đình.", severeWords: "Lời nói nghiêm trọng hoặc xúc phạm văn hóa", severeWordsText: "Ngay lần đầu có thể bỏ qua bước cảnh báo và dẫn thẳng đến liên hệ gia đình cùng sự can thiệp của ban giám hiệu.", step1: "Bước 1", step1Text: "Nhắc nhở bằng lời", step2: "Bước 2", step2Text: "Liên hệ và hỗ trợ gia đình", step3: "Bước 3", step3Text: "Họp với ban giám hiệu và gia đình",
         academicTitle: "Trách nhiệm học tập và hỗ trợ bài tập", responsibility: "Xây dựng tinh thần trách nhiệm", responsibilityText: "Học sinh cần hoàn thành và nộp bài đúng hạn. Học sinh thường xuyên thiếu bài hoặc cần hướng dẫn thêm có thể tham gia buổi ăn trưa với thầy Chen, hoặc giáo viên khác có mặt, để được hỗ trợ, hoàn thành bài và xây dựng thói quen hiệu quả.",
-        agreementTitle: "Thỏa thuận của học sinh và gia đình", agreementText: "Tôi hiểu và đồng ý với nội quy, kỳ vọng, yêu cầu an toàn, quy định ngôn ngữ và hướng dẫn về đặc quyền trong lớp toán lớp 6 của thầy Chen.", studentAcknowledgment: "Xác nhận của học sinh", studentName: "Họ tên học sinh", familyAcknowledgment: "Xác nhận của phụ huynh / người giám hộ", familyName: "Họ tên phụ huynh / người giám hộ", namePlaceholder: "Họ và tên", digitalSignature: "Ô chữ ký điện tử", clear: "Xóa", studentSignature: "Chữ ký học sinh", familySignature: "Chữ ký phụ huynh / người giám hộ", date: "Ngày", printBlankLines: "Dùng chế độ in và ký bằng bút", digitalSignMode: "Dùng chế độ chữ ký điện tử", printAgreement: "In thỏa thuận", clearForm: "Xóa biểu mẫu", backFamilyGuide: "Trở lại hướng dẫn gia đình", documentFooterLeft: "Trường Murphy · Toán lớp 6", documentFooterRight: "Giáo viên: Thầy Chen · Thỏa thuận hành vi lớp học", footerValues: "Tôn trọng · Chính trực · An toàn · Nỗ lực"
+        agreementTitle: "Thỏa thuận của học sinh và gia đình", agreementText: "Tôi hiểu và đồng ý với nội quy, kỳ vọng, yêu cầu an toàn, quy định ngôn ngữ và hướng dẫn về đặc quyền trong lớp toán lớp 6 của thầy Chen.", submissionTitle: "Cách nộp thỏa thuận này", onlineInstructions: "Nếu hoàn thành thỏa thuận trực tuyến, hãy tải trang đã điền dưới dạng PNG và gửi email cho thầy Chen tại", printInstructions: "Nếu không muốn gửi email, hãy dùng chế độ In / Ký bằng bút, in thỏa thuận, điền bằng tay và nộp bản giấy.", studentAcknowledgment: "Xác nhận của học sinh", studentName: "Họ tên học sinh", familyAcknowledgment: "Xác nhận của phụ huynh / người giám hộ", familyName: "Họ tên phụ huynh / người giám hộ", namePlaceholder: "Họ và tên", digitalSignature: "Ô chữ ký điện tử", clear: "Xóa", studentSignature: "Chữ ký học sinh", familySignature: "Chữ ký phụ huynh / người giám hộ", date: "Ngày", printBlankLines: "Dùng chế độ in và ký bằng bút", digitalSignMode: "Dùng chế độ chữ ký điện tử", downloadAgreement: "Tải thỏa thuận đã hoàn thành (PNG)", downloadPreparing: "Đang chuẩn bị tệp tải xuống…", downloadReady: "Tệp đã sẵn sàng.", downloadError: "Không thể tạo hình ảnh. Vui lòng dùng chức năng In.", printAgreement: "In thỏa thuận", clearForm: "Xóa biểu mẫu", backFamilyGuide: "Trở lại hướng dẫn gia đình", documentFooterLeft: "Trường Murphy · Toán lớp 6", documentFooterRight: "Giáo viên: Thầy Chen · Thỏa thuận hành vi lớp học", footerValues: "Tôn trọng · Chính trực · An toàn · Nỗ lực"
       },
       zh: {
         familyGuide: "家庭指南", courseSyllabus: "课程大纲", print: "打印", readPage: "🌐 选择阅读语言：", moreLanguages: "更多语言",
         eyebrow: "2026–2027 学年课堂协议", heroTitle: "课堂规则与期望", heroLead: "一份清晰的协议，共同建立安全、尊重、负责并具有成长型思维的数学学习共同体。",
-        documentKicker: "Murphy Thunder · 六年级数学", documentTitle: "课堂期望与行为协议", documentSubtitle: "在陈老师的课堂中建立安全、尊重并具有成长型思维的共同体", homeroom: "学生班主任班级", homeroomPlaceholder: "教室 / 教师",
+        documentKicker: "Murphy Thunder · 六年级数学", documentTitle: "课堂期望与行为协议", documentSubtitle: "在陈老师的课堂中建立安全、尊重并具有成长型思维的共同体", homeroom: "学生班主任班级（教师或教室号）", homeroomPlaceholder: "填写班主任姓名或教室号",
         riseTitle: "R.I.S.E. 核心价值观", respect: "尊重", respectText: "管好自己的手脚并尊重他人的个人空间。用友善、尊重的语言对待同学和老师。", integrity: "诚信", integrityText: "为自己的选择负责，提交诚实的原创作业，即使无人监督也要做正确的事。", safety: "安全——不可妥协", safetyText: "身心安全是必须遵守的要求。不得进行肢体攻击、骚扰或欺凌。", effort: "努力与坚持", effortText: "尽最大努力并坚持面对学习挑战。多次缺交作业可能需要参加陈老师的午餐辅导。",
         safetyTitle: "安全要求与活动资格", safetyRules: "身心安全规则", safetyRulesText: "参加校外活动、年级活动和特殊活动资格是一份需要赢得的信任。学生必须始终在同学和教职员工身边表现出安全行为。多次违反安全规定可能会立即失去活动资格，并由校方审核今后的参加资格。",
         languageTitle: "语言规范与支持途径", speechStandard: "课堂语言标准", speechStandardText: "课堂学习环境中禁止粗俗语言、脏话、侮辱性称呼以及带有文化伤害或冒犯性的言语。", minorSlip: "轻微失言", minorSlipText: "第一次会先进行口头提醒。若继续发生，可能会调整座位并联系家长。", severeWords: "严重或带有文化冒犯性的言语", severeWordsText: "第一次发生时可能跳过警告，直接联系家长并由学校管理人员介入。", step1: "第 1 步", step1Text: "口头提醒", step2: "第 2 步", step2Text: "联系家庭并提供支持", step3: "第 3 步", step3Text: "管理人员与家庭会议",
         academicTitle: "学业责任与作业支持", responsibility: "培养责任感", responsibilityText: "学生应按时完成并提交作业。经常缺交作业或需要额外指导的学生，可能需要与陈老师或其他有空的老师一起参加午餐辅导，以获得指导、补交作业并培养良好习惯。",
-        agreementTitle: "学生与家庭协议", agreementText: "我理解并同意遵守陈老师六年级数学课堂的规则、期望、安全要求、语言规范和活动资格规定。", studentAcknowledgment: "学生确认", studentName: "学生正楷姓名", familyAcknowledgment: "家长 / 监护人确认", familyName: "家长 / 监护人正楷姓名", namePlaceholder: "姓名", digitalSignature: "电子签名区", clear: "清除", studentSignature: "学生签名", familySignature: "家长 / 监护人签名", date: "日期", printBlankLines: "使用打印 / 手写模式", digitalSignMode: "使用电子签名模式", printAgreement: "打印协议", clearForm: "清空表格", backFamilyGuide: "返回家庭指南", documentFooterLeft: "Murphy 学校 · 六年级数学", documentFooterRight: "教师：陈老师 · 课堂行为协议", footerValues: "尊重 · 诚信 · 安全 · 努力"
+        agreementTitle: "学生与家庭协议", agreementText: "我理解并同意遵守陈老师六年级数学课堂的规则、期望、安全要求、语言规范和活动资格规定。", submissionTitle: "如何提交本协议", onlineInstructions: "如果您在线完成本协议，请将填写好的页面下载为 PNG，并通过电子邮件发送给陈老师：", printInstructions: "如果您不想通过电子邮件提交，请使用打印 / 手写模式，打印协议，手写完成后交回纸质版。", studentAcknowledgment: "学生确认", studentName: "学生正楷姓名", familyAcknowledgment: "家长 / 监护人确认", familyName: "家长 / 监护人正楷姓名", namePlaceholder: "姓名", digitalSignature: "电子签名区", clear: "清除", studentSignature: "学生签名", familySignature: "家长 / 监护人签名", date: "日期", printBlankLines: "使用打印 / 手写模式", digitalSignMode: "使用电子签名模式", downloadAgreement: "下载已完成的协议（PNG）", downloadPreparing: "正在准备下载…", downloadReady: "下载已准备好。", downloadError: "无法生成图片。请改用打印功能。", printAgreement: "打印协议", clearForm: "清空表格", backFamilyGuide: "返回家庭指南", documentFooterLeft: "Murphy 学校 · 六年级数学", documentFooterRight: "教师：陈老师 · 课堂行为协议", footerValues: "尊重 · 诚信 · 安全 · 努力"
       }
     };
 
@@ -1066,6 +1104,50 @@
       clearCanvas("family-canvas");
     }
 
+    async function downloadAgreement() {
+      const button = document.getElementById("download-button");
+      const status = document.getElementById("download-status");
+      const dictionary = TRANSLATIONS[currentLanguage];
+      button.disabled = true;
+      status.textContent = dictionary.downloadPreparing;
+
+      try {
+        if (typeof html2canvas !== "function") throw new Error("Screenshot library is unavailable.");
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+
+        document.body.classList.add("capture-mode");
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const target = document.querySelector(".rules-document");
+        const canvas = await html2canvas(target, {
+          backgroundColor: "#ffffff",
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          scrollX: 0,
+          scrollY: 0
+        });
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob((result) => result ? resolve(result) : reject(new Error("PNG creation failed.")), "image/png");
+        });
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = "Murphy-Classroom-Rules-Agreement.png";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+        status.textContent = dictionary.downloadReady;
+      } catch (error) {
+        console.error(error);
+        status.textContent = dictionary.downloadError;
+      } finally {
+        document.body.classList.remove("capture-mode");
+        button.disabled = false;
+      }
+    }
+
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: "en",
@@ -1081,6 +1163,7 @@
         button.addEventListener("click", () => clearCanvas(button.dataset.clearCanvas));
       });
       document.getElementById("mode-button").addEventListener("click", toggleMode);
+      document.getElementById("download-button").addEventListener("click", downloadAgreement);
       document.getElementById("clear-button").addEventListener("click", clearForm);
       document.querySelectorAll(".language-option").forEach((button) => {
         button.addEventListener("click", () => {
