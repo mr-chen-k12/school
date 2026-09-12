@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#1E2062">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; connect-src https://script.google.com https://script.googleusercontent.com; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>Murphy Thunder Secure Classroom Pass Dashboard</title>
+    <link rel="stylesheet" href="styles.css?v=murphy-public-1">
+    <link rel="stylesheet" href="secure-pages.css?v=murphy-public-1">
+  </head>
+  <body>
+    <main id="unlock-screen" class="secure-shell unlock-shell">
+      <section class="unlock-panel">
+        <header class="secure-brand compact-brand">
+          <img src="murphy-logo.png" alt="Murphy Thunder logo">
+          <div>
+            <p class="overline">Murphy Thunder · Classroom Pass</p>
+            <h1>Unlock teacher dashboard</h1>
+            <p class="secure-lead">Enter the encrypted connection string and its password. Decryption stays in this browser session.</p>
+          </div>
+        </header>
+
+        <form id="unlock-form" class="unlock-form" autocomplete="off">
+          <label class="field" for="encrypted-input">
+            <span>Encrypted dashboard string</span>
+            <textarea id="encrypted-input" rows="6" placeholder="MURPHY1.…" required spellcheck="false"></textarea>
+          </label>
+          <label class="field" for="unlock-password">
+            <span>Password</span>
+            <input id="unlock-password" type="password" required autocomplete="off">
+          </label>
+          <label class="show-password-control">
+            <input id="show-password" type="checkbox">
+            <span>Show password</span>
+          </label>
+          <button id="unlock-button" class="primary-button" type="submit">Unlock dashboard</button>
+          <p id="unlock-status" class="form-status" role="status" aria-live="polite">Nothing is decrypted until you press Unlock.</p>
+        </form>
+
+        <div class="unlock-notes">
+          <p><strong>Automatic lock:</strong> the page locks after 30 minutes without keyboard or pointer activity.</p>
+          <p><strong>Browser-only protection:</strong> this is client-side encryption, not a server login. Use it only on devices you control.</p>
+        </div>
+        <a class="text-link" href="encryption.html">Create a new encrypted string</a>
+      </section>
+    </main>
+
+    <div id="dashboard-shell" class="page-shell" hidden>
+      <header class="topbar">
+        <div class="brand-block">
+          <img class="brand-logo" src="murphy-logo.png" alt="Murphy Thunder logo">
+          <div>
+            <p class="overline">Murphy Thunder · Classroom Pass</p>
+            <h1 id="classroom-name">Classroom overview</h1>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div id="sync-state" class="sync-state" role="status">
+            <span class="sync-dot"></span>
+            <span>Connecting…</span>
+          </div>
+          <button id="refresh-button" class="secondary-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"></path><path d="M18.5 15a7 7 0 1 1-1-8.5L20 11"></path></svg>
+            Refresh
+          </button>
+          <button id="lock-button" class="secondary-button lock-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+            Lock
+          </button>
+        </div>
+      </header>
+
+      <div class="browser-security-banner" role="note">
+        <strong>Unlocked browser mode</strong>
+        <span>The connection is held only in memory. Lock the page before leaving this device.</span>
+      </div>
+
+      <div id="mode-banner" class="mode-banner" hidden>
+        <strong>Demo data</strong>
+        <span>This preview is not reading your Google Sheet. Complete the setup before relying on these numbers.</span>
+      </div>
+
+      <main>
+        <section class="out-board" aria-labelledby="out-title">
+          <div class="out-board-heading">
+            <div>
+              <p class="overline light">Live classroom</p>
+              <h2 id="out-title"><span id="out-count">0</span> students out now</h2>
+            </div>
+            <span id="last-updated" class="last-updated">Not updated yet</span>
+          </div>
+          <div id="out-list" class="out-list"></div>
+        </section>
+
+        <section class="toolbar" aria-label="Dashboard filters">
+          <div class="range-control" role="group" aria-label="Date range">
+            <button type="button" data-range="today">Today</button>
+            <button type="button" data-range="week" class="is-active">This week</button>
+            <button type="button" data-range="month">This month</button>
+            <button type="button" data-range="all">All time</button>
+          </div>
+          <label class="search-control" for="student-filter">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+            <span class="sr-only">Filter students</span>
+            <input id="student-filter" type="search" placeholder="Filter a student…" autocomplete="off">
+          </label>
+          <button id="export-button" class="secondary-button" type="button">Export view</button>
+        </section>
+
+        <section class="metric-grid" aria-label="Summary metrics">
+          <article class="metric-card">
+            <div class="metric-label"><span class="metric-icon">↗</span> Trips</div>
+            <strong id="metric-trips">—</strong>
+            <span id="metric-trips-note">This week</span>
+          </article>
+          <article class="metric-card">
+            <div class="metric-label"><span class="metric-icon">◷</span> Time out</div>
+            <strong id="metric-minutes">—</strong>
+            <span id="metric-minutes-note">Across all students</span>
+          </article>
+          <article class="metric-card">
+            <div class="metric-label"><span class="metric-icon">≈</span> Average trip</div>
+            <strong id="metric-average">—</strong>
+            <span id="metric-average-note">Completed and active trips</span>
+          </article>
+          <article class="metric-card accent-card">
+            <div class="metric-label"><span class="metric-icon">✓</span> Class presence</div>
+            <strong id="metric-presence">—</strong>
+            <span id="metric-presence-note">Based on configured class hours</span>
+          </article>
+        </section>
+
+        <section class="analytics-grid">
+          <article class="panel trend-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="overline">Frequency</p>
+                <h2>Trips over time</h2>
+              </div>
+              <div class="legend"><span></span> Logged departures</div>
+            </div>
+            <div id="trend-chart" class="trend-chart" aria-label="Trips over time chart"></div>
+          </article>
+
+          <article class="panel reason-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="overline">Destinations</p>
+                <h2>Reasons</h2>
+              </div>
+            </div>
+            <div id="reason-list" class="reason-list"></div>
+          </article>
+        </section>
+
+        <section class="panel student-panel">
+          <div class="panel-heading table-heading">
+            <div>
+              <p class="overline">Student comparison</p>
+              <h2>Classroom presence</h2>
+            </div>
+            <p id="presence-explainer" class="panel-note">Presence is estimated from logged time out during your configured class hours.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Student</th>
+                  <th scope="col">Trips</th>
+                  <th scope="col">Time out</th>
+                  <th scope="col">Avg. trip</th>
+                  <th scope="col">Presence</th>
+                  <th scope="col">vs. class avg.</th>
+                </tr>
+              </thead>
+              <tbody id="student-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel activity-panel">
+          <div class="panel-heading table-heading">
+            <div>
+              <p class="overline">Audit trail</p>
+              <h2>Recent activity</h2>
+            </div>
+            <span id="activity-count" class="panel-note">0 records</span>
+          </div>
+          <div id="activity-list" class="activity-list"></div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Classroom presence is an estimate, not an attendance record. Review unusual records in the Google Sheet before taking action.</p>
+        <p>Browser dashboard · Password and connection are not stored</p>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <noscript>This dashboard requires JavaScript.</noscript>
+    <script src="crypto-credentials.js?v=murphy-public-1" defer></script>
+    <script src="dashboard-gate.js?v=murphy-public-1" defer></script>
+    <script src="dashboard.js?v=murphy-public-1" defer></script>
+  </body>
+</html>

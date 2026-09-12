@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#1E2062">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>Create an encrypted Murphy dashboard connection</title>
+    <link rel="stylesheet" href="styles.css?v=murphy-public-1">
+    <link rel="stylesheet" href="secure-pages.css?v=murphy-public-1">
+  </head>
+  <body class="secure-page">
+    <main class="secure-shell generator-shell">
+      <header class="secure-brand">
+        <img src="murphy-logo.png" alt="Murphy Thunder logo">
+        <div>
+          <p class="overline">Murphy Thunder · Classroom Pass</p>
+          <h1>Create encrypted dashboard access</h1>
+          <p class="secure-lead">Build one encrypted string that contains the Google connection and classroom settings. Encryption happens only inside this browser.</p>
+        </div>
+      </header>
+
+      <div class="security-callout" role="note">
+        <strong>Run this page on a trusted device.</strong>
+        <span>The page makes no network requests. Your password, read key, roster, and decrypted settings are not saved by this tool.</span>
+      </div>
+
+      <form id="encryption-form" class="secure-form" autocomplete="off">
+        <section class="form-section" aria-labelledby="google-heading">
+          <div class="section-heading">
+            <span>01</span>
+            <div>
+              <h2 id="google-heading">Google connection</h2>
+              <p>Use the deployed Apps Script URL and the dashboard <em>readKey</em> from <code>initializeProject</code>.</p>
+            </div>
+          </div>
+          <div class="field-grid">
+            <label class="field field-wide" for="apps-script-url">
+              <span>Apps Script deployment URL</span>
+              <input id="apps-script-url" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/…/exec" required spellcheck="false" autocomplete="off">
+            </label>
+            <label class="field field-wide" for="read-key">
+              <span>Dashboard read key</span>
+              <input id="read-key" type="password" placeholder="Paste the readKey, not the kiosk writeKey" required spellcheck="false" autocomplete="new-password">
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="classroom-heading">
+          <div class="section-heading">
+            <span>02</span>
+            <div>
+              <h2 id="classroom-heading">Classroom settings</h2>
+              <p>These details are included inside the encrypted string; no public roster file is created.</p>
+            </div>
+          </div>
+
+          <div class="import-row">
+            <input id="config-import" class="visually-hidden-input" type="file" accept=".json,application/json">
+            <label class="secondary-button file-button" for="config-import">Import dashboard-config.json</label>
+            <span>Optional — the file is read locally and never uploaded.</span>
+          </div>
+
+          <div class="field-grid">
+            <label class="field field-wide" for="classroom-name">
+              <span>Classroom name</span>
+              <input id="classroom-name" type="text" value="Room 204" maxlength="100" required autocomplete="off">
+            </label>
+            <label class="field field-wide" for="student-roster">
+              <span>Student names · one per line</span>
+              <textarea id="student-roster" rows="9" placeholder="Avery Brooks&#10;Jordan Lee&#10;Riley Smith" required spellcheck="false"></textarea>
+            </label>
+            <label class="field" for="class-start">
+              <span>Class starts</span>
+              <input id="class-start" type="time" value="08:00" required>
+            </label>
+            <label class="field" for="class-end">
+              <span>Class ends</span>
+              <input id="class-end" type="time" value="15:00" required>
+            </label>
+          </div>
+
+          <fieldset class="day-field">
+            <legend>Class days</legend>
+            <div class="day-options">
+              <label><input type="checkbox" name="class-day" value="1" checked><span>Mon</span></label>
+              <label><input type="checkbox" name="class-day" value="2" checked><span>Tue</span></label>
+              <label><input type="checkbox" name="class-day" value="3" checked><span>Wed</span></label>
+              <label><input type="checkbox" name="class-day" value="4" checked><span>Thu</span></label>
+              <label><input type="checkbox" name="class-day" value="5" checked><span>Fri</span></label>
+              <label><input type="checkbox" name="class-day" value="6"><span>Sat</span></label>
+              <label><input type="checkbox" name="class-day" value="0"><span>Sun</span></label>
+            </div>
+          </fieldset>
+        </section>
+
+        <section class="form-section" aria-labelledby="password-heading">
+          <div class="section-heading">
+            <span>03</span>
+            <div>
+              <h2 id="password-heading">Encryption password</h2>
+              <p>Use at least 12 characters. Store this password separately from the encrypted string or link.</p>
+            </div>
+          </div>
+          <div class="field-grid">
+            <label class="field" for="bundle-password">
+              <span>Password</span>
+              <input id="bundle-password" type="password" minlength="12" required autocomplete="new-password">
+            </label>
+            <label class="field" for="confirm-password">
+              <span>Confirm password</span>
+              <input id="confirm-password" type="password" minlength="12" required autocomplete="new-password">
+            </label>
+          </div>
+        </section>
+
+        <div class="form-submit-row">
+          <button id="encrypt-button" class="primary-button" type="submit">Create encrypted string</button>
+          <p id="generator-status" class="form-status" role="status" aria-live="polite">Nothing leaves this page while you create the string.</p>
+        </div>
+      </form>
+
+      <section id="result-panel" class="result-panel" aria-labelledby="result-heading" hidden>
+        <div class="section-heading">
+          <span>✓</span>
+          <div>
+            <h2 id="result-heading">Encrypted dashboard access is ready</h2>
+            <p>Keep the password separate. Anyone who has both can read the classroom report.</p>
+          </div>
+        </div>
+        <label class="field" for="encrypted-output">
+          <span>Encrypted string</span>
+          <textarea id="encrypted-output" rows="6" readonly spellcheck="false"></textarea>
+        </label>
+        <button id="copy-string" class="secondary-button" type="button">Copy encrypted string</button>
+
+        <label class="field result-link-field" for="dashboard-link">
+          <span>Dashboard link with encrypted string</span>
+          <textarea id="dashboard-link" rows="4" readonly spellcheck="false"></textarea>
+        </label>
+        <button id="copy-link" class="secondary-button" type="button">Copy dashboard link</button>
+        <p class="result-note">The link contains only encrypted data in its <code>#</code> fragment. The dashboard removes that fragment from the address bar as soon as it loads.</p>
+      </section>
+
+      <aside class="limits-note">
+        <strong>Important security limit</strong>
+        <p>This is client-side encryption, not server-side login protection. After you unlock the dashboard, the browser must temporarily hold the Google read key and student data in memory. Use it only on your trusted personal devices, choose a strong password, and rotate the Apps Script keys if the encrypted bundle or password may have leaked.</p>
+      </aside>
+
+      <footer class="secure-footer">
+        <a href="dashboard.html">Open the locked dashboard</a>
+        <span>AES-256-GCM · PBKDF2-SHA-256 · 600,000 iterations</span>
+      </footer>
+    </main>
+
+    <noscript><p class="noscript-message">JavaScript is required to encrypt the dashboard connection.</p></noscript>
+    <script src="crypto-credentials.js?v=murphy-public-1" defer></script>
+    <script src="encryption.js?v=murphy-public-1" defer></script>
+  </body>
+</html>
