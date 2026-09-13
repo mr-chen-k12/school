@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; connect-src https://script.google.com https://script.googleusercontent.com; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>Murphy Thunder Secure Classroom Pass Dashboard</title>
     <link rel="stylesheet" href="styles.css?v=murphy-public-1">
-    <link rel="stylesheet" href="secure-pages.css?v=murphy-public-1">
+    <link rel="stylesheet" href="secure-pages.css?v=remember-encrypted-1">
   </head>
   <body>
     <main id="unlock-screen" class="secure-shell unlock-shell">
@@ -19,7 +19,7 @@
           <div>
             <p class="overline">Murphy Thunder · Classroom Pass</p>
             <h1>Unlock teacher dashboard</h1>
-            <p class="secure-lead">Enter the encrypted connection string and its password. Decryption stays in this browser session.</p>
+            <p class="secure-lead">Enter the encrypted connection string and its password. You may remember only the encrypted string on this device.</p>
           </div>
         </header>
 
@@ -32,16 +32,24 @@
             <span>Password</span>
             <input id="unlock-password" type="password" required autocomplete="off">
           </label>
-          <label class="show-password-control">
-            <input id="show-password" type="checkbox">
-            <span>Show password</span>
-          </label>
+          <div class="unlock-preferences">
+            <label class="show-password-control">
+              <input id="show-password" type="checkbox">
+              <span>Show password</span>
+            </label>
+            <label class="show-password-control">
+              <input id="remember-encrypted" type="checkbox">
+              <span>Remember encrypted setup on this device</span>
+            </label>
+            <button id="forget-encrypted" class="forget-encrypted-button" type="button" hidden>Forget saved setup</button>
+          </div>
           <button id="unlock-button" class="primary-button" type="submit">Unlock dashboard</button>
           <p id="unlock-status" class="form-status" role="status" aria-live="polite">Nothing is decrypted until you press Unlock.</p>
         </form>
 
         <div class="unlock-notes">
           <p><strong>Automatic lock:</strong> the page locks after 30 minutes without keyboard or pointer activity.</p>
+          <p><strong>Remembered setup:</strong> local storage contains only the password-encrypted string. Your password and decrypted Google key are never saved.</p>
           <p><strong>Browser-only protection:</strong> this is client-side encryption, not a server login. Use it only on devices you control.</p>
         </div>
         <a class="text-link" href="encryption.html">Create a new encrypted string</a>
@@ -75,7 +83,7 @@
 
       <div class="browser-security-banner" role="note">
         <strong>Unlocked browser mode</strong>
-        <span>The connection is held only in memory. Lock the page before leaving this device.</span>
+        <span>The decrypted connection is held only in memory. Lock the page before leaving this device.</span>
       </div>
 
       <div id="mode-banner" class="mode-banner" hidden>
@@ -195,14 +203,14 @@
 
       <footer>
         <p>Classroom presence is an estimate, not an attendance record. Review unusual records in the Google Sheet before taking action.</p>
-        <p>Browser dashboard · Password and connection are not stored</p>
+        <p>Browser dashboard · Password and decrypted connection are never stored</p>
       </footer>
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
     <noscript>This dashboard requires JavaScript.</noscript>
     <script src="crypto-credentials.js?v=murphy-public-1" defer></script>
-    <script src="dashboard-gate.js?v=murphy-public-1" defer></script>
-    <script src="dashboard.js?v=murphy-public-1" defer></script>
+    <script src="dashboard-gate.js?v=remember-encrypted-1" defer></script>
+    <script src="dashboard.js?v=google-roster-1" defer></script>
   </body>
 </html>

@@ -3,7 +3,11 @@
 
   const AUTO_LOCK_MS = 30 * 60 * 1000;
   const JSONP_TIMEOUT_MS = 25000;
+  const SAVED_TOKEN_STORAGE_KEY = "murphy-classroom-pass.encrypted-token.v1";
+  const MAX_SAVED_TOKEN_LENGTH = 500000;
   let encryptedToken = "";
+  let savedToken = "";
+  let storageAvailable = false;
   let credentials = null;
   let lockTimer = 0;
   const el = {};
@@ -13,15 +17,23 @@
   function init() {
     [
       "unlock-screen", "unlock-form", "encrypted-input", "unlock-password", "unlock-button",
-      "unlock-status", "dashboard-shell", "lock-button", "show-password",
+      "unlock-status", "dashboard-shell", "lock-button", "show-password", "remember-encrypted",
+      "forget-encrypted",
     ].forEach((id) => { el[toCamel(id)] = document.getElementById(id); });
 
-    encryptedToken = tokenFromHash();
+    storageAvailable = canUseLocalStorage();
+    savedToken = storageAvailable ? readSavedToken() : "";
+    const linkedToken = tokenFromHash();
+    encryptedToken = linkedToken || savedToken;
     if (encryptedToken) el.encryptedInput.value = encryptedToken;
+    el.rememberEncrypted.checked = Boolean(savedToken && (!linkedToken || linkedToken === savedToken));
+    el.rememberEncrypted.disabled = !storageAvailable;
+    el.forgetEncrypted.hidden = !savedToken;
     scrubHash();
 
     el.unlockForm.addEventListener("submit", unlock);
     el.lockButton.addEventListener("click", lockNow);
+    el.forgetEncrypted.addEventListener("click", forgetSavedSetup);
     el.showPassword.addEventListener("change", () => {
       el.unlockPassword.type = el.showPassword.checked ? "text" : "password";
     });
@@ -35,6 +47,10 @@
     if (!window.MurphyCredentialCrypto?.isSupported()) {
       setStatus("This browser cannot unlock the bundle. Use current Firefox, Chrome, or Edge over HTTPS or localhost.", true);
       el.unlockButton.disabled = true;
+    } else if (savedToken && !linkedToken) {
+      setStatus("Saved encrypted setup loaded. Enter your password to unlock.");
+    } else if (!storageAvailable) {
+      setStatus("Local storage is unavailable. You can still paste the encrypted string and unlock normally.");
     }
   }
 
@@ -58,6 +74,7 @@
       const parsed = JSON.parse(plaintext);
       credentials = validateCredentials(parsed);
       encryptedToken = token;
+      applyRememberPreference(token);
       el.unlockPassword.value = "";
       el.showPassword.checked = false;
       el.unlockPassword.type = "password";
@@ -225,7 +242,9 @@
       const report = await jsonpReport({ maxRows: 10000 });
       const stillOpen = (report.visits || []).some((visit) => (
         String(visit.sessionId || "") === String(payload.sessionId || "") &&
-        String(visit.student || "") === String(payload.student || "") &&
+        (payload.studentKey
+          ? String(visit.studentKey || visit.student || "") === String(payload.studentKey)
+          : String(visit.student || "") === String(payload.student || "")) &&
         String(visit.status || "").toUpperCase() === "OUT"
       ));
       if (stillOpen) {
@@ -249,6 +268,73 @@
     return raw.startsWith(window.MurphyCredentialCrypto.formatPrefix) ? raw : "";
   }
 
+  function canUseLocalStorage() {
+    try {
+      const probeKey = SAVED_TOKEN_STORAGE_KEY + ".probe";
+      window.localStorage.setItem(probeKey, "1");
+      window.localStorage.removeItem(probeKey);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function readSavedToken() {
+    try {
+      const token = window.localStorage.getItem(SAVED_TOKEN_STORAGE_KEY) || "";
+      if (
+        token.length <= MAX_SAVED_TOKEN_LENGTH &&
+        token.startsWith(window.MurphyCredentialCrypto.formatPrefix)
+      ) {
+        return token;
+      }
+      window.localStorage.removeItem(SAVED_TOKEN_STORAGE_KEY);
+    } catch {
+      storageAvailable = false;
+    }
+    return "";
+  }
+
+  function applyRememberPreference(token) {
+    if (!storageAvailable) return;
+    try {
+      if (el.rememberEncrypted.checked) {
+        window.localStorage.setItem(SAVED_TOKEN_STORAGE_KEY, token);
+        savedToken = token;
+      } else if (savedToken) {
+        window.localStorage.removeItem(SAVED_TOKEN_STORAGE_KEY);
+        savedToken = "";
+      }
+      el.forgetEncrypted.hidden = !savedToken;
+    } catch {
+      storageAvailable = false;
+      savedToken = "";
+      el.rememberEncrypted.checked = false;
+      el.rememberEncrypted.disabled = true;
+      el.forgetEncrypted.hidden = true;
+    }
+  }
+
+  function forgetSavedSetup() {
+    if (!storageAvailable || !savedToken) return;
+    const tokenToForget = savedToken;
+    try {
+      window.localStorage.removeItem(SAVED_TOKEN_STORAGE_KEY);
+    } catch {
+      storageAvailable = false;
+      el.rememberEncrypted.disabled = true;
+    }
+    savedToken = "";
+    el.rememberEncrypted.checked = false;
+    el.forgetEncrypted.hidden = true;
+    if (el.encryptedInput.value.trim() === tokenToForget) {
+      el.encryptedInput.value = "";
+      encryptedToken = "";
+    }
+    setStatus("Saved encrypted setup removed from this browser.");
+    el.encryptedInput.focus();
+  }
+
   function scrubHash() {
     if (!window.location.hash) return;
     try {
@@ -266,7 +352,7 @@
   function lockNow() {
     clearCredentials();
     const url = new URL(window.location.href);
-    url.hash = encryptedToken;
+    url.hash = savedToken === encryptedToken ? "" : encryptedToken;
     window.location.replace(url.href);
   }
 

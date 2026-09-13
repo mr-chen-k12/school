@@ -88,6 +88,7 @@
     if (!silent) setSync("", "Refreshing…");
     try {
       const result = await callApi("report", { maxRows: 10000 });
+      applyReportRoster(result.roster);
       state.visits = normalizeVisits(result.visits || []);
       state.demoMode = false;
       el.modeBanner.hidden = true;
@@ -128,6 +129,7 @@
       .map((visit) => ({
         sessionId: String(visit.sessionId || ""),
         student: String(visit.student || "Unknown student"),
+        studentKey: String(visit.studentKey || visit.student || ""),
         outTime: visit.outTime,
         inTime: visit.inTime || null,
         reason: String(visit.reason || "Other"),
@@ -138,6 +140,16 @@
       }))
       .filter((visit) => !Number.isNaN(new Date(visit.outTime).getTime()))
       .sort((a, b) => new Date(b.outTime) - new Date(a.outTime));
+  }
+
+  function applyReportRoster(rawRoster) {
+    if (!Array.isArray(rawRoster)) return;
+    const students = [...new Set(rawRoster
+      .filter((entry) => entry && typeof entry === "object" && entry.active !== false)
+      .map((entry) => String(entry.name || entry.displayName || entry.key || "").trim())
+      .filter(Boolean))]
+      .sort((a, b) => a.localeCompare(b));
+    if (students.length) state.config.students = students;
   }
 
   function render() {
@@ -182,7 +194,7 @@
           <strong>${escapeHtml(visit.student)}</strong>
           <span>${escapeHtml(visit.reason)} · ${escapeHtml(formatDuration(visitMinutes(visit, now)))}</span>
         </span>
-        <button class="clear-out-button" type="button" data-clear-session="${escapeHtml(visit.sessionId)}" data-student="${escapeHtml(visit.student)}">Mark returned</button>
+        <button class="clear-out-button" type="button" data-clear-session="${escapeHtml(visit.sessionId)}" data-student="${escapeHtml(visit.student)}" data-student-key="${escapeHtml(visit.studentKey)}">Mark returned</button>
       `;
       el.outList.appendChild(card);
     });
@@ -191,6 +203,7 @@
   async function clearOpenVisit(button) {
     const sessionId = button.dataset.clearSession;
     const student = button.dataset.student;
+    const studentKey = button.dataset.studentKey || student;
     if (!sessionId || !student || state.loading) return;
     if (!window.confirm(`Mark ${student} as returned now? This will be recorded as a teacher correction.`)) return;
 
@@ -207,7 +220,7 @@
         visit.status = "RETURNED_BY_TEACHER";
         render();
       } else {
-        await callApi("adminReturn", { sessionId, student, requestId: createRequestId() });
+        await callApi("adminReturn", { sessionId, student, studentKey, requestId: createRequestId() });
         await refreshData(true);
       }
       showToast(`${student} was marked returned. The correction is preserved in the audit trail.`, false);

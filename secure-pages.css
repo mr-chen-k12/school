@@ -445,6 +445,34 @@ code {
   accent-color: var(--green);
 }
 
+.unlock-preferences {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.forget-encrypted-button {
+  margin-left: auto;
+  padding: 2px 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+  font: 800 12px Aptos, "Segoe UI", system-ui, sans-serif;
+}
+
+.forget-encrypted-button:hover,
+.forget-encrypted-button:focus-visible {
+  color: var(--red);
+}
+
+.forget-encrypted-button:focus-visible {
+  outline: 3px solid rgba(254, 188, 18, 0.5);
+  outline-offset: 3px;
+}
+
 .unlock-notes {
   margin: 20px 0 15px;
   padding: 14px 16px;
@@ -543,5 +571,14 @@ code {
   .browser-security-banner strong {
     padding-right: 0;
     border-right: 0;
+  }
+
+  .unlock-preferences {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .forget-encrypted-button {
+    margin-left: 0;
   }
 }
